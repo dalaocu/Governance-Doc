@@ -1,4 +1,4 @@
-# 7、Java SDK 详细功能API使用说明
+# Java SDK 详细API使用说明
 
 
 ## 治理账户功能使用说明

@@ -1,3 +1,5 @@
+# 组件介绍
+
 # 1、术语定义
 <br />下图为账户治理各主体概念之间的联系：<br />
 <br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1599566872564-249a3530-4d20-49e8-bc06-a822c29f3a41.png#align=left&display=inline&height=531&margin=%5Bobject%20Object%5D&name=image.png&originHeight=974&originWidth=918&size=126125&status=done&style=none&width=500)<br />

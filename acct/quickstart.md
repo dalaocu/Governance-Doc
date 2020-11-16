@@ -1,8 +1,8 @@
-# 4、快速开始
+# 快速开始
 
 <br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Gov-Acct的快速入门。<br />
 
-## 4.1、前置依赖
+## 1. 前置依赖
 | 依赖软件 | 说明 | 备注 |
 | --- | --- | --- |
 | FISCO-BCOS | >= 2.0 |  |
@@ -17,7 +17,7 @@
 
 
 
-## 4.2、获取源码
+## 2. 获取源码
 
 <br />由于暂未开源，暂时通过压缩包方式传递代码。压缩包中包含了智能合约代码，合约集成demo和Java SDK代码。<br />解压完成后，<br />
 
@@ -28,17 +28,17 @@
 
 
 
-## 4.3、使用组件合约
+## 3. 使用组件合约
 
 <br />本章节介绍的是只使用合约本身的方式进行账户治理。如果需要使用SDK来治理的，可跳过本章节。<br />
 <br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
-### 4.3.1、使用控制台部署和调用合约
+### 3.1、使用控制台部署和调用合约
 
 <br />本方式可直接通过控制台或WeBASE-Front来操作。<br />
 <br />在此我们以控制台为例，进行演示，关于控制台的使用说明请参考[控制台的详细文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
-### 4.3.2、准备和登入控制台环境
+### 3.2、准备和登入控制台环境
 
 <br />在进入以下的操作前，首先我们进入控制台，准备至少四组操作私钥。<br />
 
@@ -88,7 +88,7 @@ Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
 ```
 
 
-### 4.3.3、部署治理合约
+### 3.3、部署治理合约
 
 <br />为了便于部署WeBankBlockchain-Gov-Acct治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
 
@@ -519,10 +519,10 @@ contract TransferDemo {
 <br />也可以通过控制台或WeBASE-Front等工具部署到链上，在此不再赘述。<br />
 <br />更加完整地引入治理合约的例子和使用方式可以参考工程中附带的samples demo。我们提供了基于存证和积分转账场景的两个demo。<br />
 
-## 4.4、使用Java SDK
+## 4.使用Java SDK
 相比通过控制台或WeBASE来部署和调用合约，使用Java SDK的方式更为地方便、快捷；我们更推荐在业务系统中通过集成Java SDK的方式来使用账户治理组件。
 
-### 4.4.1、编译Jar包
+### 4.1、编译Jar包
 
 <br />由于本项目未正式发布，暂未发布Jar包到maven仓库，需要自己编译。也可以索取编译后的版本。<br />
 
@@ -532,7 +532,7 @@ contract TransferDemo {
 
 <br />生成的Jar包位于： dist/WeBankBlockchain-Gov-Acct.jar<br />
 
-### 4.4.2、将Jar包引入到用户自己的Java业务项目中
+### 4.2、将Jar包引入到用户自己的Java业务项目中
 
 <br />引入刚才编译生成的账户治理的jar包到自己的Java项目中来使用。<br />
 <br />以gradle构建为例，将该文件复制到自己项目libs的路径下，在自己项目的gradle中引入该jar包。<br />
@@ -543,7 +543,7 @@ dependencies {
 }
 ```
 
-### 4.4.3、调用SDK接口
+### 4.3、调用SDK接口
 
 #### 初始化AccountGovernManagerFactory对象
 
