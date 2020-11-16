@@ -30,12 +30,12 @@
 <br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1593952564183-baa5b5e7-deb9-47a5-b89e-ad72118bbf93.png#align=left&display=inline&height=279&margin=%5Bobject%20Object%5D&name=image.png&originHeight=558&originWidth=850&size=47629&status=done&style=none&width=425)
 # 3、概览
 
-<br />为了解决上述痛点，同时践行分布式商业的理念，acct-gov应运而生。<br />
-<br />acct-gov是一套开源的区块链账户治理的中间件解决方案，提供了多种区块链账户治理模式、账户生命周期管理、用户自主管理区块链账户治理相关的整体解决方案，提供了包括治理账户创建、多种治理模式选择、治理权限授权，账户创建、冻结、解冻、更换私钥、销户等账户生命周期的各类账户管理功能。<br />
+<br />为了解决上述痛点，同时践行分布式商业的理念，WeBankBlockchain-Gov-Acct应运而生。<br />
+<br />WeBankBlockchain-Gov-Acct是一套开源的区块链账户治理的中间件解决方案，提供了多种区块链账户治理模式、账户生命周期管理、用户自主管理区块链账户治理相关的整体解决方案，提供了包括治理账户创建、多种治理模式选择、治理权限授权，账户创建、冻结、解冻、更换私钥、销户等账户生命周期的各类账户管理功能。<br />
 
 ## 3.1、关键特性
 
-<br />acct-gov定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力。<br />
+<br />WeBankBlockchain-Gov-Acct定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力。<br />
 
 - **支持多种治理方式**
 - **去中心化的分布式协作治理思想**
@@ -49,7 +49,7 @@
 
 ## 3.2、组成部分
 
-<br />acct-gov包含了以下组成部分：<br />
+<br />WeBankBlockchain-Gov-Acct包含了以下组成部分：<br />
 
 - **合约代码**，最核心的账户治理实现部分。当前版本提供了基于Solidity语言实现，完全适配FISCO BCOS。 理论上可在任何支持了EVM虚拟机的区块链系统上运行。
 - **Java SDK**。适配了合约代码。通过集成Java SDK以后，可以适配和调用账户治理的所有合约接口。此外，进一步对使用接口进行简化和封装，可符合Java程序员的使用习惯。
@@ -63,7 +63,7 @@
 
 ## 3.3、集成方式
 
-<br />在FISCO BCOS生态中，acct-gov提供了以下使用和集成的方式：<br />
+<br />在FISCO BCOS生态中，WeBankBlockchain-Gov-Acct提供了以下使用和集成的方式：<br />
 
 - 通过门面部署合约来发布合约到链上，获得账户治理的能力；
 - 通过在自身业务的合约中引入或集成账户治理合约；
@@ -117,7 +117,7 @@
 
 # 4、快速开始
 
-阅读[快速开始](docs/quick_start.md)，来获取最简单的acct-gov的快速入门。
+阅读[快速开始](docs/quick_start.md)，来获取最简单的WeBankBlockchain-Gov-Acct的快速入门。
 
 # 5、组件使用demo
 ## 5.1、合约集成demo
@@ -136,7 +136,7 @@
 
 ## 5.2、SDK集成Demo
 
-Weledger项目完整集成了acct-gov的Java SDK，相关的用法详情可参考Weledger项目的文档和代码。
+Weledger项目完整集成了WeBankBlockchain-Gov-Acct的Java SDK，相关的用法详情可参考Weledger项目的文档和代码。
 
 # 6、测试代码说明
 

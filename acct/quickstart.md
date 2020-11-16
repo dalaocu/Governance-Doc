@@ -1,6 +1,6 @@
 # 4、快速开始
 
-<br />本章节以尽量短的时间，为使用者提供最简单的acct-gov的快速入门。<br />
+<br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Gov-Acct的快速入门。<br />
 
 ## 4.1、前置依赖
 | 依赖软件 | 说明 | 备注 |
@@ -31,7 +31,7 @@
 ## 4.3、使用组件合约
 
 <br />本章节介绍的是只使用合约本身的方式进行账户治理。如果需要使用SDK来治理的，可跳过本章节。<br />
-<br />在完成FISCO BCOS链环境初始化以后，通过将acct-gov作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
+<br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
 ### 4.3.1、使用控制台部署和调用合约
 
@@ -90,7 +90,7 @@ Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
 
 ### 4.3.3、部署治理合约
 
-<br />为了便于部署acct-gov治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
+<br />为了便于部署WeBankBlockchain-Gov-Acct治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
 
 1. AdminGovernBuilder
 1. VoteGovernBuilder
@@ -427,7 +427,7 @@ event value: (0x0000000000000000000000000000000000000001, 0x5b15b41277f4cacfdad3
 
 #### 组件合约引入
 
-<br />用户在具体的业务合约中，可采用引入的方式来使用acct-gov智能合约。<br />
+<br />用户在具体的业务合约中，可采用引入的方式来使用WeBankBlockchain-Gov-Acct智能合约。<br />
 
 ##### 在通用的场景中引入治理合约
 
@@ -530,7 +530,7 @@ contract TransferDemo {
 ./gradlew clean jar
 ```
 
-<br />生成的Jar包位于： dist/acct-gov.jar<br />
+<br />生成的Jar包位于： dist/WeBankBlockchain-Gov-Acct.jar<br />
 
 ### 4.4.2、将Jar包引入到用户自己的Java业务项目中
 
@@ -539,7 +539,7 @@ contract TransferDemo {
 
 ```groovy
 dependencies {
-    compile fileTree(dir: 'libs', includes: ['acct-gov.jar'])
+    compile fileTree(dir: 'libs', includes: ['WeBankBlockchain-Gov-Acct.jar'])
 }
 ```
 
