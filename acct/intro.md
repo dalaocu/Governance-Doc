@@ -152,7 +152,7 @@ Weledger项目完整集成了WeBankBlockchain-Gov-Acct的Java SDK，相关的用
 ## 机构ID
 system.orgId=org1
 ## 链的ip端口，多个节点使用;分隔
-system.nodeStr=node1@[ip]:[channel_port]
+system.nodeStr=[ip]:[channel_port]
 ## 群组ID
 system.groupId=1
 ```
