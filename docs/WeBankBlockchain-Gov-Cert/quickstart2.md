@@ -12,7 +12,7 @@ cert-mgr用于证书托管，适合B2B2C场景。
 *   SHA256WITHECDSA
 *   SM3WITHSM2
 
-##前置依赖
+## 前置依赖
 
 在使用本组件前，请确认系统环境已安装相关依赖软件，清单如下：
 
@@ -100,7 +100,7 @@ dependencies {
 ```
 
 
-# 使用详解
+## 使用详解
 
 cert-mgr使用了SpringBoot自动装配功能，所以只要您按照上文添加了SpringBoot依赖，就可以自动装配所需的Bean。
 
