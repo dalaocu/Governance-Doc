@@ -31,12 +31,12 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 通过git下载源码：
 
 ```
-git clone https://gitee.com/graysonzhang/pkey-gen
+https://github.com/WeBankBlockchain/WeBankBlockchain-Gov-Cert.git
 ```
 
 进入目录：
 ```
-cd pkey-gen
+cd WeBankBlockchain-Gov-Cert/cert-toolkit
 ```
 
 ### 2. 编译源码
