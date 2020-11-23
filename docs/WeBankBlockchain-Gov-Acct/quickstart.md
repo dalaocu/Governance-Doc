@@ -4,10 +4,9 @@
 
 ## 1. 前置依赖
 | 依赖软件 | 说明 | 备注 |
-| --- | --- | --- |
+| --- | --- | --- | 
 | FISCO-BCOS | >= 2.0 |  |
 | Java | JDK[1.8] | 请勿使用yum等工具安装的不完整的JDK版本 |
-
 
 
 - Java版本<br />JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
