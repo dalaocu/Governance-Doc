@@ -431,7 +431,7 @@ event value: (0x0000000000000000000000000000000000000001, 0x5b15b41277f4cacfdad3
 ##### 在通用的场景中引入治理合约
 
 
-```javascript
+```
 // 在业务合约中声明import账户管理合约。
 import "./AccountManager.sol"
 
@@ -460,7 +460,7 @@ XXContract {
 
 <br />在涉及到转账的场景中，引入合约的方式更为典型，本例来源于我们提供的使用demo，限于篇幅，此处略去了和示例非密切相关的部分，获取完整的demo代码可查找src/main/contracts/samples/TransferDemo/路径。<br />
 
-```javascript
+```
 import "./AccountManager.sol";
 contract TransferDemo {
 	// ……
@@ -549,13 +549,13 @@ dependencies {
 <br />AccountGovernManagerFactory工厂对象是SDK配置的唯一对象，配置了链、用户私钥、gas配置、加密类型等核心配置信息。此外，所有的操作控制类Manager对象都通过本factory对象来产生。<br />
 <br />根据[JavaSDK使用手册](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/quick_start.html)获取client、credentials对象。<br />
 
-```java
+```
 AccountGovernManagerFactory factory = new AccountGovernManagerFactory(client, credentials);
 ```
 
 <br />如果已通过其他方式预先部署了治理合约，则可以传入治理合约的地址。<br />
 
-```java
+```
 AccountGovernManagerFactory factory = new AccountGovernManagerFactory(client, credentials, governanceAddress);
 ```
 
@@ -563,7 +563,7 @@ AccountGovernManagerFactory factory = new AccountGovernManagerFactory(client, cr
 
 <br />如果4.3.3章节中，治理合约已通过控制台等其他方式部署，可跳过此步。<br />
 
-```java
+```
 GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInitializer();
 ```
 
@@ -572,7 +572,7 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
 1. 创建超级管理员模式的治理合约
 
 
-```java
+```
     WEGovernance govern = adminModeManager.createGovernAccount(credentials);
 ```
 
@@ -581,7 +581,7 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
 
 
 
-```java
+```
 	List<String> list = new ArrayList<>();
     list.add(credentials1.getAddress());
     list.add(credentials1.getAddress());
@@ -595,7 +595,7 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
 
 
 
-```java
+```
 	// 准备3个治理账户管理成员的公钥地址，生成治理账户
 	List<String> list = new ArrayList<>();
     list.add(credentials1.getAddress());
@@ -622,7 +622,7 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
 ###### 超级管理员模式
 
 
-```java
+```
 //超级管理员模式下
 AdminModeGovernManager adminModeGovernManager = factory.newAdminModeGovernManager();
 ```
@@ -640,7 +640,7 @@ AdminModeGovernManager adminModeGovernManager = factory.newAdminModeGovernManage
 ###### 治理委员会模式
 
 
-```java
+```
 //治理委员会模式下
 VoteModeGovernManager voteModeGovernManager = factory.newVoteModeGovernManager();
 ```
@@ -669,7 +669,7 @@ VoteModeGovernManager voteModeGovernManager = factory.newVoteModeGovernManager()
 
 <br />普通账户管理器包含了所有普通账户的相关操作。<br />
 
-```java
+```
 EndUserOperManager endUserOperManager = factory.newEndUserOperManager();
 ```
 
@@ -686,7 +686,7 @@ EndUserOperManager endUserOperManager = factory.newEndUserOperManager();
 
 <br />社交好友投票账户管理器包含了所有普通账户进行社交关系私钥重置的所有操作。<br />
 
-```java
+```
 SocialVoteManager socialVoteManager = factory.newSocialVoteManager();
 ```
 
