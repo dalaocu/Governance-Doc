@@ -3,7 +3,7 @@
 ## 1、术语定义
 <br />下图为账户治理各主体概念之间的联系：<br />
 
-<img src="img/acct_rela.png" width="60%" alt="关系图">
+<img src="img/acct_rela.png" alt="关系图">
 
 区块链和区块链治理的相关术语可参考： 《[术语定义](term_def.md)》
 
