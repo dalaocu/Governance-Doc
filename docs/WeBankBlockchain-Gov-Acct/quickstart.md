@@ -3,11 +3,11 @@
 <br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Gov-Acct的快速入门。<br />
 
 ## 1. 前置依赖
-| 依赖软件 | 说明 | 备注 |
-| --- | --- | --- | 
-| FISCO-BCOS | >= 2.0 |  |
-| Java | JDK[1.8] | 请勿使用yum等工具安装的不完整的JDK版本 |
-
+| 依赖软件   | 说明                                                         | 备注 |
+| ---------- | ------------------------------------------------------------ | ---- |
+| FISCO-BCOS       | >= 2.0 |      |
+| Java       | \>= JDK[1.8]                                                 |      |
+| Git        | 下载的安装包使用Git                                          |      |
 
 - Java版本<br />JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
    - Java安装<br />参考 [Java环境配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html#java)
@@ -229,7 +229,7 @@ true
 <br />**移交超级管理员账户**<br />
 <br />在控制台中进行操作。其中，被移交的账户已在上一章节中开户。<br />
 
-```java
+```
 [group:1]> call WEGovernance 0xbba738f0549cde5e5b0bab2dffc125501556018c transferOwner "0x1c7560296c101171eb8015cdc6cfbda26c866189"
 transaction hash: 0x849d1fadfd95be911b6c4cd3be52a3799b51aa9f8d71086039e7ce1b48513fb2
 Event logs
@@ -359,7 +359,7 @@ event value: (0x5b15b41277f4cacfdad39ba06a5dcc1295af0fd8, 0x5196261524954a59c5f2
 ```
 
 <br />退出并使用该外部账户地址对应的私钥来载入控制台。
-```java
+```
 [group:1]> exit
 [root@instance-zw7wgjv0 console]# ./start.sh 1 -pem accounts/0x5b15b41277f4cacfdad39ba06a5dcc1295af0fd8.pem
 =============================================================================================
@@ -379,7 +379,7 @@ Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
 ```
 
 <br />销户
-```java
+```
 [group:1]> call AccountManager 0xf0da09d98fe320371fe30d1bd035f0cabc305eaf cancelByUser
 transaction hash: 0xbced5c2aaf2cbcb0c98ec9877246253f3f594816d456f29a581062d97901e891
 ---------------------------------------------------------------------------------------------
@@ -395,7 +395,7 @@ event value: (0x5b15b41277f4cacfdad39ba06a5dcc1295af0fd8, 0xf0da09d98fe320371fe3
 ```
 
 <br />重新开户并设置外部账户地址为『0x1』
-```java
+```
 [group:1]> call AccountManager 0xf0da09d98fe320371fe30d1bd035f0cabc305eaf setExternalAccountByUser "0x1"
 transaction hash: 0x0ff2e49f11767826a311562fec36f81decfc9d67242e8d399473c5fbde53db9d
 ---------------------------------------------------------------------------------------------
