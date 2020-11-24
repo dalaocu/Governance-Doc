@@ -2,7 +2,8 @@
 
 ## 1、术语定义
 <br />下图为账户治理各主体概念之间的联系：<br />
-<br />![](img/acct_rela.png) <br />
+
+<img src="img/acct_rela.png" width="459" height="487" align=center alt="关系图">
 
 区块链和区块链治理的相关术语可参考： 《[术语定义](term_def.md)》
 
@@ -35,7 +36,6 @@
 <br />WeBankBlockchain-Gov-Acct是一套开源的区块链账户治理的中间件解决方案，提供了多种区块链账户治理模式、账户生命周期管理、用户自主管理区块链账户治理相关的整体解决方案，提供了包括治理账户创建、多种治理模式选择、治理权限授权，账户创建、冻结、解冻、更换私钥、销户等账户生命周期的各类账户管理功能。<br />
 
 ### 3.1、关键特性
-
 <br />WeBankBlockchain-Gov-Acct定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力。<br />
 
 - **支持多种治理方式**
@@ -49,7 +49,6 @@
 
 
 ### 3.2、组成部分
-
 <br />WeBankBlockchain-Gov-Acct包含了以下组成部分：<br />
 
 - **合约代码**，最核心的账户治理实现部分。当前版本提供了基于Solidity语言实现，完全适配FISCO BCOS。 理论上可在任何支持了EVM虚拟机的区块链系统上运行。
@@ -58,7 +57,6 @@
 - **SDK集成Demo**。以Weledger项目为例，展示了如何使用Java SDK。（详情可参考Weleder项目）
 - **TDD测试代码**。包含了全套的合约测试代码，轻松支持CI/CD。(详情可参考Java SDK中src/test/java目录下的代码)
 - **web管理台**  直接通过可视化页面来进行操作，正在开发中……
-
 
 <br />使用者基于自身业务的实际场景来自由、灵活地使用和集成。<br />
 
@@ -125,16 +123,258 @@
 
 #### 5.1.1、存证demo
 
-[存证合约的demo](src/main/contracts/samples/evidence/EvidenceDemo.sol) 
+存证合约的demo
+```
+pragma solidity ^0.4.25;
 
-[存证合约的demo在控制台的部署指令](src/main/contracts/samples/evidence/console-demo.txt)
+import "./AccountManager.sol";
+
+contract EvidenceDemo {
+    struct EvidenceData {
+        string hash;
+        address owner;
+        uint256 timestamp;
+    }
+    address public _owner;
+    mapping(string => EvidenceData) private _evidences;
+    // import AccountManager
+    AccountManager _accountManager;
+
+    constructor(address accountManager) public {
+        // import accountManager
+        _accountManager = AccountManager(accountManager);
+        // set user account instead of external account
+        _owner = _accountManager.getAccount(msg.sender);
+        require(_owner != 0x0, "Invalid account!");
+    }
+
+    modifier onlyOwner() {
+        // get user account by external account
+        address userAccountAddress = _accountManager.getAccount(msg.sender);
+        require(userAccountAddress == _owner, "Not admin");
+        _;
+    }
+
+    function setData(
+        string hash,
+        address owner,
+        uint256 timestamp
+    ) public onlyOwner {
+        _evidences[hash].hash = hash;
+        _evidences[hash].owner = owner;
+        _evidences[hash].timestamp = timestamp;
+    }
+
+    function getData(string hash)
+        public
+        view
+        returns (
+            string,
+            address,
+            uint256
+        )
+    {
+        EvidenceData storage evidence = _evidences[hash];
+        return (evidence.hash, evidence.owner, evidence.timestamp);
+    }
+}
+
+```
+
+
+存证合约的demo在控制台的部署指令
+
+```
+=============================================================================================
+Welcome to FISCO BCOS console(1.0.9)!
+Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
+ ________ ______  ______   ______   ______       _______   ______   ______   ______
+|        |      \/      \ /      \ /      \     |       \ /      \ /      \ /      \
+| $$$$$$$$\$$$$$|  $$$$$$|  $$$$$$|  $$$$$$\    | $$$$$$$|  $$$$$$|  $$$$$$|  $$$$$$\
+| $$__     | $$ | $$___\$| $$   \$| $$  | $$    | $$__/ $| $$   \$| $$  | $| $$___\$$
+| $$  \    | $$  \$$    \| $$     | $$  | $$    | $$    $| $$     | $$  | $$\$$    \
+| $$$$$    | $$  _\$$$$$$| $$   __| $$  | $$    | $$$$$$$| $$   __| $$  | $$_\$$$$$$\
+| $$      _| $$_|  \__| $| $$__/  | $$__/ $$    | $$__/ $| $$__/  | $$__/ $|  \__| $$
+| $$     |   $$ \\$$    $$\$$    $$\$$    $$    | $$    $$\$$    $$\$$    $$\$$    $$
+ \$$      \$$$$$$ \$$$$$$  \$$$$$$  \$$$$$$      \$$$$$$$  \$$$$$$  \$$$$$$  \$$$$$$
+
+=============================================================================================
+[group:1]> deploy EvidenceDemo "0x08ba44f04df9671a2fc298756bc06f1dbca56e11"
+revert instruction
+
+[group:1]> deploy AdminGovernBuilder
+contract address: 0xc00504c8dad8f75d08ebceda4f7c7b1d13b327d5
+
+[group:1]> call AdminGovernBuilder 0xc00504c8dad8f75d08ebceda4f7c7b1d13b327d5 _governance
+0x24c327f0bf851a936c5049b019142709067b711d
+
+[group:1]> call WEGovernance 0x24c327f0bf851a936c5049b019142709067b711d getAccountManager
+0x6e869333a1e3dc83501723b7dcb624b09c1757e3
+
+[group:1]>  deploy EvidenceDemo "0x6e869333a1e3dc83501723b7dcb624b09c1757e3"
+contract address: 0x99276281a782a199d1998ce7a56927d99dcd6c6a
+
+[group:1]> call EvidenceDemo 0x99276281a782a199d1998ce7a56927d99dcd6c6a setData "hash" "0x6e869333a1e3dc83501723b7dcb624b09c1757e3" 1
+transaction hash: 0xc7f2531ca9e968a97a6035a4fbfa79f2a0cda7adfb4b9f878e36e4a879fa5249
+
+[group:1]> call EvidenceDemo 0x99276281a782a199d1998ce7a56927d99dcd6c6a getData "hash"
+[hash, 0x6e869333a1e3dc83501723b7dcb624b09c1757e3, 1]
+
+```
 
 #### 5.1.2、转账demo
 
-[转账合约的demo](src/main/contracts/samples/transfer/TransferDemo.sol)
+转账合约的demo
 
-[转账合约的demo在控制台的部署指令](src/main/contracts/samples/transfer/console-demo.txt)
+```
+pragma solidity ^0.4.25;
 
+
+library LibSafeMath {   
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b <= a, "SafeMath: subtraction overflow");
+        uint256 c = a - b;
+
+        return c;
+    }
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+}
+
+
+pragma solidity ^0.4.25;
+
+import "./LibSafeMath.sol";
+import "./AccountManager.sol";
+
+
+contract TransferDemo {
+    using LibSafeMath for uint256;
+    mapping(address => uint256) private _balances;
+    // import AccountManager
+    AccountManager _accountManager;
+
+    constructor(address accountManager, uint256 initBalance) public {
+        // import accountManager
+        _accountManager = AccountManager(accountManager);
+        address owner = _accountManager.getAccount(msg.sender);
+        _balances[owner] = initBalance;
+    }
+
+    modifier validateAccount(address addr) {
+        require(
+            // predicate account status
+            _accountManager.isExternalAccountNormal(addr),
+            "Account is abnormal!"
+        );
+        _;
+    }
+
+    modifier checkTargetAccount(address sender) {
+        require(
+            msg.sender != sender && sender != address(0),
+            "Can't transfer to illegal address!"
+        );
+        _;
+    }
+
+    function balance(address owner) public view returns (uint256) {
+        // 1.get account by external account, 2.get balace by account.
+        return _balances[_accountManager.getAccount(owner)];
+    }
+
+    function transfer(address toAddress, uint256 value)
+        public
+        // validate source & target account
+        validateAccount(msg.sender)
+        validateAccount(toAddress)
+        checkTargetAccount(toAddress)
+        returns (bool)
+    {
+        // 1. get source account
+        address fromAccount = _accountManager.getAccount(msg.sender);
+        // 2. sub the balance of source account
+        uint256 balanceOfFrom = _balances[fromAccount].sub(value);
+        // 3. modify the balance of source account
+        _balances[fromAccount] = balanceOfFrom;
+        // 4. get target account
+        address toAccount = _accountManager.getAccount(toAddress);
+        // 5. add balance of target account
+        uint256 balanceOfTo = _balances[toAccount].add(value);
+        // set the new balance of target account
+        _balances[toAccount] = balanceOfTo;
+        return true;
+    }
+}
+
+```
+
+转账合约的demo在控制台的部署指令
+
+```
+=============================================================================================
+Welcome to FISCO BCOS console(1.0.9)!
+Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
+ ________ ______  ______   ______   ______       _______   ______   ______   ______
+|        |      \/      \ /      \ /      \     |       \ /      \ /      \ /      \
+| $$$$$$$$\$$$$$|  $$$$$$|  $$$$$$|  $$$$$$\    | $$$$$$$|  $$$$$$|  $$$$$$|  $$$$$$\
+| $$__     | $$ | $$___\$| $$   \$| $$  | $$    | $$__/ $| $$   \$| $$  | $| $$___\$$
+| $$  \    | $$  \$$    \| $$     | $$  | $$    | $$    $| $$     | $$  | $$\$$    \
+| $$$$$    | $$  _\$$$$$$| $$   __| $$  | $$    | $$$$$$$| $$   __| $$  | $$_\$$$$$$\
+| $$      _| $$_|  \__| $| $$__/  | $$__/ $$    | $$__/ $| $$__/  | $$__/ $|  \__| $$
+| $$     |   $$ \\$$    $$\$$    $$\$$    $$    | $$    $$\$$    $$\$$    $$\$$    $$
+ \$$      \$$$$$$ \$$$$$$  \$$$$$$  \$$$$$$      \$$$$$$$  \$$$$$$  \$$$$$$  \$$$$$$
+
+=============================================================================================
+[group:1]> deploy AdminGovernBuilder
+contract address: 0xd17a5cdcb5e4b1cc3ce67c71c8e0e1dd07f33914
+
+[group:1]> call AdminGovernBuilder 0xd17a5cdcb5e4b1cc3ce67c71c8e0e1dd07f33914 _governance
+0xda80ff2d1cd498c86439cf52c1b1a8bb01da6fbc
+
+[group:1]> call WEGovernance 0xda80ff2d1cd498c86439cf52c1b1a8bb01da6fbc getAccountManager
+0x199a2b9f43415f1f5ca9da6dc7c3dc124c531fd5
+
+[group:1]> deploy TransferDemo "0x199a2b9f43415f1f5ca9da6dc7c3dc124c531fd5" 1000
+contract address: 0x7873756b7a93afed89482040257d332e3fc72336
+
+[group:1]> call TransferDemo 0x7873756b7a93afed89482040257d332e3fc72336 transfer "0x1" 1
+The execution of the contract rolled back.
+
+[group:1]> call AccountManager 0x199a2b9f43415f1f5ca9da6dc7c3dc124c531fd5 newAccount "0x1"
+transaction hash: 0xf5a806396256e01295d014edf5688afdc0e7c1f4363c47f5bd083a14f1398192
+---------------------------------------------------------------------------------------------
+Output
+function: newAccount(address)
+return type: (bool, address)
+return value: (true, 0x941d587493454784874e7d463dc76368f20bd3ff)
+---------------------------------------------------------------------------------------------
+Event logs
+event signature: LogSetOwner(address,address) index: 0
+event value: (0x0000000000000000000000000000000000000001, 0x941d587493454784874e7d463dc76368f20bd3ff)
+event signature: LogManageNewAccount(address,address,address) index: 0
+event value: (0x0000000000000000000000000000000000000001, 0x941d587493454784874e7d463dc76368f20bd3ff, 0x199a2b9f43415f1f5ca9da6dc7c3dc124c531fd5)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TransferDemo 0x7873756b7a93afed89482040257d332e3fc72336 transfer "0x1" 1
+transaction hash: 0xdbe329df31c18fd54b87139045db1fe2d0358c54139f1b2b649fb730c9a33420
+---------------------------------------------------------------------------------------------
+Output
+function: transfer(address,uint256)
+return type: (bool)
+return value: (true)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TransferDemo 0x7873756b7a93afed89482040257d332e3fc72336 balance "0x1"
+1
+
+[group:1]>
+
+```
 ### 5.2、SDK集成Demo
 
 Weledger项目完整集成了WeBankBlockchain-Gov-Acct的Java SDK，相关的用法详情可参考Weledger项目的文档和代码。
