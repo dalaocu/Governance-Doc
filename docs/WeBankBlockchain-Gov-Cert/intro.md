@@ -36,7 +36,7 @@ WeBankBlockchain-Gov-Cert包含两个模块，cert-toolkit和cert-mgr，cert-too
 链上节点证书的签发统一由WeBankBlockchain-Gov-Cert来完成，Gov-Cert可以集成或者独立部署，并由权威机构来管理服务。在链初始化时可由部署者调用接口完成根证书的生成，新增机构或节点可以通过Gov-Cert提供的查询接口，来查询根证书，并提交子证书请求，根证书管理者可从通过查询请求列表，来获取准入请求，并选择签发子证书，子证书签发完成，下一级证书采取同样逻辑处理
 通过WeBankBlockchain-Gov-Cert对于证书的管理，可以规范流程，提升效率，并保证证书安全
 
-![](img/personal_use.png)
+![](img/cert_use.png)
 
 ### 2) 证书工具包使用
 
