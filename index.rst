@@ -53,6 +53,7 @@ WeBankBlockchain-Gov 技术文档
 
 .. toctree::
    :maxdepth: 3
+   :caption: 组件介绍
 
    ./docs/WeBankBlockchain-Gov-Acct/index.md
    ./docs/WeBankBlockchain-Gov-Auth/index.md
