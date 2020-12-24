@@ -42,6 +42,7 @@ chmod +x start_ui.sh
 bash start_ui.sh
 ```
 启动成功后，会自动弹出浏览器页面，如下：
+
 ![](img/keycoreweb.png)
 
 里面包含四项功能：
