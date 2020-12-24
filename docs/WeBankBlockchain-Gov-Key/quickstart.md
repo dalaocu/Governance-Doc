@@ -1,16 +1,4 @@
-# key-mgr使用
-
-key-mgr用于私钥托管，适合B2B2C场景。
-
-支持半信任模式和全信任模式。半信任模式下，服务端仅保存加密后的密钥，而解密口令由用户持有，该模式下，支持用文件来托管，也支持用数据库来托管；全信任模式下，服务端既保存加密后的密钥，也保存解密口令，用不同的数据库来存储。
-
-就私钥托管格式而言，支持以下格式的存储：
-*   keystore
-*   p12
-
-就曲线类型而言，支持经典曲线和国密曲线。曲线对于地址计算、私钥加密等都是必须的信息。
-*   secp256k1，ECC经典曲线
-*   sm2p256v1，国密曲线
+# 快速开始
 
 ## 1. 前置依赖
 
@@ -18,18 +6,17 @@ key-mgr用于私钥托管，适合B2B2C场景。
 
 | 依赖软件 | 说明 |备注|
 | --- | --- | --- |
-| MySQL | >= mysql-community-server[5.7] | |
 | Java | JDK[1.8] | |
-| Git | 下载的安装包使用Git | |
+| Git | 下载源码需使用Git | |
+| 浏览器 |  | 使用key-core可视化功能需要|
+| MySQL | >= mysql-community-server[5.7] | 使用key-mgr托管时需要|
+
 
 如果您还未安装这些依赖，请参考[附录](appendix.md)。
 
-## 2. 快速开始
-
-### 2.1. 下载源码
+## 2. 源码下载
 
 通过git 下载源码.
-
 ```
 git clone https://github.com/WeBankBlockchain/Gov-Key.git
 ```
@@ -37,10 +24,193 @@ git clone https://github.com/WeBankBlockchain/Gov-Key.git
 进入目录：
 ```
 cd Gov-Key
-cd key-mgr
 ```
 
-### 2.2. 编译源码
+## 3. key-core快速开始
+
+进入目录：
+```
+cd key-core
+```
+key-core支持可视化方式操作，也支持sdk方式操作。可视化方式下，需要系统装有浏览器。
+
+### 3.1. 可视化方式使用
+
+执行启动脚本：
+```
+chmod +x start_ui.sh
+bash start_ui.sh
+```
+启动成功后，会自动弹出浏览器页面，如下：
+![](img/keycoreweb.png)
+
+里面包含四项功能：
+- 私钥生成：生成一个椭圆曲线私钥。可支持明文、密文，密文可能要求输入加密口令。支持国密。
+- 格式转换：支持明文格式的私钥和密文格式私钥的互转。
+- 私钥转公钥和地址：将私钥转换为公钥和地址。支持国密。
+- 助记词生成：生成一个助记词，此助记词可作为私钥种子。
+
+### 3.2. sdk方式使用
+
+#### 3.2.1. 源码编译
+方式一：如果服务器已安装Gradle
+```
+gradle build -x test
+```
+
+方式二：如果服务器未安装Gradle，使用gradlew编译
+```
+chmod +x ./gradlew && ./gradlew build -x test
+```
+
+#### 3.2.2. 引入jar包
+完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-core.jar。将其导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
+```
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+    maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2"}
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.webank:webankblockchain-crypto-core:1.0.0-SNAPSHOT'
+
+    compile "org.apache.commons:commons-lang3:3.6"
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
+    compile 'org.web3j:core:3.4.0'
+    compile "commons-io:commons-io:2.6"
+    compile 'com.lambdaworks:scrypt:1.4.0'
+    compile 'commons-codec:commons-codec:1.9'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile fileTree(dir:'libs',include:['*.jar'])
+}
+```
+#### 3.2.3. 使用示例
+
+##### 3.2.3.1. 随机数方式生成私钥
+
+```java
+    public static void main(String[] args) throws Exception{
+        //生成非国密私钥
+        PkeyByRandomService eccService = new PkeyByRandomService();
+        PkeyInfo eccKey = eccService.generatePrivateKey();
+        System.out.println(Hex.toHexString(eccKey.getPrivateKey()));
+        System.out.println(eccKey.getAddress());
+
+        //生成国密私钥
+        PkeySM2ByRandomService gmService = new PkeySM2ByRandomService();
+        PkeyInfo gmPkey = gmService.generatePrivateKey();
+        System.out.println(Hex.toHexString(gmPkey.getPrivateKey()));
+        System.out.println(gmPkey.getAddress());
+    }
+```
+##### 3.2.3.2. 助记词方式生成私钥
+```java
+    public static void main(String[] args) throws Exception{
+        //助记词生成
+        PkeyByMnemonicService mnemonicService = new PkeyByMnemonicService();
+        String mnemonic = mnemonicService.createMnemonic();
+        System.out.println("Mnemonic:"+mnemonic);
+        //生成非国密私钥
+        PkeyInfo pkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SECP256K1);
+        System.out.println("ECC Private Key:"+ Hex.toHexString(pkey.getPrivateKey()));
+        System.out.println("ECC Chaincode:"+ Hex.toHexString(pkey.getChainCode()));
+        System.out.println("ECC Address:"+ pkey.getAddress());
+        //生成国密私钥
+        PkeyInfo gmkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SM2P256V1);
+        System.out.println("GM Private Key:"+ Hex.toHexString(gmkey.getPrivateKey()));
+        System.out.println("GM Chaincode:"+ Hex.toHexString(gmkey.getChainCode()));
+        System.out.println("GM Address:"+ gmkey.getAddress());
+    }
+```
+
+##### 3.2.3.3. 密钥派生
+```java
+    public static void main(String[] args) throws Exception{
+        //通过助记词获得私钥
+        PkeyByMnemonicService mnemonicService = new PkeyByMnemonicService();
+        String mnemonic = mnemonicService.createMnemonic();
+        PkeyInfo key = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SECP256K1);
+
+        //私钥派生私钥
+        PkeyHDDeriveService deriveService = new PkeyHDDeriveService();
+        ExtendedPrivateKey rootKey = deriveService.buildExtendedPrivateKey(key);
+        //派生子私钥
+        ExtendedPrivateKey subPrivKey = rootKey.deriveChild(2);
+        System.out.println("child no.2: "+ Hex.toHexString(subPrivKey.getPkeyInfo().getPrivateKey()));
+        //子私钥转子公钥
+        ExtendedPublicKey subPubKey= subPrivKey.neuter();
+        System.out.println("pubkey for child no.2: "+ Hex.toHexString(subPubKey.pubKeyInfo(true).getPublicKey()));
+        //BIP-44派生
+        Purpose44Path derivePath = deriveService.getPurpose44PathBuilder().m()
+                .purpose44().coinType(2)
+                .account(3).change(4).addressIndex(5).build();
+        ExtendedPrivateKey derived = derivePath.deriveKey(rootKey);
+        System.out.println("derived for bip 44 "+ Hex.toHexString(derived.getPkeyInfo().getPrivateKey()));
+    }
+```
+
+##### 3.2.3.4. 私钥加密导出
+```java
+    public static void main(String [] args) throws Exception{
+        PkeyByRandomService generateService = new PkeyByRandomService();
+        PkeyInfo pkeyInfo = generateService.generatePrivateKey();
+        //keystore加密与还原
+        KeyEncryptAlgorithm keystoreService
+                = new KeystoreEncryptAlgorithm();
+        String encrypt = keystoreService.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
+        System.out.println(encrypt);
+        byte[] recoveredFromKeystore = keystoreService.decrypt("password", encrypt);
+        System.out.println(Hex.toHexString(recoveredFromKeystore));
+        //PEM加密与还原(无需密码)
+        KeyEncryptAlgorithm pemAlgorithm
+                = new PemEncryptAlgorithm();
+        encrypt = pemAlgorithm.encrypt("",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
+        System.out.println(encrypt);
+        byte[] recoveredFromPem = pemAlgorithm.decrypt("", encrypt);
+        System.out.println(Hex.toHexString(recoveredFromPem));
+        //P12加密与还原
+        KeyEncryptAlgorithm p12Algorithm
+                = new P12EncryptAlgorithm();
+        encrypt = p12Algorithm.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
+        System.out.println(encrypt);
+        byte[] recoveredFromP12 = p12Algorithm.decrypt("password", encrypt);
+        System.out.println(Hex.toHexString(recoveredFromP12));
+    }
+```
+##### 3.2.3.5. 私钥分片与还原
+```java
+    public static void main(String[] args) throws Exception{
+        //生成一个私钥
+        PkeyByRandomService generateService = new PkeyByRandomService();
+        PkeyInfo pkeyInfo = generateService.generatePrivateKey();
+        System.out.println("Before sharding "+Hex.toHexString(pkeyInfo.getPrivateKey()));
+        //开始分片，分解为5片，凑齐任意3片才能还原
+        PkeyShardingService shardingService
+                = new PkeyShardingService();
+        List<String> shards = shardingService.shardingPKey(pkeyInfo.getPrivateKey(), 5, 3);
+        //还原
+        List<String> recoveredShards = new ArrayList<>();
+        recoveredShards.add(shards.get(0));
+        recoveredShards.add(shards.get(2));
+        recoveredShards.add(shards.get(3));
+        byte[] recovered = shardingService.recoverPKey(recoveredShards);
+        System.out.println("After recovered "+Hex.toHexString(recovered));
+    }
+```
+## 4. key-mgr快速开始
+
+进入目录：
+```
+cd ../key-mgr
+```
+
+### 4.1. 编译源码
 
 方式一：如果服务器已安装Gradle
 ```
@@ -52,20 +222,21 @@ gradle build -x test
 chmod +x ./gradlew && ./gradlew build -x test
 ```
 
-### 2.3. 导入jar包
-
-key-mgr编译之后在根目录下会生成dist文件夹，文件夹中包含key-mgr.jar。可以将key-mgr.jar导入到自己的项目中，例如拷贝到libs目录下，然后进行依赖配置。gradle推荐依赖配置如下，然后再对自己的项目进行编译。
-
+### 4.2. 引入jar包
+完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-mgr.jar。将其导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
 ```
 repositories {
-    mavenCentral()
-    mavenLocal()
     maven {
         url "http://maven.aliyun.com/nexus/content/groups/public/"
     }
+    maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2"}
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
+
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -94,25 +265,26 @@ dependencies {
     compile 'commons-codec:commons-codec:1.9'
 
     compile 'mysql:mysql-connector-java'
+    compile 'com.webank:webankblockchain-crypto-core:1.0.0-SNAPSHOT'
     compile fileTree(dir:'libs',include:['*.jar'])
 }
-
 ```
 
-### 2.4. 配置
+### 4.3. 配置
 
 如果仅出于体验的目的，无需做任何配置，托管后的加密密钥会被保存到~/.pkeymgr。如果需要更高级的配置，请参考下面的模板，配置application.properties。
 ```
-# true-双库（全信任模式），false-单库（半信任模式）
+# true-存储密码（全信任模式），false-不存储密码（半信任模式）
 system.storePwd=true
 # 托管方式：db-数据库托管方式，file-文件托管方式
 system.mgrStyle=db
-# 以下配置为system.mgrType=file时的配置
-##system.dataFileDir=~/myKeys
+
+### 该配置仅为system.mgrType=file时的配置
+#### system.dataFileDir=~/myKeys
 
 ## 加密格式，支持p12或keystore
 system.keyEncType=p12
-## 可以用secp256k1 or sm2p256v1。前者为ECC经典曲线；后者为国密曲线。
+## 可以用secp256k1 or sm2p256v1。后者为国密曲线。
 system.eccType=sm2p256v1
 
 ## 加密后的私钥存储url
@@ -120,7 +292,7 @@ spring.datasource.encryptkeydata.url=jdbc:mysql://[ip]:[port]/pkey_mgr?autoRecon
 spring.datasource.encryptkeydata.username=
 spring.datasource.encryptkeydata.password=
 
-## 若采用双库,需要配置该url用于存储私钥加密密码
+## 若存储密码
 spring.datasource.keypwd.url=jdbc:mysql://[ip]:[port]/pkey_mgr_pwd?autoReconnect=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8
 spring.datasource.keypwd.username=
 spring.datasource.keypwd.password=
@@ -131,7 +303,7 @@ spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
-### 2.5. 建表
+### 4.4. 建表
 
 如果在上述配置中指定了**spring.jpa.properties.hibernate.hbm2ddl.auto=update**，则jpa会帮助用户自动建立数据表。
 
@@ -176,7 +348,7 @@ CREATE TABLE `key_pwds_info` (
  ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8
 ```
 
-### 2.6. 接口使用
+### 4.5. 接口使用
 
 KeysManagerService类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
 
@@ -495,3 +667,7 @@ public void demo() throws Exception {
 - userId: 用户Id
 
 - keyAddress: 私钥地址
+
+
+
+
