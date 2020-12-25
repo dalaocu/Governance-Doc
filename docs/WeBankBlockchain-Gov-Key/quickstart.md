@@ -18,30 +18,36 @@
 
 通过git 下载源码.
 ```
+cd ~
 git clone https://github.com/WeBankBlockchain/Gov-Key.git
-```
-
-进入目录：
-```
 cd Gov-Key
 ```
 
 ## 3. key-core快速开始
 
-进入目录：
-```
-cd key-core
-```
 key-core支持可视化方式操作，也支持sdk方式操作。可视化方式下，需要系统装有浏览器。
 
 ### 3.1. 可视化方式使用
 
-执行启动脚本：
+进入目录：
 ```
-chmod +x start_ui.sh
-bash start_ui.sh
+cd key-core-web
 ```
-启动成功后，会自动弹出浏览器页面，如下：
+
+编译代码：
+```
+gradle bootJar
+```
+
+编译后，会生成dist目录，包含key-core-web.jar包。
+
+启动可视化界面：
+```
+cd dist
+java -jar key-core-web.jar
+```
+
+启动成功后，会自动弹出浏览器页面，如下
 
 ![](img/keycoreweb.png)
 
@@ -54,18 +60,20 @@ bash start_ui.sh
 ### 3.2. sdk方式使用
 
 #### 3.2.1. 源码编译
-方式一：如果服务器已安装Gradle
+
+进入目录:
+
+```
+cd ~/Gov-Key/key-core
+```
+
+编译代码：
 ```
 gradle build -x test
 ```
-
-方式二：如果服务器未安装Gradle，使用gradlew编译
-```
-chmod +x ./gradlew && ./gradlew build -x test
-```
-
+完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-core.jar。
 #### 3.2.2. 引入jar包
-完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-core.jar。将其导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
+将dist目录中的key-core.jar包导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
 ```
 repositories {
     maven {
@@ -149,7 +157,7 @@ dependencies {
         System.out.println("pubkey for child no.2: "+ Hex.toHexString(subPubKey.pubKeyInfo(true).getPublicKey()));
         //BIP-44派生
         Purpose44Path derivePath = deriveService.getPurpose44PathBuilder().m()
-                .purpose44().coinType(2)
+                .purpose44().sceneType(2)
                 .account(3).change(4).addressIndex(5).build();
         ExtendedPrivateKey derived = derivePath.deriveKey(rootKey);
         System.out.println("derived for bip 44 "+ Hex.toHexString(derived.getPkeyInfo().getPrivateKey()));
