@@ -1,7 +1,7 @@
-# 1、术语定义
+# 术语定义
 
 
-## 1.1、区块链常用术语
+## 区块链常用术语
 
 
 - **外部账户(Externally account)**，私钥控制，没有代码关联，可发起交易。外部账户的地址是由私钥所生成的。
@@ -10,7 +10,7 @@
 
 <br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1593940488626-8b024509-87d8-4373-b783-a44d20123bd1.png#align=left&display=inline&height=171&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=497&size=20425&status=done&style=none&width=417)<br />
 
-## 1.2、账户治理组件所引入的术语
+## 账户治理组件所引入的术语
 
 
 - **区块链业务应用（Blockchain Business Application）**，基于区块链技术，实现和满足特定业务领域的需求。在一个区块链业务应用中，一般会依赖智能合约技术，其执行结果记录在分布式账本中。在一个区块链网络中，可以发布多个区块链业务应用。而在一个区块链业务应用中，最多只能定义一个治理账户。

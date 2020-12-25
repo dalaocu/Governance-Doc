@@ -2,7 +2,7 @@
 
 <br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Gov-Acct的快速入门。<br />
 
-## 1. 前置依赖
+## 前置依赖
 | 依赖软件   | 说明                                                         | 备注 |
 | ---------- | ------------------------------------------------------------ | ---- |
 | FISCO-BCOS       | >= 2.0 |      |
@@ -16,7 +16,7 @@
 
 
 
-## 2. 获取源码
+## 获取源码
 
 <br />由于暂未开源，暂时通过压缩包方式传递代码。压缩包中包含了智能合约代码，合约集成demo和Java SDK代码。<br />解压完成后，<br />
 
@@ -27,17 +27,17 @@
 
 
 
-## 3. 使用组件合约
+## 使用组件合约
 
 <br />本章节介绍的是只使用合约本身的方式进行账户治理。如果需要使用SDK来治理的，可跳过本章节。<br />
 <br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
-### 3.1、使用控制台部署和调用合约
+### 使用控制台部署和调用合约
 
 <br />本方式可直接通过控制台或WeBASE-Front来操作。<br />
 <br />在此我们以控制台为例，进行演示，关于控制台的使用说明请参考[控制台的详细文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
-### 3.2、准备和登入控制台环境
+### 准备和登入控制台环境
 
 <br />在进入以下的操作前，首先我们进入控制台，准备至少四组操作私钥。<br />
 
@@ -87,13 +87,13 @@ Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
 ```
 
 
-### 3.3、部署治理合约
+### 部署治理合约
 
 <br />为了便于部署WeBankBlockchain-Gov-Acct治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
 
 1. AdminGovernBuilder
-1. VoteGovernBuilder
-1. WeightVoteGovernBuilder
+2. VoteGovernBuilder
+3. WeightVoteGovernBuilder
 
 
 
@@ -160,7 +160,7 @@ contract address: 0xbf8b5357a01232ab2e3ac8922fbe9a425afba026
 <br />
 <br />
 
-### 4.3.4、调用治理合约
+### 调用治理合约
 
 <br />在部署了上述合约的前提下，可根据上一章节获得WEGovernance和AccountManager合约的地址。<br />
 

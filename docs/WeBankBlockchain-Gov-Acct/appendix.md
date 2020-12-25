@@ -1,7 +1,7 @@
 # 附录
 
 
-## 1. MySql的安装
+## MySql的安装
 
 此处以Centos安装MariaDB为例。MariaDB数据库是 MySQL 的一个分支，主要由开源社区在维护，采用 GPL 授权许可。MariaDB完全兼容 MySQL，包括API和命令行。其他安装方式请参考[MySQL官网](https://dev.mysql.com/downloads/mysql/)。
 
@@ -87,9 +87,9 @@ mysql > use datastash;
 
   **以上语句仅适用于开发环境，不能直接在实际生产中使用！！！以上设置会使数据库在所有网络上都可以访问，请按具体的网络拓扑和权限控制情况，设置网络和权限帐号**
 
-## 2. Java安装
+## Java安装
 
-### 2.1. Ubuntu环境安装Java
+### Ubuntu环境安装Java
 
 ```
 # 安装默认Java版本(Java 8或以上)
@@ -98,7 +98,7 @@ sudo apt install -y default-jdk
 java -version 
 ```
 
-### 2.2. CentOS环境安装Java
+### CentOS环境安装Java
 
 ```
 # 查询centos原有的Java版本
@@ -124,7 +124,7 @@ $ source /etc/profile
 java -version 
 ```
 
-## 3. Git安装
+## Git安装
 
 git：用于拉取最新代码
 
