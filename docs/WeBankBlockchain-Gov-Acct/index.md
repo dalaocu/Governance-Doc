@@ -24,5 +24,4 @@
    
    intro.md
    quickstart.md
-   appendix.md
 ```

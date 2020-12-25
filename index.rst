@@ -59,6 +59,7 @@ WeBankBlockchain-Gov 技术文档
    ./docs/WeBankBlockchain-Gov-Auth/index.md
    ./docs/WeBankBlockchain-Gov-Key/index.md
    ./docs/WeBankBlockchain-Gov-Cert/index.md
+   ./docs/appendix.md
 .. 
 
 

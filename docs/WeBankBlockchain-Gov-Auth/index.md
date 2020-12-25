@@ -22,5 +22,4 @@
    intro.md
    quickstart.md
    gov.md
-   appendix.md
 ```
