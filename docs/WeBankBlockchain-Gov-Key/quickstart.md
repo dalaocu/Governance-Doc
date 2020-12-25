@@ -262,19 +262,13 @@ dependencies {
 
 进入目录：
 ```
-cd ../key-mgr
+cd ~/Gov-Key/key-mgr
 ```
 
 ### 4.1. 编译源码
 
-方式一：如果服务器已安装Gradle
 ```
 gradle build -x test
-```
-
-方式二：如果服务器未安装Gradle，使用gradlew编译
-```
-chmod +x ./gradlew && ./gradlew build -x test
 ```
 
 ### 4.2. 引入jar包
