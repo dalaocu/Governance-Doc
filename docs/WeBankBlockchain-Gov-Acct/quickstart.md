@@ -521,28 +521,31 @@ contract TransferDemo {
 ## 4.使用Java SDK
 相比通过控制台或WeBASE来部署和调用合约，使用Java SDK的方式更为地方便、快捷；我们更推荐在业务系统中通过集成Java SDK的方式来使用账户治理组件。
 
-### 4.1、编译Jar包
+为了便于使用，我们提供了[使用Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo)，可供参考。
 
-<br />由于本项目未正式发布，暂未发布Jar包到maven仓库，需要自己编译。也可以索取编译后的版本。<br />
+### 将Jar包引入到用户自己的Java业务项目中
 
-```shell
-./gradlew clean jar
-```
-
-<br />生成的Jar包位于： dist/WeBankBlockchain-Gov-Acct.jar<br />
-
-### 4.2、将Jar包引入到用户自己的Java业务项目中
-
-<br />引入刚才编译生成的账户治理的jar包到自己的Java项目中来使用。<br />
-<br />以gradle构建为例，将该文件复制到自己项目libs的路径下，在自己项目的gradle中引入该jar包。<br />
+<br />在自己的Java项目中的build.gradle文件中，添加maven仓库<br />
 
 ```groovy
-dependencies {
-    compile fileTree(dir: 'libs', includes: ['WeBankBlockchain-Gov-Acct.jar'])
-}
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 
-### 4.3、调用SDK接口
+引入依赖：
+
+```groovy
+    dependencies {
+	    implementation 'com.github.WeBankBlockchain:Gov-Acct:Tag'
+	}
+```
+
+
+### 调用SDK接口
 
 #### 初始化AccountGovernManagerFactory对象
 
