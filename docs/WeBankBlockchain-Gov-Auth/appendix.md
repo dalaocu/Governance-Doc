@@ -1,9 +1,9 @@
 # 附录
 
 
-## 1. Java安装
+## Java安装
 
-### 1.1. Ubuntu环境安装Java
+### Ubuntu环境安装Java
 
 ```
 # 安装默认Java版本(Java 8或以上)
@@ -12,7 +12,7 @@ sudo apt install -y default-jdk
 java -version 
 ```
 
-### 1.2. CentOS环境安装Java
+### CentOS环境安装Java
 
 ```
 # 查询centos原有的Java版本
@@ -38,7 +38,7 @@ $ source /etc/profile
 java -version 
 ```
 
-## 2. Git安装
+## Git安装
 
 git：用于拉取最新代码
 

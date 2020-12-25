@@ -5,13 +5,13 @@
 ## 前置依赖
 | 依赖软件   | 说明                                                         | 备注 |
 | ---------- | ------------------------------------------------------------ | ---- |
-| FISCO-BCOS       | >= 2.0 |      |
-| Java       | \>= JDK[1.8]                                                 |      |
+| FISCO-BCOS       |  2.0及以上版本 |      |
+| Java       | JDK[1.8]                                                 |      |
 | Git        | 下载的安装包使用Git                                          |      |
 
-- Java版本<br />JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
-   - Java安装<br />参考 [Java环境配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html#java)
-   - FISCO BCOS区块链环境搭建<br />参考 [FISCO BCOS安装教程](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)
+- Java版本 <br />JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
+- Java安装 <br />参考 [Java环境配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html#java)
+- FISCO BCOS区块链环境搭建<br />参考 [FISCO BCOS安装教程](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)
 - 网络连通性<br />检查Web3SDK连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
 
 
