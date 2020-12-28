@@ -404,19 +404,19 @@ CREATE TABLE `key_pwds_info` (
 
 KeysManagerService类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
 
-| 功能 | 说明 | 备注 |
-| --- | --- | --- |
-| createPrivateKey |生成私钥，并进行托管存储||
-| importPrivateKeyFile |导入私钥原文，并进行托管存储||
-| createPrivateKeyByParent|根据父私钥和chaincode，生成子私钥，并进行托管存储||
-| queryChildKeys |查询父私钥的所有直接下级子私钥||
-| exportPrivateKeyFile |从库中读取私钥密文，并导出到密文文件||
-| decryptPrivateKey |解密私钥密文，得到明文||
-| getEncryptPrivateKeyList |获取某用户的所有私钥密文列表||
-| getEncryptPrivateKeyByUserIdAndAddress |根据用户id、私钥地址获取私钥密文||
-| updateKeyName |更新私钥名称||
-| updateKeyPassword |重置私钥密码||
-| deleteUserKey |删除某用户的某一私钥||
+| 功能 | 说明 |
+| --- | --- |
+| createPrivateKey |生成私钥，并进行托管存储|
+| importPrivateKeyFile |导入私钥原文，并进行托管存储| 
+| createPrivateKeyByParent|根据父私钥和chaincode，生成子私钥，并进行托管存储| 
+| queryChildKeys |查询父私钥的所有直接下级子私钥| 
+| exportPrivateKeyFile |从库中读取私钥密文，并导出到密文文件| 
+| decryptPrivateKey |解密私钥密文，得到明文| 
+| getEncryptPrivateKeyList |获取某用户的所有私钥密文列表| 
+| getEncryptPrivateKeyByUserIdAndAddress |根据用户id、私钥地址获取私钥密文| 
+| updateKeyName |更新私钥名称| 
+| updateKeyPassword |重置私钥密码|
+| deleteUserKey |删除某用户的某一私钥|
 
 
 建议您通过Spring自动注入KeysManagerService服务，示例如下：
