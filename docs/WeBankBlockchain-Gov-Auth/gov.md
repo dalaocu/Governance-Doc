@@ -2,16 +2,16 @@
 
 这一节主要讲解如何治理权限合约。如果您是业务方，无需阅读接下来的内容；如果您是治理方，想了解如何部署权限合约、配置权限规则，则需要继续阅读本节。 
 
-## 1. 关键概念
+## 关键概念
 
-### 1.1.1 业务合约与权限合约
+### 业务合约与权限合约
 
 权限治理涉及的合约分为两类：业务合约、权限合约。
 
 - 业务合约是用户自己开发的合约，不属于本组件。业务合约通过访问权限合约的canCallFunctoin函数来拦截非法调用。
 - 权限合约是本组件提供的AuthManager合约，用于配置哪些账户可以访问哪些合约的哪些函数。可以治理多个业务合的权限。
 
-### 1.1.2 组
+### 组
 组定义了哪些账户可以访问哪些函数。组包含的信息如下：
 
 - 账户列表
@@ -24,7 +24,7 @@
 - 配置了一个黑名单组，意味着仅组内账户不能访问这些函数
 - 配置了一个白名单组，意味着仅组内账户可以访问这些函数
 
-### 1.1.3 治理模式
+### 治理模式
 权限治理合约有两种模式：治理员模式、委员会模式
 
 - 治理员模式下，由单一治理员修改组配置； 还可以转让治理员权限。
@@ -32,7 +32,7 @@
 
 一个权限治理合约的模式在部署时即确定，一旦确定一种模式，就无法更改。
 
-### 1.1.4 投票模式
+### 投票模式
 投票包含两种规则：多签模式和阈值权重模式。
 
 - 多签模式下，当投票数达到最小签名数时，投票即通过。
@@ -41,7 +41,7 @@
 多签是阈值权重模式下的一个特例，即所有委员会的权重为1。
 
 
-## 2. AuthManager合约接口列表
+## AuthManager合约接口列表
 - 合约部署
 
 合约部署时需要决定是治理员模式还是治理委员会模式。以下为治理员模式下权限配置接口：
@@ -92,7 +92,7 @@
 - getGovernorsToRemove
 - executeRemoveGovernorReq
 
-### 2.1. 合约部署
+### 合约部署
 
 说明：部署权限治理合约AuthManager。
 
@@ -122,7 +122,7 @@ deploy AuthManager 2 ["0x1", "0x2", "0x3"] [1,1,1] 3
 deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 ```
 
-### 2.2. createGroup
+### createGroup
 
 说明：创建一个组。
 
@@ -132,7 +132,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string group: 组名
 - uint8 mode：组是黑名单还是白名单。1-白名单，2-黑名单
 
-### 2.3. addAccountToGroup
+### addAccountToGroup
 
 说明：将账户地址拉入到组中。
 
@@ -142,7 +142,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address account: 账户地址
 - string group: 组名
 
-### 2.4. addFunctionToGroup
+### addFunctionToGroup
 
 说明：将某合约的某函数关联到组中。调用后，若当前组为白名单组，则仅有组内账户可以访问该函数；若当前组为黑名单组，则仅有组内账户不允许访问该函数。
 
@@ -153,7 +153,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string func: 业务合约中待关联函数的签名字符串，如"add(uint256,uint256)","hello()"等。
 - string group: 组名
 
-### 2.5. removeAccountFromGroup
+### removeAccountFromGroup
 
 说明：将账户地址从组中移除。
 
@@ -163,7 +163,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address account: 账户地址
 - string group: 组名
 
-### 2.6. removeFunctionFromGroup
+### removeFunctionFromGroup
 
 说明：取消某合约某函数与组的关联。
 
@@ -174,7 +174,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string func: 业务合约中待关联函数的签名字符串，如"add(uint256,uint256)","hello()"等。
 - string group: 组名
 
-### 2.7. requestCreateGroup
+### requestCreateGroup
 
 说明：请求创建一个组。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -184,7 +184,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string group: 组名
 - uint8 mode：组是黑名单还是白名单。1-白名单，2-黑名单
 
-### 2.8. requestAddAccountToGroup
+### requestAddAccountToGroup
 
 说明：请求将账户添加到组。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -194,7 +194,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address account: 账户地址
 - string group: 组名
 
-### 2.9. requestAddFunctionToGroup
+### requestAddFunctionToGroup
 
 说明：请求将函数关联到组。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -205,7 +205,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string func: 业务合约中待关联函数的签名字符串，如"add(uint256,uint256)","hello()"等。
 - string group: 组名
 
-### 2.10. requestRemoveAccountFromGrop
+### requestRemoveAccountFromGrop
 
 说明：请求将账户地址从组中移除。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -215,7 +215,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address account: 账户地址
 - string group: 组名
 
-### 2.11. requestRemoveFunctionFromGroup
+### requestRemoveFunctionFromGroup
 
 说明：请求取消某合约某函数与组的关联。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -226,7 +226,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string func: 业务合约中待关联函数的签名字符串，如"add(uint256,uint256)","hello()"等。
 - string group: 组名
 
-### 2.12. approveSingle
+### approveSingle
 
 说明：对某个提案进行投票。
 
@@ -235,7 +235,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - uint8 txType：请求类型。见《请求类型列表》一节。
 
-### 2.13. deleteSingle
+### deleteSingle
 
 说明：删除某个提案。
 
@@ -244,7 +244,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - uint8 txType：请求类型。见《请求类型列表》一节。
 
-### 2.14. getRequestSingle
+### getRequestSingle
 
 说明：获取某个未关闭的投票信息。
 
@@ -263,37 +263,37 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - uint8：（可以忽略）
 
 
-### 2.15. executeCreateGroup
+### executeCreateGroup
 
 说明：执行创建组。
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.16. executeAddAccountToGroup
+### executeAddAccountToGroup
 
 说明：执行将账户添加到组的请求。
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.17. executeAddFunctionToGroup
+### executeAddFunctionToGroup
 
 说明：执行将业务函数关联到组的请求。
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.18. executeRemoveAccountFromGroup
+### executeRemoveAccountFromGroup
 
 说明：执行将账户从组中移除的请求。
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.19. executeRemoveFunctionFromGroup
+### executeRemoveFunctionFromGroup
 
 说明：执行取消业务函数和组关联的请求。
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.20. containsAccount
+### containsAccount
 
 说明：查询某一账户是否位于某一组中。
 
@@ -303,7 +303,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - string group:组名
 - address account：账户
 
-### 2.21. containsFunction
+### containsFunction
 
 说明：查询某一合约函数是否已关联到组。
 
@@ -314,7 +314,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address contractAddr：业务合约地址
 - string func:业务合约中待关联函数的签名字符串，如"add(uint256,uint256)","hello()"等。
 
-### 2.22. getGroup
+### getGroup
 
 说明：查询某一个组的信息
 
@@ -328,7 +328,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - uint256：组包含的账户数目
 - uint256：组关联的函数数目
 
-### 2.23. canCallFunction
+### canCallFunction
 
 说明：查询某一账户是否有权限调用某一合约函数
 
@@ -339,7 +339,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - bytes4 sig：业务函数的签名字节，由sha3(函数签名字符串)的前4字节得来。和msg.sig一致。
 - address caller：调用者
 
-### 2.24. transferAdminAuth
+### transferAdminAuth
 
 说明：转移治理员权限给另一个账户。
 
@@ -348,7 +348,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address newAdminAddr：新治理员的账户地址。
 
-### 2.25. isAdmin
+### isAdmin
 
 说明：判断当前调用者是否为合约治理员。
 
@@ -356,7 +356,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 
 
 
-### 2.26. requestSetThreshold
+### requestSetThreshold
 
 说明：请求重设投票权重阈值。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -366,7 +366,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - uint16 newThreshold：新的权重阈值
 
 
-### 2.27. requestResetGovernors
+### requestResetGovernors
 
 说明：请求重设治理委员会列表与权重。只能同时存在一个同类请求。参数会被缓存，直到请求被执行或删除。
 
@@ -376,19 +376,19 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - address[] governors: 新的治理委员会名单
 - uint16[] weights: 新的治理委员会对应权重
 
- ### 2.28. executeSetThreshold
+ ### executeSetThreshold
 
 说明：执行重设阈值请求
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.29. executeResetGovernAccounts
+### executeResetGovernAccounts
 
 说明：执行重设治理委员会列表请求
 
 调用要求：当前调用者为治理委员会成员；请求已被投票通过。
 
-### 2.30. requestAddGovernor
+### requestAddGovernor
 
 说明：请求向治理委员会中添加一个成员
 
@@ -397,7 +397,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待添加成员
 
-### 2.31. deleteAddGovernorReq
+### deleteAddGovernorReq
 
 说明：删除添加治理委员会成员请求
 
@@ -406,7 +406,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待添加成员
 
-### 2.32. approveAddGovernorReq
+### approveAddGovernorReq
 
 说明：同意添加治理委员会
 
@@ -415,20 +415,20 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待添加成员
 
-### 2.33. getGovernorsToAdd
+### getGovernorsToAdd
 
 说明：取得所有待添加成员
 
 返回值：
 - address[]: 所有待添加的成员名单
 
-### 2.34. executeAddGovernorReq
+### executeAddGovernorReq
 
 说明：执行请求
 
 调用要求：当前调用者为治理委员会成员；待添加账户已经生成了添加请求
 
-### 2.35. requestRemoveGovernor
+### requestRemoveGovernor
 
 说明：请求从治理委员会中删除一个成员
 
@@ -437,7 +437,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待移除成员
 
-### 2.36. deleteRemoveGovernorReq
+### deleteRemoveGovernorReq
 
 说明：删除删除治理委员会成员请求
 
@@ -446,7 +446,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待移除成员
 
-### 2.37. approveRemoveGovernorReq
+### approveRemoveGovernorReq
 
 说明：同意删除治理委员会成员
 
@@ -455,26 +455,26 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 参数说明：
 - address account: 待移除成员
 
-### 2.38. getGovernorsToRemove
+### getGovernorsToRemove
 
 说明：取得所有待删除成员
 
 返回值：
 - address[]: 所有待移除的成员名单
 
-### 2.39. executeAddGovernorReq
+### executeAddGovernorReq
 
 说明：执行请求
 
 调用要求：当前调用者为治理委员会成员；待添加账户已经生成了添加请求
 
-## 3. 常量表
+## 常量表
 
-### 3.1. 组相关
+### 组相关
 - 白名单组：1
 - 黑名单组：2
 
-### 3.2. 请求类型相关
+### 请求类型相关
 
 - 重设投票阈值：1
 - 重设治理委员会列表：2
@@ -484,10 +484,10 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - 组内移除函数：6
 - 取消函数和组关联：7
 
-## 4. 集成javaSdk
+## 集成javaSdk
 在前面示例中，我们以控制台来操作部署、操作权限合约。除了控制台外，本组件也支持通过java代码来执行这些操作。推荐使用集成SDK的方式来进行权限治理，这样可以在没有控制台的情况下进行权限合约调用。
 
-### 4.1. 源码下载
+### 源码下载
 
 先前章节中，已经通过git下载了源码：
 ```
@@ -499,7 +499,7 @@ cd auth-manager
 - 权限治理合约
 - 权限治理的java sdk
 
-### 4.2. 编译
+### 编译
 
 方式一：如果服务器已安装Gradle
 
@@ -515,14 +515,14 @@ chmod +x ./gradlew && ./gradlew build -x test
 
 编译过后，得到jar包：dist/auth-manager.jar。
 
-### 4.3 集成
+### 集成
 在编译好该jar包后，将它引入到一个示例项目中进行调用，以操作权限合约。
 
-#### 4.3.1. 新建springboot项目
+#### 新建springboot项目
 
 可以通过 https://start.spring.io/ 等方式来新建一个springboot项目。
 
-#### 4.3.2. 引入auth-manager sdk
+#### 引入auth-manager sdk
 
 前文中，编译auth-manager项目后得到了dist\auth-manager.jar。可以将auth-manager.jar导入到自己的项目中，例如拷贝到libs目录下，然后进行依赖配置，再对自己的项目进行编译。推荐gradle配置如下，
 
@@ -546,7 +546,7 @@ dependencies {
 }
 ```
 
-#### 4.3.3 配置
+#### 配置
 
 从控制台拷贝如下几个文件到业务工程的main/resources目录下：
 
@@ -578,7 +578,7 @@ system.encryptType=0
 ## 私钥，请更换为对应16进制私钥，不要以0x前缀
 system.privateKey=
 ```
-#### 4.3.4 使用方式示例
+#### 使用方式示例
 
 本例在单元测试中完成调用示例。首先新建DemoTest类，并通过Spring自动注入得到AuthManagerFactory:
 
@@ -620,9 +620,9 @@ public void demo() throws Exception{
 }
 ```
 
-## 5. 常见问题
+## 常见问题
 
-### 5.1. jvm崩溃
+### jvm崩溃
 
 现象：
 
@@ -660,7 +660,7 @@ J 10415 C2 com.sun.crypto.provider.GCTR.doFinal([BII[BI)I (130 bytes) @ 0x00007f
 
 这是jdk的bug，需要将jdk版本升级到jdk8u51版本。
 
-### 5.2. 函数签名是什么
+### 函数签名是什么
 
 函数签名是函数的标识符，格式为“函数名(参数类型列表)”。例如，有下面这个solidity函数：
 ```

@@ -29,5 +29,4 @@
    quickstart.md
    concepts.md
    faq.md
-   appendix.md
 ```

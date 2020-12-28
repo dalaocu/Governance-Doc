@@ -1,6 +1,6 @@
 # 快速开始
 
-## 1. 前置依赖
+## 前置依赖
 
 在使用本组件前，请确认系统环境已安装相关依赖软件，清单如下：
 
@@ -14,7 +14,7 @@
 
 如果您还未安装这些依赖，请参考[附录](appendix.md)。
 
-## 2. 源码下载
+## 源码下载
 
 通过git 下载源码.
 ```
@@ -23,11 +23,11 @@ git clone https://github.com/WeBankBlockchain/Gov-Key.git
 cd Gov-Key
 ```
 
-## 3. key-core快速开始
+## key-core快速开始
 
 key-core支持可视化方式操作，也支持sdk方式操作。可视化方式下，需要系统装有浏览器。
 
-### 3.1. 可视化方式使用
+### 可视化方式使用
 
 进入目录：
 ```
@@ -60,9 +60,9 @@ java -jar key-core-web.jar
 | 公钥和地址生成 | 将私钥转换为公钥和地址 | 支持国密|
 | 助记词生成 | 生成一个助记词，此助记词可作为私钥种子 | |
 
-### 3.2. sdk方式使用
+### sdk方式使用
 
-#### 3.2.1. 源码编译
+#### 源码编译
 
 进入目录:
 
@@ -75,7 +75,7 @@ cd ~/Gov-Key/key-core
 gradle build -x test
 ```
 完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-core.jar。
-#### 3.2.2. 引入jar包
+#### 引入jar包
 将dist目录中的key-core.jar包导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
 ```
 repositories {
@@ -102,9 +102,9 @@ dependencies {
     compile fileTree(dir:'libs',include:['*.jar'])
 }
 ```
-#### 3.2.3. 使用示例
+#### 使用示例
 
-##### 3.2.3.1. 随机数方式生成私钥
+##### 随机数方式生成私钥
 
 ```java
     public static void main(String[] args) throws Exception{
@@ -121,7 +121,7 @@ dependencies {
         System.out.println(gmPkey.getAddress());
     }
 ```
-##### 3.2.3.2. 助记词方式生成私钥
+##### 助记词方式生成私钥
 ```java
     public static void main(String[] args) throws Exception{
         //助记词生成
@@ -141,7 +141,7 @@ dependencies {
     }
 ```
 
-##### 3.2.3.3. 密钥派生
+##### 密钥派生
 ```java
     public static void main(String[] args) throws Exception{
         //通过助记词获得私钥
@@ -195,7 +195,7 @@ dependencies {
         System.out.println(Hex.toHexString(recoveredFromP12));
     }
 ```
-##### 3.2.3.5. 私钥分片与还原
+##### 私钥分片与还原
 ```java
     public static void main(String[] args) throws Exception{
         //生成一个私钥
@@ -215,7 +215,7 @@ dependencies {
         System.out.println("After recovered "+Hex.toHexString(recovered));
     }
 ```
-##### 3.2.3.6. 密码学操作
+##### 密码学操作
 下述例子包含了签名、验签、数据加密、数据解密。
 ```java
     public static void main(String[] args){
@@ -261,20 +261,20 @@ dependencies {
     }
 
 ```
-## 4. key-mgr快速开始
+## key-mgr快速开始
 
 进入目录：
 ```
 cd ~/Gov-Key/key-mgr
 ```
 
-### 4.1. 编译源码
+### 编译源码
 
 ```
 gradle build -x test
 ```
 
-### 4.2. 引入jar包
+### 引入jar包
 完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-mgr.jar。将其导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
 ```
 repositories {
@@ -322,7 +322,7 @@ dependencies {
 }
 ```
 
-### 4.3. 配置
+### 配置
 
 如果仅出于体验的目的，无需做任何配置，托管后的加密密钥会被保存到~/.pkeymgr。如果需要更高级的配置，请参考下面的模板，配置application.properties。
 ```
@@ -355,7 +355,7 @@ spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
-### 4.4. 建表
+### 建表
 
 如果在上述配置中指定了**spring.jpa.properties.hibernate.hbm2ddl.auto=update**，则jpa会帮助用户自动建立数据表。
 
@@ -400,7 +400,7 @@ CREATE TABLE `key_pwds_info` (
  ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8
 ```
 
-### 4.5. 接口使用
+### 接口使用
 
 KeysManagerService类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
 | 功能 | 说明 | 

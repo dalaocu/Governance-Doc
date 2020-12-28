@@ -1,6 +1,6 @@
 # 快速开始
 
-## 1. 前置依赖
+## 前置依赖
 
 | 依赖软件   | 说明                                                         | 备注 |
 | ---------- | ------------------------------------------------------------ | ---- |
@@ -13,7 +13,7 @@
    - FISCO BCOS区块链环境搭建<br />参考 [FISCO BCOS安装教程](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)
 - 网络连通性<br />检查Web3SDK连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
 
-## 2. 快速开始
+## 快速开始
 权限组件的使用者包括两个角色：治理方和业务方。治理方负责权限合约的部署、配置；业务方负责接入权限合约、拦截非法调用。这一节提供一个简单但完整的示例，通过部署并为业务合约HelloWorld配置权限，以使您了解整个组件的使用流程。这一节的内容包括：
 
 - 【治理方】部署权限合约
@@ -25,13 +25,13 @@
 
 此外，操作权限合约可以通过控制台，或者后文的sdk调用的方式。本节操作示例使用了FISCO BCOS控制台作为客户端来部署合约。如果您对控制台的操作不熟悉，建议参考[FISCO BCOS控制台教程](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id7)。
 
-### 2.1. 合约下载
+### 合约下载
 通过git下载源码，获取智能合约
 ```
 git clone git@github.com:WeBankBlockchain/Gov-Auth.git 
 cd auth-manager/src/main/contracts
 ```
-### 2.2. 启动控制台
+### 启动控制台
 现在我们将所有合约代码（即上文auth-manager/src/main/contracts目录中的所有代码）拷贝到控制台的contracts/solidity目录下。
 
 生成两个控制台身份
@@ -44,7 +44,7 @@ bash get_account.sh
 bash start.sh 1 -pem [治理员pem文件，如accounts/xxx.pem]
 ```
 
-### 2.3. 部署权限合约
+### 部署权限合约
 启动控制台后，下一步就可以部署权限合约了。
 ```
 [group:1]> deploy AuthManager 1 [,] [,] 0
@@ -52,9 +52,9 @@ contact address:[权限合约地址]
 ```
 这里面AuthManager是权限治理合约。部署它的时候会传入一组与运行模式有关的参数，按上面填写即可。部署成功后，会返回"contract address"字样和权限合约地址。部署后，仅有治理员身份可以操作该权限合约。
 
-### 2.3. 部署HelloWorld合约
+### 部署HelloWorld合约
 在治理方部署了权限治理合约后，业务方现在需要将权限治理合约引入自己的智能合约。
-### 2.3.1. 编写HelloWorld合约
+### 编写HelloWorld合约
 现在我们写有一个HelloWorld智能合约，它的代码如下：
 ```
 pragma solidity ^0.4.25;
@@ -97,7 +97,7 @@ contract HelloWorld{
 - msg.sig：当前函数（本例中为hello）的函数签名。
 - msg.sender表示当前函数的调用者。
 
-### 2.3.2. HelloWorld合约部署
+### HelloWorld合约部署
 将HelloWorld.sol拷贝到控制台contracts/solidity目录下。启动控制台并部署HelloWorld合约：
 ```
 bash start.sh 
@@ -109,7 +109,7 @@ contact address: [HelloWorld合约地址]
 
 至此，业务方的接入工作已经完成，但现在部署后权限还没有起到效果，因为需要治理方在权限合约中进行权限规则配置。
 
-## 2.4. 权限配置
+## 权限配置
 现在以治理方的身份启动控制台，以便操作权限治理合约：
 ```
 bash start.sh 1 -pem [治理者pem文件，如accounts/xxx.pem]
@@ -132,7 +132,7 @@ bash start.sh 1 -pem [治理者pem文件，如accounts/xxx.pem]
 
 经过如此配置后，则仅有业务方被允许访问hello函数。
 
-## 2.5. 验证
+## 验证
 当权限规则配置完毕，这个时候对HelloWorld的非法访问就会被拦截。例如以随机的身份启动控制台：
 ```
 bash start.sh
