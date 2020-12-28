@@ -51,11 +51,14 @@ java -jar key-core-web.jar
 
 ![](img/keycoreweb.png)
 
-里面包含四项功能：
-- 私钥生成：生成一个椭圆曲线私钥。可支持明文、密文，密文可能要求输入加密口令。支持国密
-- 格式转换：明文格式的私钥和密文格式私钥的互转
-- 私钥转公钥和地址：将私钥转换为公钥和地址
-- 助记词生成：生成一个助记词，此助记词可作为私钥种子
+页面包含功能如下：
+
+| 功能 | 说明 | 备注 |
+| --- | --- | --- |
+| 私钥生成 | 生成一个椭圆曲线私钥。可支持明文、密文，密文可能要求输入加密口令 | 支持国密|
+| 格式转换 | 明文格式的私钥和密文格式私钥的互转 | 支持国密、多种加密格式|
+| 公钥和地址生成 | 将私钥转换为公钥和地址 | 支持国密|
+| 助记词生成 | 生成一个助记词，此助记词可作为私钥种子 | |
 
 ### 3.2. sdk方式使用
 
@@ -400,19 +403,20 @@ CREATE TABLE `key_pwds_info` (
 ### 4.5. 接口使用
 
 KeysManagerService类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
+| 功能 | 说明 | 
+| --- | --- |
+| createPrivateKey |生成私钥，并进行托管存储|
+| importPrivateKeyFile |导入私钥原文，并进行托管存储|
+| createPrivateKeyByParent|根据父私钥和chaincode，生成子私钥，并进行托管存储|
+| queryChildKeys |查询父私钥的所有直接下级子私钥|
+| exportPrivateKeyFile |从库中读取私钥密文，并导出到密文文件|
+| decryptPrivateKey |解密私钥密文，得到明文|
+| getEncryptPrivateKeyList |获取某用户的所有私钥密文列表|
+| getEncryptPrivateKeyByUserIdAndAddress |根据用户id、私钥地址获取私钥密文|
+| updateKeyName |更新私钥名称|
+| updateKeyPassword |重置私钥密码|
+| deleteUserKey |删除某用户的某一私钥|
 
-*   createPrivateKey：生成私钥，并进行托管存储
-*   importPrivateKeyFile：导入私钥密文文件，并进行托管存储
-*   importPrivateKey：导入私钥原文，并进行托管存储
-*   createPrivateKeyByParent: 根据父私钥和chaincode，生成子私钥，并进行托管存储
-*   queryChildKeys：查询父私钥的所有直接下级子私钥
-*   exportPrivateKeyFile: 从库中读取私钥密文，并导出到密文文件
-*   decryptPrivateKey：解密私钥密文，得到明文
-*   getEncryptPrivateKeyList：获取某用户的所有私钥密文列表
-*   getEncryptPrivateKeyByUserIdAndAddress：根据用户id、私钥地址获取私钥密文
-*   updateKeyName：更新私钥名称
-*   updateKeyPassword：重置私钥密码
-*   deleteUserKey：删除某用户的某一私钥
 
 建议您通过Spring自动注入KeysManagerService服务，示例如下：
 
