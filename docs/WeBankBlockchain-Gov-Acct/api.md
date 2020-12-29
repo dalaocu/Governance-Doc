@@ -11,7 +11,7 @@
 假如平台方采用管理员的治理模式，那么需要首先生成一个管理员的治理账户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 自动注入AdminModeGovernAccountInitializer对象
     @Autowired
     private GovernAccountInitializer governAccountInitializer;
@@ -42,7 +42,7 @@ WEGovernance createGovernAccount(Credentials credential)
 例如，以下平台方选择了治理委员会的治理模式，一共有三个参与者参与治理，治理的规则为任意的交易请求获得其中两方的同意，即可获得通过。那么我们接下来将创建一个治理账户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 自动注入GovernAccountInitializer对象
     @Autowired
     private GovernAccountInitializer governAccountInitializer;
@@ -80,7 +80,7 @@ WEGovernance createGovernAccount(List<Credentials> credentials, int threshold)
 <br />例如，以下平台方选择了治理委员会的权重投票的治理模式，一共有三个参与者参与治理，投票的权重分别为1、2、3，阈值为4，也就是说任意的赞同选票权重相加超过阈值即可获得通过。那么我们接下来将创建一个治理账户。<br />
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 自动注入GovernAccountInitializer对象
     @Autowired
     private GovernAccountInitializer governAccountInitializer;
@@ -123,7 +123,7 @@ WEGovernance createGovernAccount(List<String> credentialsList, List<BigInteger> 
 管理员模式下的管理功能均位于GovernAccountInitializer类中。
 <br />首先，注入该类：<br />
 
-```javascript
+```
 @Autowired
 private AdminModeGovernManager adminModeManager;
 ```
@@ -133,7 +133,7 @@ private AdminModeGovernManager adminModeManager;
 
 **具体调用示例：**
 
-```javascript
+```
     TransactionReceipt tr = adminModeManager.resetAccount(u1Address, u2Address);
 ```
 
@@ -158,7 +158,7 @@ private AdminModeGovernManager adminModeManager;
 
 **具体调用示例：**
 
-```javascript
+```
     TransactionReceipt tr = adminModeManager.freezeAccount(u1Address);
 ```
 
@@ -182,7 +182,7 @@ private AdminModeGovernManager adminModeManager;
 
 **具体调用示例：**
 
-```javascript
+```
     TransactionReceipt tr = adminModeManager.unfreezeAccount(u1Address);
 ```
 
@@ -206,7 +206,7 @@ private AdminModeGovernManager adminModeManager;
 
 **具体调用示例：**
 
-```javascript
+```
     TransactionReceipt tr = governAccountInitializer.cancelAccount(u1Address);
 ```
 
@@ -232,7 +232,7 @@ private AdminModeGovernManager adminModeManager;
 <br />移交管理员账户时，需要确保被移交的账户已注册，且账户状态正常。<br />
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     TransactionReceipt tr = adminModeManager.transferAdminAuth(u1Address);
 ```
 
@@ -303,7 +303,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestResetAccount(p2.getAddress(), p1.getAddress());
     // 执行投票
@@ -362,7 +362,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestFreezeAccount(p2.getAddress());
     // 执行投票
@@ -418,7 +418,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestUnreezeAccount(p2.getAddress());
     // 执行投票
@@ -474,7 +474,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestCancelAccount(p2.getAddress());
     // 执行投票
@@ -532,7 +532,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestResetThreshold(newThreshold);
     // 执行投票
@@ -588,7 +588,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestRemoveGovernAccount(p2.getAddress());
     // 执行投票
@@ -644,7 +644,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestAddGovernAccount(p2.getAddress());
     // 执行投票
@@ -704,7 +704,7 @@ private VoteModeGovernManager voteModeGovernManager;
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     BigInteger requestId = voteModeGovernManager.requestAddGovernAccount(p2.getAddress() , weight);
     // 执行投票
@@ -926,7 +926,7 @@ private EndUserOperManager endUserOperManager;
 <br />社交好友投票相关的操作在 SocialVoteManager 类中。<br />
 <br />**具体调用示例：**<br />
 
-```javascript
+```
     // 发起投票请求
     TransactionReceipt t = socialVoteManager.requestResetAccount(u1.getAddress(), p1.getAddress());
     // 执行投票
