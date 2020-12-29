@@ -381,9 +381,8 @@ Weledger项目完整集成了WeBankBlockchain-Gov-Acct的Java SDK，相关的用
 
 ## 6、测试代码说明
 
-### CI/CD测试代码
 
-#### 链配置
+### 6.1、链配置
 
 打开src/main/application.properties，修改链配置信息。
 
@@ -396,7 +395,7 @@ system.nodeStr=[ip]:[channel_port]
 system.groupId=1
 ```
 
-#### 自动运行
+### 6.2、自动运行
 
 ```
 ./gradlew test
