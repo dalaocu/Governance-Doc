@@ -20,7 +20,7 @@
 ```
 ```eval_rst
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
 
    term_def.md
    intro.md
