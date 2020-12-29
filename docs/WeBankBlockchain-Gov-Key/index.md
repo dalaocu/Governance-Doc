@@ -12,22 +12,21 @@
 ```eval_rst
 .. admonition:: **主要特性**
 
-    - 多种密钥生成方式
-    - 多种密钥加密格式
-    - 多种密钥托管方案
+    - 多种主流密钥生成方式
+    - 多种主流密钥生成方式
+    - 支持私钥加密导出
+    - 支持企业级密钥托管方案
     - 支持分片与还原
-    - 常规密码学操作
+    - 支持可视化操作界面
+    - 支持通用密码学操作
     - 国密支持
-    
 ```
 ```eval_rst
 .. toctree::
    :maxdepth: 3
    
    intro.md
+   quickstart.md
    concepts.md
-   quickstart1.md
-   quickstart2.md
    faq.md
-   appendix.md
 ```

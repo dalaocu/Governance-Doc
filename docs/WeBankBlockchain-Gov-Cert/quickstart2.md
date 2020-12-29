@@ -27,7 +27,7 @@ cert-mgr用于证书托管，适合B2B2C场景。
 
 目前支持从源码进行部署。
 
-### 1. 获取源码
+### 获取源码
 
 通过git下载源码：
 
@@ -40,7 +40,7 @@ https://github.com/WeBankBlockchain/Gov-Cert.git
 cd Gov-Cert/cert-mgr
 ```
 
-### 2. 编译源码
+### 编译源码
 
 方式一：如果服务器已安装Gradle
 ```
@@ -52,7 +52,7 @@ gradle build -x test
 chmod +x ./gradlew && ./gradlew build -x test
 ```
 
-### 3. 导入jar包
+### 导入jar包
 
 cert-mgr编译之后在根目录下会生成dist文件夹，文件夹中包含cert-mgr.jar。可以将cert-mgr.jar导入到自己的项目中，例如拷贝到libs目录下，然后进行依赖配置。gradle推荐依赖配置如下，然后再对自己的项目进行编译。
 
@@ -104,7 +104,7 @@ dependencies {
 
 cert-mgr使用了SpringBoot自动装配功能，所以只要您按照上文添加了SpringBoot依赖，就可以自动装配所需的Bean。
 
-### 1. 配置
+### 配置
 
 请参考下面的模板，配置application.properties。
 ```
@@ -119,7 +119,7 @@ spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
-### 2.建表
+### 建表
 
 如果在上述配置中指定了**spring.jpa.properties.hibernate.hbm2ddl.auto=update**，则jpa会帮助用户自动建立数据表。
 
@@ -185,7 +185,7 @@ spring.jpa.properties.hibernate.hbm2ddl.auto=validate
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-### 3.接口使用
+### 接口使用
 
 CertManagerService类是证书管理的统一入口，覆盖证书管理的全生命周期，包含如下功能：
 

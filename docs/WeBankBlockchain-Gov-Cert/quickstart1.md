@@ -26,7 +26,7 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 
 目前支持从源码进行部署。
 
-### 1. 获取源码
+### 获取源码
 
 通过git下载源码：
 
@@ -39,7 +39,7 @@ https://github.com/WeBankBlockchain/Gov-Cert.git
 cd Gov-Cert/cert-toolkit
 ```
 
-### 2. 编译源码
+### 编译源码
 
 方式一：如果服务器已安装Gradle
 ```
@@ -51,7 +51,7 @@ gradle build -x test
 chmod +x ./gradlew && ./gradlew build -x test
 ```
 
-### 3. 导入jar包
+### 导入jar包
 
 cert-toolkit编译之后在根目录下会生成dist文件夹，文件夹中包含cert-toolkit.jar。可以将cert-toolkit.jar导入到自己的项目中，例如libs目录下。然后进行依赖配置。gradle依赖配置如下，然后再对自己的项目进行编译。
 
@@ -78,7 +78,7 @@ dependencies {
 }
 
 ```
-### 4. 接口使用
+### 接口使用
 
 cert-toolkit中包含若干类服务接口，如下，接口使用可以直接通过new对象然后调用，同时也支持依赖注入的方式使用。
 
@@ -97,7 +97,7 @@ public class PkeytestApplication {
 ```
 
 
-#### 4.1 CertService使用
+#### CertService使用
 
 CertService提供了三种功能接口：
 - createRootCertificate：生成根证书，即自签名证书
