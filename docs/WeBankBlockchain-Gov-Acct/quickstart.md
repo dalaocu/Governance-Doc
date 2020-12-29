@@ -518,7 +518,7 @@ contract TransferDemo {
 <br />也可以通过控制台或WeBASE-Front等工具部署到链上，在此不再赘述。<br />
 <br />更加完整地引入治理合约的例子和使用方式可以参考工程中附带的samples demo。我们提供了基于存证和积分转账场景的两个demo。<br />
 
-## 4. 使用Java SDK
+## 使用Java SDK
 相比通过控制台或WeBASE来部署和调用合约，使用Java SDK的方式更为地方便、快捷；我们更推荐在业务系统中通过集成Java SDK的方式来使用账户治理组件。
 
 为了便于使用，我们提供了[使用Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo)，可供参考。

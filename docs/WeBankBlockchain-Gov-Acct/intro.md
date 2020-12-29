@@ -382,7 +382,7 @@ return value: (true)
 ## 测试代码说明
 
 
-### 6.1、链配置
+### 链配置
 
 打开src/main/application.properties，修改链配置信息。
 
@@ -395,7 +395,7 @@ system.nodeStr=[ip]:[channel_port]
 system.groupId=1
 ```
 
-### 6.2、自动运行
+### 自动运行
 
 ```
 ./gradlew test
