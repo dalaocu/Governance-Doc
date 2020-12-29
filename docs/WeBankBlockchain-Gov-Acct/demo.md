@@ -282,7 +282,3 @@ system.groupId=1
 ```
 <br />可查看自动化测试的运行结果报告。<br />
 
-
-## Java SDK 详细功能API使用说明
-
-详细的API使用说明可参考《[API使用说明](api.md)》
