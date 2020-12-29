@@ -21,8 +21,10 @@
 ```eval_rst
 .. toctree::
    :maxdepth: 3
-   
+
+   term_def.md
    intro.md
    quickstart.md
    api.md
+   demo.md
 ```
