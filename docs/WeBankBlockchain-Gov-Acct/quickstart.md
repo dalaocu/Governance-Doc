@@ -576,7 +576,8 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
 
 
 ```
-    WEGovernance govern = adminModeManager.createGovernAccount(credentials);
+    AdminModeGovernManager adminModeGovernManager = new AdminModeGovernManager();
+    WEGovernance govern = adminModeGovernManager.createGovernAccount(credentials);
 ```
 
 
@@ -590,7 +591,8 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
     list.add(credentials1.getAddress());
     list.add(credentials1.getAddress());
     // 创建账户
-    WEGovernance govern = adminModeManager.createGovernAccount(list, 2);
+    VoteModeGovernManager voteModeGovernManager = new VoteModeGovernManager();
+    WEGovernance govern = voteModeGovernManager.createGovernAccount(list, 2);
 ```
 
 
@@ -610,7 +612,8 @@ GovernAccountInitializer governAccountInitializer = factory.newGovernAccountInit
     weights.add(BigInteger.valueOf(2));
     weights.add(BigInteger.valueOf(3));
     // 创建账户
-    WEGovernance govern = adminModeManager.createGovernAccount(list, weights, 4);
+    VoteModeGovernManager voteModeGovernManager = new VoteModeGovernManager();
+    WEGovernance govern = voteModeGovernManager.createGovernAccount(list, weights, 4);
 ```
 
 <br />以上三种治理合约只需要任选一种模式创建即可，最后都可以获得治理账户WEGovernance对象。<br />

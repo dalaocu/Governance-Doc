@@ -54,7 +54,7 @@
 - **合约代码**，最核心的账户治理实现部分。当前版本提供了基于Solidity语言实现，完全适配FISCO BCOS。 理论上可在任何支持了EVM虚拟机的区块链系统上运行。
 - **Java SDK**。适配了合约代码。通过集成Java SDK以后，可以适配和调用账户治理的所有合约接口。此外，进一步对使用接口进行简化和封装，可符合Java程序员的使用习惯。
 - **合约集成Demo**。提供了基于存证和积分转账场景的两个demo。（详情可参考合约中samples目录）
-- **SDK集成Demo**。以Weledger项目为例，展示了如何使用Java SDK。（详情可参考Weleder项目）
+- **SDK集成Demo**。提供了SDK集成和使用的demo，展示了如何使用Java SDK。（详情可参考 [Gov-Acct-Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo/) ）
 - **TDD测试代码**。包含了全套的合约测试代码，轻松支持CI/CD。(详情可参考Java SDK中src/test/java目录下的代码)
 - **web管理台**  直接通过可视化页面来进行操作，正在开发中……
 
@@ -377,7 +377,7 @@ return value: (true)
 ```
 ### SDK集成Demo
 
-Weledger项目完整集成了WeBankBlockchain-Gov-Acct的Java SDK，相关的用法详情可参考Weledger项目的文档和代码。
+提供了SDK集成和使用的demo，展示了如何使用Java SDK。 详情可参考 [Gov-Acct-Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo/)
 
 ## 测试代码说明
 
