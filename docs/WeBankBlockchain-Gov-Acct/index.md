@@ -24,4 +24,5 @@
    
    intro.md
    quickstart.md
+   api.md
 ```
