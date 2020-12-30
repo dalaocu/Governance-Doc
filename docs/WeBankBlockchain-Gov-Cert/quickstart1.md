@@ -18,7 +18,7 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 | Java | JDK[1.8] | |
 | Git | 下载的安装包使用Git | |
 
-如果您还未安装这些依赖，请参考[附录](appendix.md)。
+如果您还未安装这些依赖，请参考[附录](../appendix.md)。
 
 
 
