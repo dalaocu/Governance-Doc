@@ -74,7 +74,7 @@ pragma solidity ^0.4.25;
 
 import "./IAuthControl.sol";
 contract HelloWorld{
-    IAuthManager private _authManager;
+    IAuthControl private _authManager;
     constructor(IAuthControl authManager){
         _authManager = authManager;
     }
