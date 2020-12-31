@@ -21,7 +21,7 @@ cert-mgr用于证书托管，适合B2B2C场景。
 | Java | JDK[1.8] | |
 | Git | 下载的安装包使用Git | |
 
-如果您还未安装这些依赖，请参考[附录](appendix.md)。
+如果您还未安装这些依赖，请参考[附录](../appendix.md)。
 
 ## 部署教程
 
@@ -32,12 +32,12 @@ cert-mgr用于证书托管，适合B2B2C场景。
 通过git下载源码：
 
 ```
-https://github.com/WeBankBlockchain/WeBankBlockchain-Gov-Cert.git
+https://github.com/WeBankBlockchain/Gov-Cert.git
 ```
 
 进入目录：
 ```
-cd WeBankBlockchain-Gov-Cert/cert-mgr
+cd Gov-Cert/cert-mgr
 ```
 
 ### 编译源码
