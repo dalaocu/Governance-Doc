@@ -484,7 +484,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 - 组内移除函数：6
 - 取消函数和组关联：7
 
-## 集成javaSdk
+## 集成Sdk
 在前面示例中，我们以控制台来操作部署、操作权限合约。除了控制台外，本组件也支持通过java代码来执行这些操作。推荐使用集成SDK的方式来进行权限治理，这样可以在没有控制台的情况下进行权限合约调用。
 
 ### 源码下载
@@ -536,47 +536,30 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         //exclude group: 'junit', module: 'junit'
     }
-    compile ('org.fisco-bcos:web3sdk:2.2.2')
-    compile fileTree(dir:'libs',include:['*.jar'])
+    compile ('org.fisco-bcos.java-sdk:java-sdk:2.7.0') {
+        exclude group: 'org.slf4j'
+    }
+
 }
 ```
+#### 链连接配置
 
-#### 配置
+配置存放在config.toml，参考[java sdk配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)
 
-从控制台拷贝如下几个文件到业务工程的main/resources目录下：
-
-- conf/ca.crt, conf/node.key, conf/node.crt
-
-拷贝后，业务系统main/resources目录应为如下结构：
+#### 连接配置
 
 ```
-resources
- - ca.crt
- - node.crt
- - node.key
- - application.properties
-```
-
-配置application.properties：
-
-```
-### chain
-# 机构名
-system.orgId=jigou
-# 节点连接字符串
-system.nodeStr=[节点连接字符串]
-# 群组id
+system.sdkConfigPath=[config.toml路径]
 system.groupId=1
-# 加密方式，0-ECC， 1-国密
-system.encryptType=0
-
-## 私钥，请更换为对应16进制私钥，不要以0x前缀
-system.privateKey=
 ```
 #### 使用方式示例
 
