@@ -69,7 +69,8 @@ dependencies {
 }
 
 ```
-### 接口使用
+
+### 接口说明
 
 cert-toolkit中包含若干类服务接口，如下，接口使用可以通过new对象然后调用
 
@@ -80,8 +81,6 @@ cert-toolkit中包含若干类服务接口，如下，接口使用可以通过ne
 CertService certService = new CertService();
 
 ```
-
-#### CertService基本接口
 
 CertService提供了三种功能接口：
 - createRootCertificate：生成根证书，即自签名证书
@@ -95,7 +94,7 @@ CertService提供了三种功能接口：
 - generateKPAndRootCert：生成密钥对和根证书
 
 
-#### 证书生成三步骤
+### 证书生成三步骤
 
 下面介绍下证书的生成流程
 
