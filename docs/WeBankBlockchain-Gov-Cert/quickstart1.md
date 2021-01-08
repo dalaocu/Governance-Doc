@@ -173,4 +173,4 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 
 ##### 更多使用方式
 
-参照[Java API](./javadoc/toolkitdoc/index.md)
+参照[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/index.html)

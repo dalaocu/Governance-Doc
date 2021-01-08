@@ -25,7 +25,7 @@
    concepts.md
    quickstart1.md
    quickstart2.md
+   Toolkit JavaDoc <https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/index.html>
+   Mgr JavaDoc <https://gov-doc.readthedocs.io/zh_CN/dev/certmgrdoc/index.html>
    faq.md
-   Cert-Toolkit JavaDoc <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/javadoc/index.html>
-   appendix.md
 ```
