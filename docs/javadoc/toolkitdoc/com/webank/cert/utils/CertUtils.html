@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9};
 var tabs = {65535:["t0","所有方法"],1:["t1","静态方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -37,7 +37,7 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <ul class="navList" title="导航">
-<li><a href="../../../../navigation.html">概览</a></li>
+<li><a href="../../../../overview-summary.html">概览</a></li>
 <li><a href="package-summary.html">程序包</a></li>
 <li class="navBarCell1Rev">类</li>
 <li><a href="package-tree.html">树</a></li>
@@ -154,49 +154,58 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#convertStrToCsr-java.lang.String-">convertStrToCsr</a></span>(java.lang.String&nbsp;csrStr)</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>static java.security.cert.X509CRL</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readCrl-java.lang.String-">readCrl</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static java.security.cert.X509Certificate</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readCrt-java.lang.String-">readCrt</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static org.bouncycastle.pkcs.PKCS10CertificationRequest</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readCsr-java.lang.String-">readCsr</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static org.bouncycastle.openssl.PEMKeyPair</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readKey-java.lang.String-">readKey</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readPEMAsString-java.lang.Object-">readPEMAsString</a></span>(java.lang.Object&nbsp;object)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readPEMObject-java.lang.String-">readPEMObject</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static java.security.Key</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readRSAKey-java.lang.String-">readRSAKey</a></span>(java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#readStringAsPEM-java.lang.String-">readStringAsPEM</a></span>(java.lang.String&nbsp;string)</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeCrt-java.security.cert.X509Certificate-java.lang.String-">writeCrt</a></span>(java.security.cert.X509Certificate&nbsp;certificate,
-        java.lang.String&nbsp;filePath)</code>&nbsp;</td>
-</tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeCsr-org.bouncycastle.pkcs.PKCS10CertificationRequest-java.lang.String-">writeCsr</a></span>(org.bouncycastle.pkcs.PKCS10CertificationRequest&nbsp;request,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeCrl-java.security.cert.X509CRL-java.lang.String-">writeCrl</a></span>(java.security.cert.X509CRL&nbsp;crl,
         java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeKey-java.security.Key-java.lang.String-">writeKey</a></span>(java.security.Key&nbsp;key,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeCrt-java.security.cert.X509Certificate-java.lang.String-">writeCrt</a></span>(java.security.cert.X509Certificate&nbsp;certificate,
         java.lang.String&nbsp;filePath)</code>&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeCsr-org.bouncycastle.pkcs.PKCS10CertificationRequest-java.lang.String-">writeCsr</a></span>(org.bouncycastle.pkcs.PKCS10CertificationRequest&nbsp;request,
+        java.lang.String&nbsp;filePath)</code>&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeKey-java.security.Key-java.lang.String-">writeKey</a></span>(java.security.Key&nbsp;key,
+        java.lang.String&nbsp;filePath)</code>&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/cert/utils/CertUtils.html#writeToFile-java.lang.Object-java.lang.String-">writeToFile</a></span>(java.lang.Object&nbsp;object,
            java.lang.String&nbsp;filePath)</code>&nbsp;</td>
@@ -294,6 +303,32 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a name="readCrl-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>readCrl</h4>
+<pre>public static&nbsp;java.security.cert.X509CRL&nbsp;readCrl(java.lang.String&nbsp;filePath)
+                                          throws java.io.FileNotFoundException,
+                                                 java.security.cert.CRLException</pre>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.io.FileNotFoundException</code></dd>
+<dd><code>java.security.cert.CRLException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="writeCrl-java.security.cert.X509CRL-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>writeCrl</h4>
+<pre>public static&nbsp;void&nbsp;writeCrl(java.security.cert.X509CRL&nbsp;crl,
+                            java.lang.String&nbsp;filePath)</pre>
+</li>
+</ul>
 <a name="convertStrToCert-java.lang.String-">
 <!--   -->
 </a>
@@ -324,12 +359,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>writeCrt</h4>
 <pre>public static&nbsp;void&nbsp;writeCrt(java.security.cert.X509Certificate&nbsp;certificate,
-                            java.lang.String&nbsp;filePath)
-                     throws java.io.FileNotFoundException</pre>
-<dl>
-<dt><span class="throwsLabel">抛出:</span></dt>
-<dd><code>java.io.FileNotFoundException</code></dd>
-</dl>
+                            java.lang.String&nbsp;filePath)</pre>
 </li>
 </ul>
 <a name="readCsr-java.lang.String-">
@@ -353,12 +383,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>writeCsr</h4>
 <pre>public static&nbsp;void&nbsp;writeCsr(org.bouncycastle.pkcs.PKCS10CertificationRequest&nbsp;request,
-                            java.lang.String&nbsp;filePath)
-                     throws java.io.FileNotFoundException</pre>
-<dl>
-<dt><span class="throwsLabel">抛出:</span></dt>
-<dd><code>java.io.FileNotFoundException</code></dd>
-</dl>
+                            java.lang.String&nbsp;filePath)</pre>
 </li>
 </ul>
 <a name="writeToFile-java.lang.Object-java.lang.String-">
@@ -419,7 +444,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <ul class="navList" title="导航">
-<li><a href="../../../../navigation.html">概览</a></li>
+<li><a href="../../../../overview-summary.html">概览</a></li>
 <li><a href="package-summary.html">程序包</a></li>
 <li class="navBarCell1Rev">类</li>
 <li><a href="package-tree.html">树</a></li>

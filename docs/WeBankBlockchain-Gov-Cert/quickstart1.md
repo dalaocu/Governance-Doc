@@ -170,6 +170,56 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 执行上述方法会在控制台打印出子证书内容,并写入out/child/child.crt文件中，可从第二步开始，继续下一级证书的签发。
 
 
+##### 证书链验证
+
+上述步骤中我们生成了多级证书，这里我们对生成的证书链进行验证，查看证书是否有效
+
+示例代码如下：
+
+```
+    CertService certService = new CertService();
+    X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
+    X509Certificate child = CertUtils.readCrt("out/child/child.crt);
+    List<X509Certificate> certChain = new ArrayList<>();
+    //可添加多级证书...这里以上述步骤中生成的两个证书为例
+    certChain.add(root);
+    certChain.add(child);
+    System.out.println("验证结果 = " + certService.verify(root,certChain));
+```
+
+执行上述方法，可以在控制台看到证书链的验证结果
+
+##### 证书撤销
+
+我们可以对有效期内的证书进行吊销操作
+
+```
+    CertService certService = new CertService();
+    //从文件中读取证书（上述步骤中生成的证书路径）
+    X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
+    X509Certificate child = CertUtils.readCrt("out/child/child.crt");
+    //从文件中读取私钥（上述步骤中生成的私钥路径）
+    PrivateKey caPrivateKey = (PrivateKey) CertUtils.readRSAKey("out/ca/ca_pri.key");
+    List<X509Certificate> revokeCertificates = new ArrayList<>();
+    revokeCertificates.add(child);
+    //撤销上述步骤中签发的子证书
+    X509CRL X509Crl = certService.createCRL(root,caPrivateKey,revokeCertificates,"SHA256WITHRSA");
+    System.out.println("吊销证书路径：out/child/child.crt");
+ 
+
+    
+    //验证吊销证书后的证书链
+    List<X509Certificate> certChain = new ArrayList<>();
+    //可添加多级证书...这里以上述步骤中生成的两个证书为例
+    certChain.add(root);
+    certChain.add(child);
+    System.out.println("验证结果 = " + certService.verify(root,certChain));
+```
+
+执行上述方法，可以在控制台看到吊销后的证书链验证结果，可以与上一步的验证结果进行比较
+
+
+
 
 ##### 更多使用方式
 
