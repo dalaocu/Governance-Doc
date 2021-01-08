@@ -31,12 +31,14 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 通过git下载源码：
 
 ```
-https://github.com/WeBankBlockchain/Gov-Cert.git
+git clone https://github.com/WeBankBlockchain/Gov-Cert.git
 ```
 
 进入目录：
 ```
-cd Gov-Cert/cert-toolkit
+cd Gov-Cert
+git checkout dev
+cd cert-toolkit
 ```
 
 ### 编译源码
@@ -56,16 +58,33 @@ chmod +x ./gradlew && ./gradlew build -x test
 cert-toolkit编译之后在cert-toolkit目录下会生成dist文件夹，文件夹中包含cert-toolkit.jar。可以将cert-toolkit.jar导入到自己的项目中，例如libs目录下。然后进行依赖配置。gradle依赖配置如下，然后再对自己的项目进行编译。
 
 ```
+
 repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        url "http://maven.aliyun.com/nexus/content/groups/public/"
-    }
+	maven {
+		url "http://maven.aliyun.com/nexus/content/groups/public/"
+	}
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+	maven { url "https://dl.bintray.com/ethereum/maven/" }
+	mavenLocal()
+	jcenter()
 }
 
 dependencies {
-    compile fileTree(dir:'libs',include:['*.jar'])
+	testCompile 'junit:junit:4.12'
+	compile 'org.slf4j:slf4j-api:1.7.30'
+	compile ('org.projectlombok:lombok:1.18.6')
+	annotationProcessor ('org.projectlombok:lombok:1.18.6')
+	compile('ch.qos.logback:logback-core:1.2.3')
+	compile('ch.qos.logback:logback-classic:1.2.3')
+	compile "org.apache.commons:commons-lang3:3.6"
+	compile "commons-io:commons-io:2.6"
+	compile 'commons-codec:commons-codec:1.4'
+	compile 'com.lhalcyon:bip32:1.0.0'
+	compile 'org.web3j:core:3.4.0'
+	compile 'com.lambdaworks:scrypt:1.4.0'
+	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+	compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
+	compile fileTree(dir:'libs',include:['*.jar'])
 }
 
 ```
@@ -112,7 +131,7 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
     KeyPair keyPair = KeyUtils.generateKeyPair();
     //CertUtils工具提供了证书读写解析的相关能力
     String priStr = CertUtils.readPEMAsString(keyPair.getPrivate());
-    String csrStr = certService.generateCertRequestByDefaultConf(info, priStr, "out/child/child.csr");
+    String csrStr = certService.generateCertRequestByDefaultConf(info, priStr, "out/child", "child");
     System.out.println(csrStr);
 ```
 
@@ -129,7 +148,8 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 ```
     //第一种方式：参数为生成相关文件路径
     CertService certService = new CertService();
-    String childStr2 = certService.generateChildCertByDefaultConf("out/ca/ca.crt","out/child/child.csr","out/ca/ca_pri.key", "out/child/child.crt");
+    String childStr2 = certService.generateChildCertByDefaultConf("out/ca/ca.crt","out/child/child.csr","out/ca/ca_pri.key", "out/child" ,
+           "child");
     System.out.println(childStr2);
 ```
 
@@ -137,9 +157,14 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
     //第二种方式：参数为对应字符串
     CertService certService = new CertService();
     String caKey = "复制out/ca/ca_pri.key中内容到此处";
-    String caStr = "复制out/ca/ca.cert中内容到此处;"
+    String caStr = "复制out/ca/ca.cert中内容到此处;";
     String csrStr = "复制out/child/child.csr中内容到此处";
-    String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKeym,"out/child/child.crt");
+    String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKey);
+    try {
+        CertUtils.writeCrt(CertUtils.convertStrToCert(childStr),"out/child/child.crt");
+    } catch (CertificateException e) {
+        e.printStackTrace();
+    }
     System.out.println(childStr);
 
 ```
@@ -155,13 +180,18 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 
 ```
     CertService certService = new CertService();
-    X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
-    X509Certificate child = CertUtils.readCrt("out/child/child.crt);
-    List<X509Certificate> certChain = new ArrayList<>();
-    //可添加多级证书...这里以上述步骤中生成的两个证书为例
-    certChain.add(root);
-    certChain.add(child);
-    System.out.println("验证结果 = " + certService.verify(root,certChain));
+    try {
+        X509Certificate root = null;
+        root = CertUtils.readCrt("out/ca/ca.crt");
+        X509Certificate child = CertUtils.readCrt("out/child/child.crt");
+        List<X509Certificate> certChain = new ArrayList<>();
+        //可添加多级证书...这里以上述步骤中生成的两个证书为例
+        certChain.add(root);
+        certChain.add(child);
+        System.out.println("验证结果 = " + certService.verify(root, certChain));
+    } catch (CertificateException | FileNotFoundException e) {
+        e.printStackTrace();
+    }
 ```
 
 执行上述方法，可以在控制台看到证书链的验证结果
@@ -172,23 +202,27 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 
 ```
     CertService certService = new CertService();
-    //从文件中读取证书（上述步骤中生成的证书路径）
-    X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
-    X509Certificate child = CertUtils.readCrt("out/child/child.crt");
-    //从文件中读取私钥（上述步骤中生成的私钥路径）
-    PrivateKey caPrivateKey = (PrivateKey) CertUtils.readRSAKey("out/ca/ca_pri.key");
-    List<X509Certificate> revokeCertificates = new ArrayList<>();
-    revokeCertificates.add(child);
-    //撤销上述步骤中签发的子证书
-    X509CRL X509Crl = certService.createCRL(root,caPrivateKey,revokeCertificates,"SHA256WITHRSA");
-    System.out.println("吊销证书路径：out/child/child.crt");
+    try {
+        //从文件中读取证书（上述步骤中生成的证书路径）
+        X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
+        X509Certificate child = CertUtils.readCrt("out/child/child.crt");
+        //从文件中读取私钥（上述步骤中生成的私钥路径）
+        PrivateKey caPrivateKey = (PrivateKey) CertUtils.readRSAKey("out/ca/ca_pri.key");
+        List<X509Certificate> revokeCertificates = new ArrayList<>();
+        revokeCertificates.add(child);
+        //撤销上述步骤中签发的子证书
+        X509CRL X509Crl = certService.createCRL(root,caPrivateKey,revokeCertificates,"SHA256WITHRSA");
+        System.out.println("吊销证书路径：out/child/child.crt");
     
-    //验证吊销证书后的证书链
-    List<X509Certificate> certChain = new ArrayList<>();
-    //可添加多级证书...这里以上述步骤中生成的两个证书为例
-    certChain.add(root);
-    certChain.add(child);
-    System.out.println("验证结果 = " + certService.verify(root,certChain));
+        //验证吊销证书后的证书链
+        List<X509Certificate> certChain = new ArrayList<>();
+        //可添加多级证书...这里以上述步骤中生成的两个证书为例
+        certChain.add(root);
+        certChain.add(child);
+        System.out.println("验证结果 = " + certService.verify(root,certChain));
+    } catch (CertificateException | FileNotFoundException e) {
+        e.printStackTrace();
+    }
 ```
 
 执行上述方法，可以在控制台看到吊销后的证书链验证结果，可以与上一步的验证结果进行比较
