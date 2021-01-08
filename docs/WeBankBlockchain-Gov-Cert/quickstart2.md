@@ -2,7 +2,8 @@
 # cert-mgr使用
 
 ## 功能介绍
-cert-mgr用于证书托管，适合B2B2C场景。
+
+cert-mgr用于证书托管。
 
 证书管理中，证书相关的私钥由单独的私钥表保存，还包含了证书表和请求表，生成的证书会保存在证书表中，子证书的请求会保存在请求表中。
 
@@ -74,26 +75,6 @@ dependencies {
         //exclude group: 'junit', module: 'junit'
     }
     compile 'org.springframework.boot:spring-boot-starter-jta-atomikos'
-    compile ('org.projectlombok:lombok:1.18.8')
-    compile ('org.projectlombok:lombok:1.18.8')
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
-    compile "org.apache.commons:commons-lang3:3.6"
-    compile "commons-io:commons-io:2.6"
-
-    compile "com.fasterxml.jackson.core:jackson-core:2.9.6"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.9.6"
-    compile "com.fasterxml.jackson.core:jackson-annotations:2.9.6"
-
-    compile 'com.lhalcyon:bip32:1.0.0'
-    //compile 'io.github.novacrypto:BIP44:0.0.3'
-
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
-    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
-    compile 'org.web3j:core:3.4.0'
-    compile 'com.lambdaworks:scrypt:1.4.0'
-    compile 'commons-codec:commons-codec:1.9'
-
-    compile 'mysql:mysql-connector-java'
     compile fileTree(dir:'libs',include:['*.jar'])
 }
 
@@ -108,7 +89,7 @@ cert-mgr使用了SpringBoot自动装配功能，所以只要您按照上文添�
 
 请参考下面的模板，配置application.properties。
 ```
-## 加密后的私钥存储url
+## 证书存储db
 spring.datasource.url=jdbc:mysql://[ip]:[port]/pkey_mgr?autoReconnect=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8
 spring.datasource.username=
 spring.datasource.password=
@@ -127,13 +108,11 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 spring.jpa.properties.hibernate.hbm2ddl.auto=validate
 ```
-然后按下面方式手动建表。
+然后按下面方式手动建表，默认开启自动建表
 
 1） 在数据源运行下述建表语句：
 
 ```
- 
- //证书管理
  -- Create syntax for TABLE 'cert_keys_info'
  drop table if exists cert_keys_info;
  CREATE TABLE `cert_keys_info` (
@@ -185,7 +164,7 @@ spring.jpa.properties.hibernate.hbm2ddl.auto=validate
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-### 接口使用
+### 接口说明
 
 CertManagerService类是证书管理的统一入口，覆盖证书管理的全生命周期，包含如下功能：
 
@@ -202,403 +181,178 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 *   queryCertRequestByCsrId：根据id证书请求
 *   exportCertToFile：证书导出
 
-#### createRootCert
+详情参考[Java doc]()
+
+
+### 示例说明
+
+下面介绍使用的例子
+
+#### 实例注入
+
+```
+    @Autowired
+    private CertManagerService certManagerService;
+
+    static {
+        if (Security.getProvider("BC") == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
+```
+
+
+#### 生成根证书
 
 生成根证书，提供了多种封装接口，可按需使用
 
+示例代码如下
+
 ```
-    @Test
-    public void testCreateRootCert0() throws Exception{
-        X500NameInfo issuer = X500NameInfo.builder()
+    X500NameInfo issuer = X500NameInfo.builder()
                 .commonName("chain")
                 .organizationName("fisco-bcos")
                 .organizationalUnitName("chain")
                 .build();
-        String userId = "wangyue";
-        String cert = certManagerService.createRootCert(userId,issuer);
-        System.out.println(cert);
-    }
-
-    @Test
-    public void testCreateRootCert1() throws Exception{
-        X500NameInfo issuer = X500NameInfo.builder()
-                .commonName("chain")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("chain")
-                .build();
-        String userId = "wangyue";
-        Date beginDate = new Date();
-        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-        String cert = certManagerService.createRootCert(userId,issuer,beginDate,endDate);
-        System.out.println(cert);
-    }
-
-    @Test
-    public void testCreateRootCert3() throws Exception{
-        X500NameInfo issuer = X500NameInfo.builder()
-                .commonName("chain")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("chain")
-                .build();
-        String userId = "wangyue";
-        Date beginDate = new Date();
-        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-        KeyUsage keyUsage = new KeyUsage(KeyUsage.dataEncipherment);
-        String cert = certManagerService.createRootCert(userId,1,issuer,keyUsage,beginDate,endDate);
-        System.out.println(cert);
-    }
-
-    @Test
-    public void testCreateRootCert4() throws Exception{
-        X500NameInfo issuer = X500NameInfo.builder()
-                .commonName("chain")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("chain")
-                .build();
-        String userId = "wangyue";
-        Date beginDate = new Date();
-        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-        String pemPriKey = "此处填入私钥";
-
-        String str = certManagerService.createRootCert(userId,pemPriKey,KeyAlgorithmEnums.RSA,issuer,beginDate,endDate);
-        System.out.println(str);
-    }
-```
-
-执行过后，会生成根证书并保存
-
-**涉及参数说明**：
-
-- userId: 用户id
-
-- issuer: 签发者信息
-
-- beginDate：证书生效时间
-
-- endDate：证书失效时间
-
-- keyUsage：证书用途
-
-- certKeyId：证书签名私钥id
-
-
-#### createRootCertByHexPriKey
-
-私钥Hex格式作为入参生成根证书
+    //用户id，如Bob
+    String userId = "Bob";
+    //有效期
+    Date beginDate = new Date();
+    Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
+    //默认配置生成：采用RSA密钥对，也可调用其他封装接口，自定义密钥类型，支持pem和Hex格式
+    CertVO cert = certManagerService.createRootCert(userId,issuer,beginDate,endDate);
+    System.out.println("证书id: " + cert.getPkId());
+    System.out.println("证书签发者: " + cert.getUserId());
+    System.out.println("父证书id: " + cert.getPCertId());
+    System.out.println("签发私钥id: " + cert.getIssuerKeyId());
+    System.out.println("证书内容: " + cert.getCertContent());
 
 ```
-    @Test
-    public void testCreateRootCertByHexPriKey() throws Exception{
-        X500NameInfo issuer = X500NameInfo.builder()
-                .commonName("chain")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("chain")
-                .build();
-        String userId = "wangyue";
-        Date beginDate = new Date();
-        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-        KeyPair keyPair = KeyUtils.generateKeyPair();
-        String hexPriKey = Numeric.toHexString(keyPair.getPrivate().getEncoded());
-        String cert = certManagerService.createRootCertByHexPriKey(userId,hexPriKey,KeyAlgorithmEnums.RSA,issuer,beginDate,endDate);
-        System.out.println(cert);
-    }
-```
-执行过后，会生成根证书并保存
+执行上述代码，可在控制台看到生成的证书内容，证书和相关联的签名私钥会保存在db中
 
-**涉及参数说明**：
+#### 证书列表查询
 
-- userId: 用户id
+可以通过接口按一定条件查询已签发的证书列表
 
-- issuer: 签发者信息
+示例代码如下
 
-- beginDate：证书生效时间
-
-- endDate：证书失效时间
-
-- hexPriKey：证书签名私钥Hex格式
-
-
-#### createCertRequest
-
-生成用于生成子证书的请求，提供了两个封装接口，可按需使用
 
 ```
-    @Test
-    public void testCreateCertRequest0() throws Exception{
-        X500NameInfo subject = X500NameInfo.builder()
-                .commonName("agancy")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("agancy")
-                .build();
-        String userId = "wangyue1";
-        String csr;
-        csr = certManagerService.createCertRequest(userId,1, subject);
-        System.out.println(csr);
-    }
-
-    @Test
-    public void testCreateCertRequest1() throws Exception{
-        X500NameInfo subject = X500NameInfo.builder()
-                .commonName("agancy")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("agancy")
-                .build();
-        String userId = "wangyue1";
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDSA", "BC");
-        ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec("secp256k1");
-        keyPairGenerator.initialize(ecGenParameterSpec, new SecureRandom());
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-
-        String csr = certManagerService.createCertRequest(userId, CertUtils.readPEMAsString(privateKey),
-                KeyAlgorithmEnums.ECDSA,1,subject);
-        System.out.println(csr);
-    }
+    List<CertVO> list = certManagerService.queryCertList();
+    System.out.print("证书id" + "\t");
+    System.out.print("证书签发者: " + "\t");
+    System.out.print("父证书id: " + "\t");
+    System.out.print("签发私钥id: " + "\t");
+    System.out.println();
+    list.forEach(certVO -> {
+           System.out.print(cert.getPkId());
+           System.out.print(cert.getUserId());
+           System.out.print(cert.getPCertId());
+           System.out.print(cert.getIssuerKeyId());
+           System.out.println();
+    });
 
 ```
-执行过后，会生成请求并保存
-
-**涉及参数说明**：
-
-- userId: 用户id
-
-- subject: 请求方信息
-
-- issuerCertId: 签发证书id
-
-- privateKey：请求签名私钥串
-
-- certKeyId：请求签名私钥id
+执行上述代码，可在控制台看到所有签发的证书列表及相关信息
 
 
-#### createCertRequestByHexPriKey
+#### 子证书csr生成
 
-私钥Hex格式作为入参生成请求
+从上述步骤查询结果中，选择证书作为根证书，请求子证书。
+
+示例代码如下
 
 ```
-    @Test
-    public void testCreateCertRequestByHexPriKey() throws Exception{
-        X500NameInfo subject = X500NameInfo.builder()
-                .commonName("agancy")
-                .organizationName("fisco-bcos")
-                .organizationalUnitName("agancy")
-                .build();
-        String userId = "wangyue";
-        String hexPriKey = "3500db68433dda968ef7bfe5a0ed6926b8e85aabcd2caa54f8327ca07ac73526";
-        String cert = certManagerService.createCertRequestByHexPriKey(userId,hexPriKey,KeyAlgorithmEnums.ECDSA,3,subject);
-        System.out.println(cert);
-    }
+    X500NameInfo subject = X500NameInfo.builder()
+                    .commonName("agancy")
+                    .organizationName("fisco-bcos")
+                    .organizationalUnitName("agancy")
+                    .build();
+    String userId = "Alice";
+    //自动生成密钥对，入参为：当前用户userId，父证书issuerCertId（可根据上述步骤查询得到），申请机构信息subject
+    CertRequestVO csr = certManagerService.createCertRequest(userId, 1, subject);
+    System.out.println("证书申请id：" + csr.getPkId());
+    System.out.println("父证书签发者：" + csr.getPCertUserId());
+    System.out.println("证书申请者：" + csr.getUserId());
+    System.out.println("父证书id：" + csr.getPCertId());
+    System.out.println("证书申请内容" + csr.getCertRequestContent());
 
 ```
-执行过后，会生成请求并保存
-
-**涉及参数说明**：
-
-- userId: 用户id
-
-- subject: 请求者信息
-
-- issuerCertId: 签发证书id
-
-- keyAlg: 密钥算法
-
-- hexPriKey：证书签名私钥Hex格式
+执行上述代码，证书申请和相关联的签名私钥会保存在db中，同时在db中将证书申请和其对应的父证书关联，便于后续子证书签发。
 
 
-#### createChildCert
+#### 证书申请列表查询
 
-生成子证书
+可以通过接口按一定条件查询证书申请列表
+
+示例代码如下
 
 ```
-    @Test
-    public void testCreateChildCert() throws Exception{
-        String userId = "wangyue1";
-        String child;
-        child = certManagerService.createChildCert(userId,4);
-        System.out.println(child);
-    }
-```
-执行过后，会生成子证书并保存
-
-**涉及参数说明**：
-
-- userId: 用户id
-
-- csrId: 请求id
-
-
-#### resetCertificate
-
-证书重置
+    List<CertRequestVO> list = certManagerService.queryCertRequestList();
+    System.out.print("证书申请id" + "\t");
+    System.out.print("父证书签发者: " + "\t");
+    System.out.print("证书申请者: " + "\t");
+    System.out.print("父证书id: " + "\t");
+    System.out.println();
+    list.forEach(csr -> {
+           System.out.print(csr.getPkId());
+           System.out.print(csr.getPCertUserId());
+           System.out.print(csr.getUserId());
+           System.out.print(csr.getPCertId());
+           System.out.println();
+    });
 
 ```
-    @Test
-    public void testResetCertificate() throws Exception{
-        String userId = "wangyue1";
-        Date beginDate = new Date();
-        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-        String root = certManagerService.resetCertificate(userId,9,
-                new KeyUsage(KeyUsage.dataEncipherment),
-                beginDate,endDate);
-        System.out.println(root);
-    }
-```
+执行上述代码，可在控制台看到所有证书申请的列表及相关信息
 
-执行过后，会重置证书并保存
+#### 子证书签发
 
-**涉及参数说明**：
+从上述步骤查询结果中，可选择证书申请签发子证书。
 
-- userId: 用户id
-
-- certId: 重置证书id
-
-- keyUsage：证书用途
-
-- beginDate：证书生效时间
-
-- endDate：证书失效时间
-
-
-#### queryCertList
-
-证书列表查询，多条件联合查询
+示例代码如下
 
 ```
-    @Test
-    public void testQueryCertList() {
-        String userId = "wangyue";
-        List<CertVO> list = certManagerService.queryCertList(
-                userId,null,null,null,null,null);
-        System.out.println();
-    }
+    String userId = "Bob";
+    //参数：签发者userId，证书申请id
+    CertVO child = certManagerService.createChildCert(userId, 1);
+    System.out.println("证书id: " + child.getPkId());
+    System.out.println("证书签发者: " + child.getUserId());
+    System.out.println("父证书id: " + child.getPCertId());
+    System.out.println("签发私钥id: " + child.getIssuerKeyId());
+    System.out.println("证书内容: " + child.getCertContent());    
 ```
 
-执行过后，会得到证书列表
+执行上述代码，可在控制台看到签发的子证书详情，可从第二步开始，继续签发下一级证书
 
-**涉及参数说明**：
+#### 证书重置
 
-- userId: 用户id
-
-- issuerKeyId: 签发私钥id
-
-- pCertId：签发证书id
-
-- issuerOrg：签发机构名
-
-- issuerCN：签发者公共名称
-
-- isCACert：是否ca机构
-
-
-#### queryCertRequestList
-
-证书请求查询，多条件联合查询
+证书重置支持对证书有效期和用途配置进行重置，方法为exportCertToFile。
+可通过第二步的查询证书列表，选择证书重置，如选择证书id为1的证书进行重置，示例代码如下：
 
 ```
-    @Test
-    public void testQueryCertRequestList() {
-        String userId = "wangyue";
-        List<CertRequestInfo> list = certManagerService.queryCertRequestList(
-                userId,null,null,null,null);
-        System.out.println();
-    }
-```
-
-执行过后，会得到证书请求列表
-
-**涉及参数说明**：
-
-- userId: 用户id
-
-- subjectKeyId: 请求签名私钥id
-
-- pCertId：签发证书id
-
-- subjectOrg：申请机构名
-
-- subjectCN：申请者公共名称
-
-
-#### queryCertKeyList
-
-证书私钥查询，会返回私钥列表，但不返回私钥明文
+    String userId = "John";
+    Date beginDate = new Date();
+    Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
+    CertVO cert = certManagerService.resetCertificate(userId,1,new KeyUsage(KeyUsage.dataEncipherment),beginDate,endDate);
+    System.out.println("证书id: " + cert.getPkId());
+    System.out.println("证书签发者: " + cert.getUserId());
+    System.out.println("父证书id: " + cert.getPCertId());
+    System.out.println("签发私钥id: " + cert.getIssuerKeyId());
+    System.out.println("证书内容: " + cert.getCertContent());
 
 ```
-    @Test
-    public void testQueryCertKeyList() {
-        String userId = "wangyue";
-        List<CertKeyVO> list = certManagerService.queryCertKeyList(userId);
-        System.out.println();
-    }
-```
 
-执行过后，会得到证书私钥列表
+执行上述代码可以在控制台看到重置后的证书详情
 
-**涉及参数说明**：
+#### 证书导出
 
-- userId: 用户id
-
-
-#### queryCertInfoByCertId
-
-根据id查询证书
+可通过第二步的查询证书列表，选择证书导出，如选择证书id为1的证书进行导出，示例代码如下：
 
 ```
- @Test
-    public void testQueryCertInfoByCertId() {
-        CertVO certInfo = certManagerService.queryCertInfoByCertId(1L);
-        System.out.println();
-    }    
+    String filePath = "src/ca.crt"；
+    certManagerService.exportCertToFile(1L,);
+    System.out.println("导出完成，保存路径为：" + filePath);
 ```
 
-执行过后，会得到证书
-
-**涉及参数说明**：
-
-- certId: 证书id
-
-#### queryCertRequestByCsrId
-
-根据id查询证书请求
-
-```
-    @Test
-    public void testQueryCertRequestByCsrId() {
-        CertRequestVO keyRequestVO = certManagerService.queryCertRequestByCsrId(1L);
-        System.out.println();
-    }  
-```
-
-执行过后，会得到证书请求
-
-**涉及参数说明**：
-
-- csrId: 证书请求id
-
-
-#### exportCertToFile
-
-证书导出
-
-```
-    @Test
-    public void testExportCertToFile() throws Exception {
-        certManagerService.exportCertToFile(1L,"src/ca.crt");
-        System.out.println();
-    }
-```
-
-执行过后，证书导出到执行文件目录
-
-**涉及参数说明**：
-
-- certId: 证书id
-
-- filePath: 证书导出路径
-
-
-
-
-
-
-
+#### 更多示例
+参考[证书管理接口示例](./mgr_api.md)

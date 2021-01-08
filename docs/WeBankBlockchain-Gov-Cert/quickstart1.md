@@ -94,7 +94,7 @@ CertService提供了三种功能接口：
 - generateKPAndRootCert：生成密钥对和根证书
 
 
-### 证书生成三步骤
+### 示例说明
 
 下面介绍下证书的生成流程
 
@@ -133,7 +133,9 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
             .build();
     //自动生成RSA私钥，KeyUtils为证书组件密钥工具类
     KeyPair keyPair = KeyUtils.generateKeyPair();
-    String csrStr = certService.generateCertRequestByDefaultConf(info,CertUtils.readPEMAsString(keyPair.getPrivate()), "out/child/child.csr");
+    //CertUtils工具提供了证书读写解析的相关能力
+    String priStr = CertUtils.readPEMAsString(keyPair.getPrivate());
+    String csrStr = certService.generateCertRequestByDefaultConf(info, priStr, "out/child/child.csr");
     System.out.println(csrStr);
 ```
 
@@ -165,11 +167,10 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 
 ```
 
-
-执行上述方法会在控制台打印出子证书内容,并写入out/child/child.crt文件中
+执行上述方法会在控制台打印出子证书内容,并写入out/child/child.crt文件中，可从第二步开始，继续下一级证书的签发。
 
 
 
 ##### 更多使用方式
 
-参照[Java API](javadoc/toolkitdoc/overview-summary.html)
+参照[Java API](./javadoc/toolkitdoc/overview-summary.html)

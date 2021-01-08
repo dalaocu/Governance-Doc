@@ -26,5 +26,6 @@
    quickstart1.md
    quickstart2.md
    faq.md
+   Cert-Toolkit JavaDoc <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/javadoc/index.html>
    appendix.md
 ```
