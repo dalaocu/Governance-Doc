@@ -220,7 +220,7 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
         certChain.add(root);
         certChain.add(child);
         System.out.println("验证结果 = " + certService.verify(root,certChain));
-    } catch (CertificateException | FileNotFoundException e) {
+    } catch (Exception e) {
         e.printStackTrace();
     }
 ```
