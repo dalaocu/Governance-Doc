@@ -159,9 +159,9 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 ```
     //第二种方式：参数为对应字符串
     CertService certService = new CertService();
-    String caKey = "[复制out/ca/ca_pri.key中内容到此处]";
-    String caStr = "[复制out/ca/ca.cert中内容到此处]";
-    String csrStr = "[复制out/child/child.csr中内容到此处]";
+    String caKey = "复制out/ca/ca_pri.key中内容到此处";
+    String caStr = "复制out/ca/ca.cert中内容到此处;"
+    String csrStr = "复制out/child/child.csr中内容到此处";
     String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKeym,"out/child/child.crt");
     System.out.println(childStr);
 
