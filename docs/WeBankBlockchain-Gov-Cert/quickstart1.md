@@ -53,7 +53,7 @@ chmod +x ./gradlew && ./gradlew build -x test
 
 ### 导入jar包
 
-cert-toolkit编译之后在根目录下会生成dist文件夹，文件夹中包含cert-toolkit.jar。可以将cert-toolkit.jar导入到自己的项目中，例如libs目录下。然后进行依赖配置。gradle依赖配置如下，然后再对自己的项目进行编译。
+cert-toolkit编译之后在cert-toolkit目录下会生成dist文件夹，文件夹中包含cert-toolkit.jar。可以将cert-toolkit.jar导入到自己的项目中，例如libs目录下。然后进行依赖配置。gradle依赖配置如下，然后再对自己的项目进行编译。
 
 ```
 repositories {
@@ -65,39 +65,22 @@ repositories {
 }
 
 dependencies {
-    compile "org.apache.commons:commons-lang3:3.6"
-    compile 'com.lhalcyon:bip32:1.0.0'
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
-    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
-    compile 'org.web3j:core:3.4.0'
-    compile "commons-io:commons-io:2.6"
-    compile 'com.lambdaworks:scrypt:1.4.0'
-    compile 'commons-codec:commons-codec:1.9'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile fileTree(dir:'libs',include:['*.jar'])
 }
 
 ```
-### 接口使用
 
-cert-toolkit中包含若干类服务接口，如下，接口使用可以直接通过new对象然后调用，同时也支持依赖注入的方式使用。
+### 接口说明
 
-- CertService：证书的生成
+cert-toolkit中包含若干类服务接口，如下，接口使用可以通过new对象然后调用
 
-依赖注入使用前需添加组件扫描，如下所示：
+- CertService功能：证书的生成
 
-```java
-@SpringBootApplication
-@ComponentScan(basePackages = { "com.webank.cert" })
-public class PkeytestApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(PkeytestApplication.class, args);
-	}
-}
 ```
 
+CertService certService = new CertService();
 
-#### CertService使用
+```
 
 CertService提供了三种功能接口：
 - createRootCertificate：生成根证书，即自签名证书
@@ -110,124 +93,83 @@ CertService提供了三种功能接口：
 - generateChildCertByDefaultConf：生成子证书
 - generateKPAndRootCert：生成密钥对和根证书
 
-```java
-@Autowired
-private CertService certService;
 
-private static final String SIGNATURE_ALGORITHM = "SHA256WITHRSA";
+### 证书生成三步骤
 
-@Test
-public void testGenerateKPAndRootCert(){
+下面介绍下证书的生成流程
+
+##### 父证书生成
+
+使用generateKPAndRootCert方法：自动生成私钥（默认为RSA），根据生成的私钥自签名生成根证书，并写入指定路径，写入文件默认为ca
+
+示例代码如下：
+
+```
+    CertService certService = new CertService();
     X500NameInfo info = X500NameInfo.builder()
             .commonName("chain")
             .organizationName("fisco-bcos")
             .organizationalUnitName("chain")
             .build();
-    //生成相应的密钥对和根证书，并写入指定路径的文件中
     certService.generateKPAndRootCert(info,"out");
-}
-@Test
-public void testGenerateRootCertByDefaultConf(){
+```
+
+执行上述方法，会在控制台打印出证书、私钥文件保存结果和路径，证书会保存在out/ca/ca.cert文件中
+
+##### 子证书csr生成
+
+csr全称为Certificate Signing Request，即证书请求文件，根（父）证书通过其私钥对请求文件签名，颁发子证书。
+
+使用下述可方法快速生成csr
+
+示例代码如下：
+
+```
+    CertService certService = new CertService();
     X500NameInfo info = X500NameInfo.builder()
             .commonName("chain")
             .organizationName("fisco-bcos")
             .organizationalUnitName("chain")
             .build();
-    String caKey = "";
-    String caStr = certService.generateRootCertByDefaultConf(info,caKey);
-    System.out.println(caStr);
-}
-    
-@Test
-public void testGenerateChildCertByDefaultConf(){
-    //填入: ca密钥串
-    String caKey = "";
-    //填入：ca证书字符串
-    String caStr = "";
-    //填入：子证书请求字符串
-    String csrStr = "";
-    //第一种方式：参数为字符串
-    String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKey);
-    System.out.println(childStr);
-    //第二种方式：参数为文件路径
-//    String childStr2 = certService.generateChildCertByDefaultConf("out/ca.crt","out/child.csr",
-//    "out/ca_pri.key", "out/childByFile.crt");
-//    System.out.println(childStr2);
-}
-    
-@Test
-public void testGenerateCertRequestByDefaultConf(){
-    X500NameInfo info = X500NameInfo.builder()
-            .commonName("chain")
-            .organizationName("fisco-bcos")
-            .organizationalUnitName("chain")
-            .build();
+    //自动生成RSA私钥，KeyUtils为证书组件密钥工具类
     KeyPair keyPair = KeyUtils.generateKeyPair();
-    String csrStr = certService.generateCertRequestByDefaultConf(info,
-    CertUtils.readPEMAsString(keyPair.getPrivate()),"out/child.csr");
-//        String csrStr = certService.generateCertRequestByDefaultConf(info,
-//        CertUtils.readPEMAsString(keyPair.getPrivate()));
+    String csrStr = certService.generateCertRequestByDefaultConf(info,CertUtils.readPEMAsString(keyPair.getPrivate()), "out/child/child.csr");
     System.out.println(csrStr);
-}
-    
-@Test
-public void testCreateRootCertificate() throws Exception {
-    X500NameInfo info = X500NameInfo.builder()
-            .commonName("chain")
-            .organizationName("fisco-bcos")
-            .organizationalUnitName("chain")
-            .build();
-    KeyPair keyPair = KeyUtils.generateKeyPair();
-    RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-    RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-    Date beginDate = new Date();
-    Date endDate = new Date(beginDate.getTime() + 3650 * 24L * 60L * 60L * 1000);
-    X509Certificate certificate = certService.createRootCertificate( SIGNATURE_ALGORITHM, info,
-                   null, beginDate,endDate,publicKey,privateKey);
-    certificate.verify(publicKey);
-    CertUtils.writeCrt(certificate,"out/ca.crt");
-}
-    
-@Test
-public void testCreateCertRequest() {
-    X500NameInfo info = X500NameInfo.builder()
-            .commonName("chain")
-            .organizationName("fisco-bcos")
-            .organizationalUnitName("chain")
-            .build();
-    //      ECDSA密钥对,对应csr签名算法为：SHA256WITHECDSA
-    //        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDSA", "BC");
-    //        ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec("secp256k1");
-    //        keyPairGenerator.initialize(ecGenParameterSpec, SECURE_RANDOM);
-    //        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-    //        PublicKey publicKey = keyPair.getPublic();
-    //        PrivateKey privateKey = keyPair.getPrivate();
-    
-    KeyPair keyPair = KeyUtils.generateKeyPair();
-    RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-    RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-    CertUtils.writeKey(privateKey,"out/agency.key");
-    PKCS10CertificationRequest request = certService.createCertRequest(info, publicKey, privateKey,
-            SIGNATURE_ALGORITHM);
-    CertUtils.writeCsr(request, "out/child.csr");
-}
-    
-@Test
-public void testCreateChildCertificate() throws Exception {
-    Date beginDate = new Date();
-    Date endDate = new Date(beginDate.getTime() + 3650 * 24L * 60L * 60L * 1000);
-    
-    PKCS10CertificationRequest request = CertUtils.readCsr("out/child.csr");
-    X509Certificate parentCert = CertUtils.readCrt("out/ca.crt");
-    PEMKeyPair pemKeyPair=  CertUtils.readKey("out/ca.key");
-    PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(
-            new PKCS8EncodedKeySpec(pemKeyPair.getPrivateKeyInfo().getEncoded()));
-    X509Certificate childCert = certService.createChildCertificate(true,SIGNATURE_ALGORITHM, parentCert,
-                   request,null, beginDate, endDate,privateKey);
-    childCert.verify(parentCert.getPublicKey());
-}
+```
+
+执行上述方法会在控制台打印出csr文件内容，并写入out/child/child.csr文件中
+
+##### 子证书颁发
+
+通过根证书和其私钥对子证书申请进行签发
+
+入参可以采用多种方式，第一种方式为查看保存证书和私钥相关文件的内容，复制到下述参数中；第二种方式为将对应文件路径作为参数传入，
+
+示例代码如下（选择一种执行即可）：
+
+```
+    //第一种方式：参数为生成相关文件路径
+    CertService certService = new CertService();
+    String childStr2 = certService.generateChildCertByDefaultConf("out/ca/ca.crt","out/child/child.csr","out/ca/ca_pri.key", "out/child/child.crt");
+    System.out.println(childStr2);
+```
+
+```
+    //第二种方式：参数为对应字符串
+    CertService certService = new CertService();
+    String caKey = "[复制out/ca/ca_pri.key中内容到此处]";
+    String caStr = "[复制out/ca/ca.cert中内容到此处]";
+    String csrStr = "[复制out/child/child.csr中内容到此处]";
+    String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKeym,"out/child/child.crt");
+    System.out.println(childStr);
+
 ```
 
 
+执行上述方法会在控制台打印出子证书内容,并写入out/child/child.crt文件中
 
 
+
+##### 更多使用方式
+
+参照[Java API](javadoc/toolkitdoc/overview-summary.html)
