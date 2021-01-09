@@ -225,11 +225,12 @@ CertService提供了多种功能接口：
 - verify：验证证书
 - createCRL：吊销证书
 
-为方便调用，针对上述三个接口封装了默认配置（签名算法：SHA256WITHRSA,有效期10年）的生成接口：
+为方便调用，针对上述接口封装了默认配置（签名算法：SHA256WITHRSA,有效期10年）的生成接口：
 - generateRootCertByDefaultConf：生成根证书
 - generateCertRequestByDefaultConf：生成证书请求
 - generateChildCertByDefaultConf：生成子证书
 - generateKPAndRootCert：生成密钥对和根证书
 
+另外，KeyUtils和CertUtils两个工具类，提供了对证书和私钥的相关读写操作。
 
 参照[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html)
