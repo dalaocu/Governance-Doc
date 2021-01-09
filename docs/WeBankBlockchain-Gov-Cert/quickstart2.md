@@ -65,17 +65,30 @@ repositories {
         url "http://maven.aliyun.com/nexus/content/groups/public/"
     }
 }
-
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        //exclude group: 'junit', module: 'junit'
-    }
-    compile 'org.springframework.boot:spring-boot-starter-jta-atomikos'
-    compile fileTree(dir:'libs',include:['*.jar'])
+        compile 'org.springframework.boot:spring-boot-starter'
+    	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    	compile 'org.springframework.boot:spring-boot-starter-jta-atomikos'
+    
+    	testCompile('org.springframework.boot:spring-boot-starter-test') {
+    		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    		//exclude group: 'junit', module: 'junit'
+    	}
+    	compile ('org.projectlombok:lombok:1.18.6')
+    	testCompile ('org.projectlombok:lombok:1.18.6')
+    	annotationProcessor 'org.projectlombok:lombok:1.18.6'
+    	testAnnotationProcessor 'org.projectlombok:lombok:1.18.6'
+    	testCompile 'junit:junit:4.12'
+    	compile "org.apache.commons:commons-lang3:3.6"
+    	compile "commons-io:commons-io:2.6"
+    	compile 'com.lhalcyon:bip32:1.0.0'
+    	compile 'org.web3j:core:3.4.0'
+    	compile 'com.lambdaworks:scrypt:1.4.0'
+    	compile 'commons-codec:commons-codec:1.9'
+    	compile 'mysql:mysql-connector-java'
+    	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+    	compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
+    	compile fileTree(dir:'libs',include:['*.jar'])
 }
 
 ```
@@ -83,7 +96,17 @@ dependencies {
 
 ## 使用详解
 
-cert-mgr使用了SpringBoot自动装配功能，所以只要您按照上文添加了SpringBoot依赖，就可以自动装配所需的Bean。
+依赖注入使用前需添加组件扫描，如下所示：
+
+```java
+@SpringBootApplication
+@ComponentScan(basePackages = { "com.webank.cert" })
+public class PkeytestApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(PkeytestApplication.class, args);
+	}
+}
+```
 
 ### 配置
 
@@ -189,15 +212,17 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 
 #### 实例注入
 
-```
-    @Autowired
-    private CertManagerService certManagerService;
+在Java项目test中创建一个测试类，在测试类中注入依赖
 
-    static {
-        if (Security.getProvider("BC") == null) {
-            Security.addProvider(new BouncyCastleProvider());
-        }
-    }
+建议通过Spring自动注入KeysManagerService服务，示例如下：
+
+```
+    @SpringBootTest
+    @RunWith(SpringRunner.class)
+    public class Example {
+        @Autowired
+        private CertManagerService certManagerService;
+    }  
 ```
 
 
@@ -208,23 +233,26 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 示例代码如下
 
 ```
-    X500NameInfo issuer = X500NameInfo.builder()
+    @Test
+    public void testCreateRootCert() throws Exception {
+        X500NameInfo issuer = X500NameInfo.builder()
                 .commonName("chain")
                 .organizationName("fisco-bcos")
                 .organizationalUnitName("chain")
                 .build();
-    //用户id，如Bob
-    String userId = "Bob";
-    //有效期
-    Date beginDate = new Date();
-    Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-    //默认配置生成：采用RSA密钥对，也可调用其他封装接口，自定义密钥类型，支持pem和Hex格式
-    CertVO cert = certManagerService.createRootCert(userId,issuer,beginDate,endDate);
-    System.out.println("证书id: " + cert.getPkId());
-    System.out.println("证书签发者: " + cert.getUserId());
-    System.out.println("父证书id: " + cert.getPCertId());
-    System.out.println("签发私钥id: " + cert.getIssuerKeyId());
-    System.out.println("证书内容: " + cert.getCertContent());
+        //用户id，如Bob
+        String userId = "Bob";
+        //有效期
+        Date beginDate = new Date();
+        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
+        //默认配置生成：采用RSA密钥对，也可调用其他封装接口，自定义密钥类型，支持pem和Hex格式
+        CertVO cert = certManagerService.createRootCert(userId,issuer,beginDate,endDate);
+        System.out.println("证书id: " + cert.getPkId());
+        System.out.println("证书签发者: " + cert.getUserId());
+        System.out.println("父证书id: " + cert.getPCertId());
+        System.out.println("签发私钥id: " + cert.getIssuerKeyId());
+        System.out.println("证书内容: " + cert.getCertContent());
+    }
 
 ```
 执行上述代码，可在控制台看到生成的证书内容，证书和相关联的签名私钥会保存在db中
@@ -235,21 +263,18 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 
 示例代码如下
 
-
 ```
-    List<CertVO> list = certManagerService.queryCertList();
-    System.out.print("证书id" + "\t");
-    System.out.print("证书签发者: " + "\t");
-    System.out.print("父证书id: " + "\t");
-    System.out.print("签发私钥id: " + "\t");
-    System.out.println();
-    list.forEach(certVO -> {
-           System.out.print(cert.getPkId());
-           System.out.print(cert.getUserId());
-           System.out.print(cert.getPCertId());
-           System.out.print(cert.getIssuerKeyId());
-           System.out.println();
-    });
+    @Test
+    public void testQueryCertList() throws Exception {
+        List<CertVO> list = certManagerService.queryCertInfoList();
+        list.forEach(certVO -> {
+            System.out.println("证书id：" + certVO.getPkId() + "\t");
+            System.out.println("证书id：" +certVO.getUserId() + "\t");
+            System.out.println("父证书id: " + certVO.getPCertId() + "\t");
+            System.out.println("签发私钥id: " + certVO.getIssuerKeyId() + "\t");
+            System.out.println("---------");
+        });
+    }
 
 ```
 执行上述代码，可在控制台看到所有签发的证书列表及相关信息
@@ -262,19 +287,23 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 示例代码如下
 
 ```
-    X500NameInfo subject = X500NameInfo.builder()
-                    .commonName("agancy")
-                    .organizationName("fisco-bcos")
-                    .organizationalUnitName("agancy")
-                    .build();
-    String userId = "Alice";
-    //自动生成密钥对，入参为：当前用户userId，父证书issuerCertId（可根据上述步骤查询得到），申请机构信息subject
-    CertRequestVO csr = certManagerService.createCertRequest(userId, 1, subject);
-    System.out.println("证书申请id：" + csr.getPkId());
-    System.out.println("父证书签发者：" + csr.getPCertUserId());
-    System.out.println("证书申请者：" + csr.getUserId());
-    System.out.println("父证书id：" + csr.getPCertId());
-    System.out.println("证书申请内容" + csr.getCertRequestContent());
+    @Test
+    public void testCreateCertRequest() throws Exception {
+        X500NameInfo subject = X500NameInfo.builder()
+                .commonName("agancy")
+                .organizationName("fisco-bcos")
+                .organizationalUnitName("agancy")
+                .build();
+        String userId = "Alice";
+        //自动生成密钥对，入参为：当前用户userId，父证书issuerCertId（可根据上述步骤查询得到），申请机构信息subject
+        CertRequestVO csr = certManagerService.createCertRequest(userId, 1, subject);
+        System.out.println("证书申请id：" + csr.getPkId());
+        System.out.println("父证书签发者：" + csr.getPCertUserId());
+        System.out.println("证书申请者：" + csr.getUserId());
+        System.out.println("父证书id：" + csr.getPCertId());
+        System.out.println("证书申请内容" + csr.getCertRequestContent());
+    }
+
 
 ```
 执行上述代码，证书申请和相关联的签名私钥会保存在db中，同时在db中将证书申请和其对应的父证书关联，便于后续子证书签发。
@@ -287,20 +316,17 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 示例代码如下
 
 ```
-    List<CertRequestVO> list = certManagerService.queryCertRequestList();
-    System.out.print("证书申请id" + "\t");
-    System.out.print("父证书签发者: " + "\t");
-    System.out.print("证书申请者: " + "\t");
-    System.out.print("父证书id: " + "\t");
-    System.out.println();
-    list.forEach(csr -> {
-           System.out.print(csr.getPkId());
-           System.out.print(csr.getPCertUserId());
-           System.out.print(csr.getUserId());
-           System.out.print(csr.getPCertId());
-           System.out.println();
-    });
-
+    @Test
+    public void testQueryCertRequestList() throws Exception {
+        List<CertRequestVO> list = certManagerService.queryCertRequestList();
+        list.forEach(csr -> {
+            System.out.println("证书申请id: " + csr.getPkId());
+            System.out.println("父证书签发者: " + csr.getPCertUserId());
+            System.out.println("证书申请者: " + csr.getUserId());
+            System.out.println("父证书id: " + csr.getPCertId());
+            System.out.println("---------");
+        });
+    }
 ```
 执行上述代码，可在控制台看到所有证书申请的列表及相关信息
 
@@ -311,14 +337,17 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 示例代码如下
 
 ```
-    String userId = "Bob";
-    //参数：签发者userId，证书申请id
-    CertVO child = certManagerService.createChildCert(userId, 1);
-    System.out.println("证书id: " + child.getPkId());
-    System.out.println("证书签发者: " + child.getUserId());
-    System.out.println("父证书id: " + child.getPCertId());
-    System.out.println("签发私钥id: " + child.getIssuerKeyId());
-    System.out.println("证书内容: " + child.getCertContent());    
+    @Test
+    public void testCreateChildCert() throws Exception {
+        String userId = "Bob";
+        //参数：签发者userId，证书申请id
+        CertVO child = certManagerService.createChildCert(userId, 1);
+        System.out.println("证书id: " + child.getPkId());
+        System.out.println("证书签发者: " + child.getUserId());
+        System.out.println("父证书id: " + child.getPCertId());
+        System.out.println("签发私钥id: " + child.getIssuerKeyId());
+        System.out.println("证书内容: " + child.getCertContent());
+    } 
 ```
 
 执行上述代码，可在控制台看到签发的子证书详情，可从第二步开始，继续签发下一级证书
@@ -329,16 +358,18 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 可通过第二步的查询证书列表，选择证书重置，如选择证书id为1的证书进行重置，示例代码如下：
 
 ```
-    String userId = "John";
-    Date beginDate = new Date();
-    Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
-    CertVO cert = certManagerService.resetCertificate(userId,1,new KeyUsage(KeyUsage.dataEncipherment),beginDate,endDate);
-    System.out.println("证书id: " + cert.getPkId());
-    System.out.println("证书签发者: " + cert.getUserId());
-    System.out.println("父证书id: " + cert.getPCertId());
-    System.out.println("签发私钥id: " + cert.getIssuerKeyId());
-    System.out.println("证书内容: " + cert.getCertContent());
-
+    @Test
+    public void testResetCertificate() throws Exception {
+        String userId = "John";
+        Date beginDate = new Date();
+        Date endDate = new Date(beginDate.getTime() + CertConstants.DEFAULT_VALIDITY);
+        CertVO cert = certManagerService.resetCertificate(userId,1,new KeyUsage(KeyUsage.dataEncipherment),beginDate,endDate);
+        System.out.println("证书id: " + cert.getPkId());
+        System.out.println("证书签发者: " + cert.getUserId());
+        System.out.println("父证书id: " + cert.getPCertId());
+        System.out.println("签发私钥id: " + cert.getIssuerKeyId());
+        System.out.println("证书内容: " + cert.getCertContent());
+    }
 ```
 
 执行上述代码可以在控制台看到重置后的证书详情
@@ -348,9 +379,12 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 可通过第二步的查询证书列表，选择证书导出，如选择证书id为1的证书进行导出，示例代码如下：
 
 ```
-    String filePath = "src/ca.crt"；
-    certManagerService.exportCertToFile(1L,);
-    System.out.println("导出完成，保存路径为：" + filePath);
+    @Test
+    public void testExportCertToFile() throws Exception {
+        String filePath = "src/ca.crt";
+        certManagerService.exportCertToFile(1L,filePath);
+        System.out.println("导出完成，保存路径为：" + filePath);
+    }
 ```
 
 #### 更多示例
