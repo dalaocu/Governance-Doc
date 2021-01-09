@@ -131,45 +131,29 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
     KeyPair keyPair = KeyUtils.generateKeyPair();
     //CertUtils工具提供了证书读写解析的相关能力
     String priStr = CertUtils.readPEMAsString(keyPair.getPrivate());
-    String csrStr = certService.generateCertRequestByDefaultConf(info, priStr, "out/child", "child");
+    String csrStr = certService.generateCertRequestByDefaultConf(info, priStr, "out/agency", "agency");
     System.out.println(csrStr);
 ```
 
-执行上述方法会在控制台打印出csr文件内容，并写入out/child/child.csr文件中
+执行上述方法会在控制台打印出csr文件内容，并写入out/agency/agency.csr文件中
 
 ##### 子证书颁发
 
 通过根证书和其私钥对子证书申请进行签发
 
-入参可以采用多种方式，第一种方式为查看保存证书和私钥相关文件的内容，复制到下述参数中；第二种方式为将对应文件路径作为参数传入，
+入参可以采用多种方式，可按需使用，这里以文件路径为参示例
 
-示例代码如下（选择一种执行即可）：
+代码如下：
 
 ```
-    //第一种方式：参数为生成相关文件路径
+    //参数为生成相关文件路径
     CertService certService = new CertService();
-    String childStr2 = certService.generateChildCertByDefaultConf("out/ca/ca.crt","out/child/child.csr","out/ca/ca_pri.key", "out/child" ,
-           "child");
+    String childStr2 = certService.generateChildCertByDefaultConf("out/ca/ca.crt","out/agency/agency.csr","out/ca/ca_pri.key", "out/agency" ,
+           "agency");
     System.out.println(childStr2);
 ```
 
-```
-    //第二种方式：参数为对应字符串
-    CertService certService = new CertService();
-    String caKey = "复制out/ca/ca_pri.key中内容到此处";
-    String caStr = "复制out/ca/ca.cert中内容到此处;";
-    String csrStr = "复制out/child/child.csr中内容到此处";
-    String childStr = certService.generateChildCertByDefaultConf(caStr,csrStr,caKey);
-    try {
-        CertUtils.writeCrt(CertUtils.convertStrToCert(childStr),"out/child/child.crt");
-    } catch (CertificateException e) {
-        e.printStackTrace();
-    }
-    System.out.println(childStr);
-
-```
-
-执行上述方法会在控制台打印出子证书内容,并写入out/child/child.crt文件中，可从第二步开始，继续下一级证书的签发。
+执行上述方法会在控制台打印出子证书内容,并写入out/agency/agency.crt文件中，可从第二步开始，继续下一级证书的签发。
 
 
 ##### 证书链验证
@@ -183,18 +167,18 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
     try {
         X509Certificate root = null;
         root = CertUtils.readCrt("out/ca/ca.crt");
-        X509Certificate child = CertUtils.readCrt("out/child/child.crt");
+        X509Certificate child = CertUtils.readCrt("out/agency/agency.crt");
         List<X509Certificate> certChain = new ArrayList<>();
         //可添加多级证书...这里以上述步骤中生成的两个证书为例
         certChain.add(root);
         certChain.add(child);
-        System.out.println("验证结果 = " + certService.verify(root, certChain));
+        System.out.println("证书链验证结果 = " + certService.verify(root, certChain));
     } catch (CertificateException | FileNotFoundException e) {
         e.printStackTrace();
     }
 ```
 
-执行上述方法，可以在控制台看到证书链的验证结果
+执行上述方法，可以在控制台看到证书链的验证结果为true，表明证书链的有效性
 
 ##### 证书撤销
 
@@ -205,36 +189,41 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
     try {
         //从文件中读取证书（上述步骤中生成的证书路径）
         X509Certificate root = CertUtils.readCrt("out/ca/ca.crt");
-        X509Certificate child = CertUtils.readCrt("out/child/child.crt");
+        X509Certificate child = CertUtils.readCrt("out/agency/agency.crt");
         //从文件中读取私钥（上述步骤中生成的私钥路径）
         PrivateKey caPrivateKey = (PrivateKey) CertUtils.readRSAKey("out/ca/ca_pri.key");
         List<X509Certificate> revokeCertificates = new ArrayList<>();
         revokeCertificates.add(child);
         //撤销上述步骤中签发的子证书
         X509CRL X509Crl = certService.createCRL(root,caPrivateKey,revokeCertificates,"SHA256WITHRSA");
-        System.out.println("吊销证书路径：out/child/child.crt");
+        System.out.println("吊销证书路径：out/agency/agency.crt");
+        X509Crl.getRevokedCertificates().forEach(x509CRLEntry -> {
+            System.out.println("吊销证书序列号：" +  x509CRLEntry.getSerialNumber());
+        });
     
         //验证吊销证书后的证书链
         List<X509Certificate> certChain = new ArrayList<>();
         //可添加多级证书...这里以上述步骤中生成的两个证书为例
         certChain.add(root);
         certChain.add(child);
-        System.out.println("验证结果 = " + certService.verify(root,certChain));
+        System.out.println("证书链验证结果 = " + certService.verify(root,certChain,X509Crl));
     } catch (Exception e) {
         e.printStackTrace();
     }
 ```
 
-执行上述方法，可以在控制台看到吊销后的证书链验证结果，可以与上一步的验证结果进行比较
+执行上述方法，可以在控制台看到吊销后的证书链验证结果为false，表明该子证书已经失效
 
 
 
 ### 接口说明
 
-CertService提供了三种功能接口：
+CertService提供了多种功能接口：
 - createRootCertificate：生成根证书，即自签名证书
 - createCertRequest：生成证书请求
 - createChildCertificate：生成子证书
+- verify：验证证书
+- createCRL：吊销证书
 
 为方便调用，针对上述三个接口封装了默认配置（签名算法：SHA256WITHRSA,有效期10年）的生成接口：
 - generateRootCertByDefaultConf：生成根证书
