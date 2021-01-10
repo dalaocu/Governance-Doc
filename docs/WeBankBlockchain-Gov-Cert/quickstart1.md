@@ -229,7 +229,7 @@ CertUtils工具类提供了pfx的生成和读取方法，示例代码如下:
         //生成pfx文件，参数分别为：证书别名，私钥，keyStore密码，证书信息，保存路径，证书名
         CertUtils.savePfx("fisco",(PrivateKey) CertUtils.readRSAKey("out/ca/ca_pri.key"),"123",list,"out/ca","ca");
         //从pfx中导出私钥信息
-        PrivateKey key = CertUtils.readPriKeyFromPfx("out/ca.pfx","123");
+        PrivateKey key = CertUtils.readPriKeyFromPfx("out/ca/ca.pfx","123");
         //在控制台输出导出私钥的BASE64编码信息
         System.out.println(Base64.toBase64String(key.getEncoded()));
     } catch (Exception e) {
