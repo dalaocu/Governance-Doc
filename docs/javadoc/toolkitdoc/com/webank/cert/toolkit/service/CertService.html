@@ -283,9 +283,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/service/CertService.html#generateRootCertByDefaultConf-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-">generateRootCertByDefaultConf</a></span>(<a href="../../../../../com/webank/cert/toolkit/model/X500NameInfo.html" title="com.webank.cert.toolkit.model中的类">X500NameInfo</a>&nbsp;issuer,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/service/CertService.html#generateRootCertByDefaultConf-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-java.lang.String-">generateRootCertByDefaultConf</a></span>(<a href="../../../../../com/webank/cert/toolkit/model/X500NameInfo.html" title="com.webank.cert.toolkit.model中的类">X500NameInfo</a>&nbsp;issuer,
                              java.lang.String&nbsp;privateKeyStr,
-                             java.lang.String&nbsp;certSavePath)</code>
+                             java.lang.String&nbsp;certSavePath,
+                             java.lang.String&nbsp;fileName)</code>
 <div class="block">generate CA certificate by default configuration (signature algorithm is SHA256WITHRSA, valid for 3650 days)
  the generated certificate is saved in a file</div>
 </td>
@@ -460,7 +461,7 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="generateRootCertByDefaultConf-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-">
+<a name="generateRootCertByDefaultConf-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -468,7 +469,8 @@ extends java.lang.Object</pre>
 <h4>generateRootCertByDefaultConf</h4>
 <pre>public&nbsp;java.lang.String&nbsp;generateRootCertByDefaultConf(<a href="../../../../../com/webank/cert/toolkit/model/X500NameInfo.html" title="com.webank.cert.toolkit.model中的类">X500NameInfo</a>&nbsp;issuer,
                                                       java.lang.String&nbsp;privateKeyStr,
-                                                      java.lang.String&nbsp;certSavePath)</pre>
+                                                      java.lang.String&nbsp;certSavePath,
+                                                      java.lang.String&nbsp;fileName)</pre>
 <div class="block">generate CA certificate by default configuration (signature algorithm is SHA256WITHRSA, valid for 3650 days)
  the generated certificate is saved in a file</div>
 <dl>
