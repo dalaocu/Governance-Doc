@@ -115,9 +115,11 @@ dependencies {
 
 ##### 子证书csr生成
 
-csr全称为Certificate Signing Request，即证书请求文件，根（父）证书通过其私钥对请求文件签名，颁发子证书，提供多种入参方法，参照[证书申请生成](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#createCertRequest-com.webank.cert.toolkit.model.X500NameInfo-java.security.PublicKey-java.security.PrivateKey-java.lang.String-)
+csr全称为Certificate Signing Request，即证书请求文件，根（父）证书通过其私钥对请求文件签名来颁发子证书
 
-使用下述可方法快速生成csr，示例代码如下：
+csr的生成提供了多种入参方法，参照[证书申请生成](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#createCertRequest-com.webank.cert.toolkit.model.X500NameInfo-java.security.PublicKey-java.security.PrivateKey-java.lang.String-)
+
+这里以generateCertRequestByDefaultConf为例，可快速生成csr，示例代码如下：
 
 ```
     CertService certService = new CertService();
@@ -142,7 +144,7 @@ csr全称为Certificate Signing Request，即证书请求文件，根（父）�
 
 通过根证书和其私钥对子证书申请进行签发, 提供多种入参方法，参照[子证书签发](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#generateChildCertByDefaultConf-boolean-org.bouncycastle.asn1.x509.KeyUsage-java.lang.String-java.lang.String-java.lang.String-)
 
-这里以文件路径为参示例，示例代码如下：
+这里以文件路径为入参示例，示例代码如下：
 
 ```
     //参数为生成相关文件路径
