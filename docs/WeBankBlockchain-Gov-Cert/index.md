@@ -23,9 +23,7 @@
    
    intro.md
    concepts.md
-   quickstart1.md
-   quickstart2.md
-   toolkit Javadoc <https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html>
-   mgr Javadoc <https://gov-doc.readthedocs.io/zh_CN/dev/certmgrdoc/navigation.html>
+   start.md
+   javadoc.md
    faq.md
 ```
