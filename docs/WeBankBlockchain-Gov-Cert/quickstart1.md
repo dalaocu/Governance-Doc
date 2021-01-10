@@ -231,6 +231,6 @@ CertService提供了多种功能接口：
 - generateChildCertByDefaultConf：生成子证书
 - generateKPAndRootCert：生成密钥对和根证书
 
-另外，KeyUtils和CertUtils两个工具类，提供了对证书和私钥的相关读写操作。
+KeyUtils和CertUtils两个工具类，提供了对证书和私钥的相关读写操作。
 
-参照[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html)
+更多参照[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html)
