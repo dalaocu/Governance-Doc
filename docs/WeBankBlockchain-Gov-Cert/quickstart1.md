@@ -107,8 +107,8 @@ dependencies {
             .organizationName("fisco-bcos")
             .organizationalUnitName("chain")
             .build();
-    //自动生成私钥（默认为RSA），并写入指定路径"out"，写入文件默认为ca
-    certService.generateKPAndRootCert(info,"out");
+    //自动生成私钥（默认为RSA），并写入指定路径"out/ca"，
+    certService.generateKPAndRootCert(info,"out/ca");
 ```
 
 执行上述方法，会在控制台打印出证书、私钥文件保存结果和路径，证书会保存在out/ca/ca.crt文件中
