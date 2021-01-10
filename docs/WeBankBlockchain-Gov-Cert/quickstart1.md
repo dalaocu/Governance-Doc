@@ -217,7 +217,7 @@ csr的生成提供了多种入参方法，参照[证书申请生成](https://gov
 
 ##### PFX证书读写
 
-cer证书只包含公钥信息
+crt证书只包含公钥信息
 pfx由PKCS#12（Public Key Cryptography Standards #12）标准定义，包含了公钥和私钥信息。
 
 CertUtils工具类提供了pfx的生成和读取方法，示例代码如下:
