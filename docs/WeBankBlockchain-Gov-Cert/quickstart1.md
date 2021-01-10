@@ -111,7 +111,7 @@ dependencies {
     certService.generateKPAndRootCert(info,"out");
 ```
 
-执行上述方法，会在控制台打印出证书、私钥文件保存结果和路径，证书会保存在out/ca/ca.cert文件中
+执行上述方法，会在控制台打印出证书、私钥文件保存结果和路径，证书会保存在out/ca/ca.crt文件中
 
 ##### 子证书csr生成
 
