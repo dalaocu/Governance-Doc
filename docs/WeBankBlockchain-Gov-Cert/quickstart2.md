@@ -101,9 +101,9 @@ dependencies {
 ```java
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.webank.cert" })
-public class PkeytestApplication {
+public class CertTestApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(PkeytestApplication.class, args);
+		SpringApplication.run(CertTestApplication.class, args);
 	}
 }
 ```
