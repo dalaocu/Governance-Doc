@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9};
 var tabs = {65535:["t0","所有方法"],1:["t1","静态方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -74,13 +74,13 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>概要:&nbsp;</li>
 <li>嵌套&nbsp;|&nbsp;</li>
-<li>字段&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">字段</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">构造器</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">方法</a></li>
 </ul>
 <ul class="subNavList">
 <li>详细资料:&nbsp;</li>
-<li>字段&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">字段</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">构造器</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">方法</a></li>
 </ul>
@@ -116,6 +116,49 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.summary">
+<!--   -->
+</a>
+<h3>字段概要</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="字段概要表, 列表字段和解释">
+<caption><span>字段</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">限定符和类型</th>
+<th class="colLast" scope="col">字段和说明</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static org.bouncycastle.math.ec.custom.gm.SM2P256V1Curve</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#CURVE">CURVE</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static org.bouncycastle.crypto.params.ECDomainParameters</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#DOMAIN_PARAMS">DOMAIN_PARAMS</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static org.bouncycastle.math.ec.ECPoint</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#G_POINT">G_POINT</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.math.BigInteger</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_GX">SM2_ECC_GX</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.math.BigInteger</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_GY">SM2_ECC_GY</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.math.BigInteger</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_H">SM2_ECC_H</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static java.math.BigInteger</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_N">SM2_ECC_N</a></span></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -146,30 +189,70 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">方法和说明</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static java.security.KeyPair</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateKeyPair--">generateKeyPair</a></span>()</code>&nbsp;</td>
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#convertECPrivateKeyPKCS8ToPEM-byte:A-">convertECPrivateKeyPKCS8ToPEM</a></span>(byte[]&nbsp;encodedKey)</code>
+<div class="block">Converts the PKCS8 standard private key byte stream to PEM</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static java.security.KeyPair</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getECKeyPair-java.lang.String-">getECKeyPair</a></span>(java.lang.String&nbsp;privateStr)</code>&nbsp;</td>
+<td class="colFirst"><code>static org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#convertPKCS8ToECPrivateKey-byte:A-">convertPKCS8ToECPrivateKey</a></span>(byte[]&nbsp;pkcs8Key)</code>
+<div class="block">Converts the PKCS8 standard private key byte stream to a private key pair</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static java.security.PublicKey</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getPublicKey-java.security.interfaces.ECPrivateKey-">getPublicKey</a></span>(java.security.interfaces.ECPrivateKey&nbsp;privateKey)</code>&nbsp;</td>
+<td class="colFirst"><code>static java.security.KeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateECDSAKeyPair--">generateECDSAKeyPair</a></span>()</code>
+<div class="block">Generate ECDSA key pairs</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static java.security.KeyPair</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getRSAKeyPair-java.lang.String-">getRSAKeyPair</a></span>(java.lang.String&nbsp;privateStr)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateECKeyPair-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">generateECKeyPair</a></span>(org.bouncycastle.crypto.params.ECDomainParameters&nbsp;domainParameters,
+                 java.security.SecureRandom&nbsp;random)</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>static java.security.KeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateKeyPair--">generateKeyPair</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>static org.bouncycastle.crypto.AsymmetricCipherKeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateKeyPairParameter-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">generateKeyPairParameter</a></span>(org.bouncycastle.crypto.params.ECDomainParameters&nbsp;domainParameters,
+                        java.security.SecureRandom&nbsp;random)</code>
+<div class="block">Generate ECC key pairs</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static java.security.KeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateSM2KeyPair--">generateSM2KeyPair</a></span>()</code>
+<div class="block">Generate SM2 key pairs</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>static org.bouncycastle.crypto.AsymmetricCipherKeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#generateSM2KeyPairParameter--">generateSM2KeyPairParameter</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>static java.security.KeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getECKeyPair-java.lang.String-">getECKeyPair</a></span>(java.lang.String&nbsp;privateStr)</code>&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>static java.security.PublicKey</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getPublicKey-java.security.interfaces.ECPrivateKey-">getPublicKey</a></span>(java.security.interfaces.ECPrivateKey&nbsp;privateKey)</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>static java.security.KeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getRSAKeyPair-java.lang.String-">getRSAKeyPair</a></span>(java.lang.String&nbsp;privateStr)</code>&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static java.security.PrivateKey</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getRSAPrivateKey-java.lang.String-">getRSAPrivateKey</a></span>(java.lang.String&nbsp;key)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static java.security.PublicKey</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getRSAPublicKey-java.security.PrivateKey-">getRSAPublicKey</a></span>(java.security.PrivateKey&nbsp;privateKey)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static java.security.PublicKey</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/webank/cert/toolkit/utils/KeyUtils.html#getRSAPublicKey-java.lang.String-">getRSAPublicKey</a></span>(java.lang.String&nbsp;key)</code>&nbsp;</td>
 </tr>
@@ -189,6 +272,77 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.detail">
+<!--   -->
+</a>
+<h3>字段详细资料</h3>
+<a name="CURVE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>CURVE</h4>
+<pre>public static final&nbsp;org.bouncycastle.math.ec.custom.gm.SM2P256V1Curve CURVE</pre>
+</li>
+</ul>
+<a name="SM2_ECC_GX">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SM2_ECC_GX</h4>
+<pre>public static final&nbsp;java.math.BigInteger SM2_ECC_GX</pre>
+</li>
+</ul>
+<a name="SM2_ECC_GY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SM2_ECC_GY</h4>
+<pre>public static final&nbsp;java.math.BigInteger SM2_ECC_GY</pre>
+</li>
+</ul>
+<a name="SM2_ECC_N">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SM2_ECC_N</h4>
+<pre>public static final&nbsp;java.math.BigInteger SM2_ECC_N</pre>
+</li>
+</ul>
+<a name="SM2_ECC_H">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SM2_ECC_H</h4>
+<pre>public static final&nbsp;java.math.BigInteger SM2_ECC_H</pre>
+</li>
+</ul>
+<a name="G_POINT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>G_POINT</h4>
+<pre>public static final&nbsp;org.bouncycastle.math.ec.ECPoint G_POINT</pre>
+</li>
+</ul>
+<a name="DOMAIN_PARAMS">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>DOMAIN_PARAMS</h4>
+<pre>public static final&nbsp;org.bouncycastle.crypto.params.ECDomainParameters DOMAIN_PARAMS</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.detail">
@@ -219,6 +373,117 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>generateKeyPair</h4>
 <pre>public static&nbsp;java.security.KeyPair&nbsp;generateKeyPair()</pre>
+</li>
+</ul>
+<a name="generateECDSAKeyPair--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateECDSAKeyPair</h4>
+<pre>public static&nbsp;java.security.KeyPair&nbsp;generateECDSAKeyPair()
+                                                  throws java.security.NoSuchProviderException,
+                                                         java.security.NoSuchAlgorithmException,
+                                                         java.security.InvalidAlgorithmParameterException</pre>
+<div class="block">Generate ECDSA key pairs</div>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.security.NoSuchProviderException</code></dd>
+<dd><code>java.security.NoSuchAlgorithmException</code></dd>
+<dd><code>java.security.InvalidAlgorithmParameterException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="generateSM2KeyPair--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateSM2KeyPair</h4>
+<pre>public static&nbsp;java.security.KeyPair&nbsp;generateSM2KeyPair()
+                                                throws java.security.NoSuchProviderException,
+                                                       java.security.NoSuchAlgorithmException,
+                                                       java.security.InvalidAlgorithmParameterException</pre>
+<div class="block">Generate SM2 key pairs</div>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.security.NoSuchProviderException</code></dd>
+<dd><code>java.security.NoSuchAlgorithmException</code></dd>
+<dd><code>java.security.InvalidAlgorithmParameterException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="generateSM2KeyPairParameter--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateSM2KeyPairParameter</h4>
+<pre>public static&nbsp;org.bouncycastle.crypto.AsymmetricCipherKeyPair&nbsp;generateSM2KeyPairParameter()</pre>
+</li>
+</ul>
+<a name="generateECKeyPair-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateECKeyPair</h4>
+<pre>public static&nbsp;java.security.KeyPair&nbsp;generateECKeyPair(org.bouncycastle.crypto.params.ECDomainParameters&nbsp;domainParameters,
+                                                      java.security.SecureRandom&nbsp;random)
+                                               throws java.security.NoSuchProviderException,
+                                                      java.security.NoSuchAlgorithmException,
+                                                      java.security.InvalidAlgorithmParameterException</pre>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.security.NoSuchProviderException</code></dd>
+<dd><code>java.security.NoSuchAlgorithmException</code></dd>
+<dd><code>java.security.InvalidAlgorithmParameterException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="generateKeyPairParameter-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>generateKeyPairParameter</h4>
+<pre>public static&nbsp;org.bouncycastle.crypto.AsymmetricCipherKeyPair&nbsp;generateKeyPairParameter(org.bouncycastle.crypto.params.ECDomainParameters&nbsp;domainParameters,
+                                                                                       java.security.SecureRandom&nbsp;random)</pre>
+<div class="block">Generate ECC key pairs</div>
+</li>
+</ul>
+<a name="convertPKCS8ToECPrivateKey-byte:A-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>convertPKCS8ToECPrivateKey</h4>
+<pre>public static&nbsp;org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey&nbsp;convertPKCS8ToECPrivateKey(byte[]&nbsp;pkcs8Key)
+                                                                                                throws java.security.NoSuchAlgorithmException,
+                                                                                                       java.security.NoSuchProviderException,
+                                                                                                       java.security.spec.InvalidKeySpecException</pre>
+<div class="block">Converts the PKCS8 standard private key byte stream to a private key pair</div>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.security.NoSuchAlgorithmException</code></dd>
+<dd><code>java.security.NoSuchProviderException</code></dd>
+<dd><code>java.security.spec.InvalidKeySpecException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="convertECPrivateKeyPKCS8ToPEM-byte:A-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>convertECPrivateKeyPKCS8ToPEM</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;convertECPrivateKeyPKCS8ToPEM(byte[]&nbsp;encodedKey)
+                                                      throws java.io.IOException</pre>
+<div class="block">Converts the PKCS8 standard private key byte stream to PEM</div>
+<dl>
+<dt><span class="throwsLabel">抛出:</span></dt>
+<dd><code>java.io.IOException</code></dd>
+</dl>
 </li>
 </ul>
 <a name="getRSAPublicKey-java.lang.String-">
@@ -362,13 +627,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>概要:&nbsp;</li>
 <li>嵌套&nbsp;|&nbsp;</li>
-<li>字段&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">字段</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">构造器</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">方法</a></li>
 </ul>
 <ul class="subNavList">
 <li>详细资料:&nbsp;</li>
-<li>字段&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">字段</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">构造器</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">方法</a></li>
 </ul>

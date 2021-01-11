@@ -97,6 +97,14 @@
 <dd>&nbsp;</dd>
 <dt><a href="com/webank/cert/toolkit/utils/package-summary.html">com.webank.cert.toolkit.utils</a> - 程序包 com.webank.cert.toolkit.utils</dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#convertECPrivateKeyPKCS8ToPEM-byte:A-">convertECPrivateKeyPKCS8ToPEM(byte[])</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>
+<div class="block">Converts the PKCS8 standard private key byte stream to PEM</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#convertPKCS8ToECPrivateKey-byte:A-">convertPKCS8ToECPrivateKey(byte[])</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>
+<div class="block">Converts the PKCS8 standard private key byte stream to a private key pair</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/CertUtils.html#convertStrToCert-java.lang.String-">convertStrToCert(String)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/CertUtils.html" title="com.webank.cert.toolkit.utils中的类">CertUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/CertUtils.html#convertStrToCsr-java.lang.String-">convertStrToCsr(String)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/CertUtils.html" title="com.webank.cert.toolkit.utils中的类">CertUtils</a></dt>
@@ -129,6 +137,8 @@
 <dd>
 <div class="block">create RootCertificate</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#CURVE">CURVE</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a name="I:D">
 <!--   -->
@@ -138,6 +148,8 @@
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/constants/CertConstants.html#DEFAULT_SIGNATURE_ALGORITHM">DEFAULT_SIGNATURE_ALGORITHM</a></span> - 类 中的静态变量com.webank.cert.toolkit.constants.<a href="com/webank/cert/toolkit/constants/CertConstants.html" title="com.webank.cert.toolkit.constants中的类">CertConstants</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/constants/CertConstants.html#DEFAULT_VALIDITY">DEFAULT_VALIDITY</a></span> - 类 中的静态变量com.webank.cert.toolkit.constants.<a href="com/webank/cert/toolkit/constants/CertConstants.html" title="com.webank.cert.toolkit.constants中的类">CertConstants</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#DOMAIN_PARAMS">DOMAIN_PARAMS</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a name="I:E">
@@ -165,6 +177,8 @@
 </a>
 <h2 class="title">G</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#G_POINT">G_POINT</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/service/CertService.html#generateCertRequestByDefaultConf-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-">generateCertRequestByDefaultConf(X500NameInfo, String)</a></span> - 类 中的方法com.webank.cert.toolkit.service.<a href="com/webank/cert/toolkit/service/CertService.html" title="com.webank.cert.toolkit.service中的类">CertService</a></dt>
 <dd>
 <div class="block">generate certRequest by default configuration (signature algorithm is SHA256WITHRSA, valid for 3650 days)</div>
@@ -190,8 +204,18 @@
 <dd>
 <div class="block">generate childCert by default configuration (signature algorithm is SHA256WITHRSA, valid for 3650 days)</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateECDSAKeyPair--">generateECDSAKeyPair()</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>
+<div class="block">Generate ECDSA key pairs</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateECKeyPair-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">generateECKeyPair(ECDomainParameters, SecureRandom)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateKeyPair--">generateKeyPair()</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateKeyPairParameter-org.bouncycastle.crypto.params.ECDomainParameters-java.security.SecureRandom-">generateKeyPairParameter(ECDomainParameters, SecureRandom)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>
+<div class="block">Generate ECC key pairs</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/service/CertService.html#generateKPAndRootCert-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-">generateKPAndRootCert(X500NameInfo, String)</a></span> - 类 中的方法com.webank.cert.toolkit.service.<a href="com/webank/cert/toolkit/service/CertService.html" title="com.webank.cert.toolkit.service中的类">CertService</a></dt>
 <dd>
 <div class="block">generate RSA keyPair and CA certificate by default configuration (signature algorithm is SHA256WITHRSA,
@@ -211,6 +235,12 @@
 <div class="block">generate CA certificate by default configuration (signature algorithm is SHA256WITHRSA, valid for 3650 days)
  the generated certificate is saved in a file</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateSM2KeyPair--">generateSM2KeyPair()</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>
+<div class="block">Generate SM2 key pairs</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#generateSM2KeyPairParameter--">generateSM2KeyPairParameter()</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#getECKeyPair-java.lang.String-">getECKeyPair(String)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#getPublicKey-java.security.interfaces.ECPrivateKey-">getPublicKey(ECPrivateKey)</a></span> - 类 中的静态方法com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
@@ -279,6 +309,14 @@
 <dd>
 <div class="block">Save the PFX file that contains the public key, private key, and certificate chain alias</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_GX">SM2_ECC_GX</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_GY">SM2_ECC_GY</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_H">SM2_ECC_H</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/webank/cert/toolkit/utils/KeyUtils.html#SM2_ECC_N">SM2_ECC_N</a></span> - 类 中的静态变量com.webank.cert.toolkit.utils.<a href="com/webank/cert/toolkit/utils/KeyUtils.html" title="com.webank.cert.toolkit.utils中的类">KeyUtils</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a name="I:T">
 <!--   -->
