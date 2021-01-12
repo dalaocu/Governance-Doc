@@ -28,5 +28,6 @@
    intro.md
    quickstart.md
    concepts.md
+   javadoc.md
    faq.md
 ```
