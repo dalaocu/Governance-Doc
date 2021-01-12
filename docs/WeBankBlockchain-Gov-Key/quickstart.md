@@ -205,7 +205,7 @@ dependencies {
     }
 ```
 
-##### 3.2.3.4. 私钥加密导出
+##### 私钥加密导出
 ```java
     public static void main(String [] args) throws Exception{
         //生成一个私钥
