@@ -12,7 +12,22 @@
 | MySQL | >= mysql-community-server[5.7] | 使用key-mgr托管时需要|
 
 
-如果您还未安装这些依赖，请参考[附录](appendix.md)。
+如果您还未安装这些依赖，请参考[附录](../appendix.md)。
+
+## 基本术语
+
+使用本组件前，请先确保理解下述基本术语：
+
+| 术语 | 说明 |
+| --- | --- |
+| 椭圆曲线 | 一族曲线，广泛用于密码学。这里仅指国际secp256k1椭圆曲线或国密sm2p256v1椭圆曲线 |
+| 私钥 | 用户私有密钥，用于签名、解密等。这里特指基于椭圆曲线的私钥 |
+| 公钥 | 公开的密钥，用于验签、加密等。这里特指基于椭圆曲线的公钥| 
+| 地址 | 由公钥经特定哈希方式生成的账户地址| 
+| 助记词 | 一串单词文本，解决私钥难以记忆、表达的问题。可结合口令得到私钥 | 
+| 派生 | 私钥根据不同场景生成子私钥的过程，用于减低记忆成本、泄露风险 | 
+| chaincode | 用于派生，私钥结合chaincode可派生出子私钥| 
+
 
 ## 源码下载
 
@@ -111,16 +126,36 @@ dependencies {
         //生成非国密私钥
         PkeyByRandomService eccService = new PkeyByRandomService();
         PkeyInfo eccKey = eccService.generatePrivateKey();
-        System.out.println(Hex.toHexString(eccKey.getPrivateKey()));
-        System.out.println(eccKey.getAddress());
+        System.out.println("private key:"+ KeyPresenter.asString(eccKey.getPrivateKey()));
+        System.out.println("public key:" + KeyPresenter.asString(eccKey.getPublicKey().getPublicKey()));
+        System.out.println("address:" +eccKey.getAddress());
 
         //生成国密私钥
         PkeySM2ByRandomService gmService = new PkeySM2ByRandomService();
         PkeyInfo gmPkey = gmService.generatePrivateKey();
-        System.out.println(Hex.toHexString(gmPkey.getPrivateKey()));
-        System.out.println(gmPkey.getAddress());
+        System.out.println("private key:"+ KeyPresenter.asString(gmPkey.getPrivateKey()));
+        System.out.println("public key:" + KeyPresenter.asString(gmPkey.getPublicKey().getPublicKey()));
+        System.out.println("address:" +gmPkey.getAddress());
     }
 ```
+
+##### 私钥转换为公钥地址
+
+
+```java
+    public static void main(String[] args) throws Exception{
+        byte[] privateKey = KeyPresenter.asBytes( "0xed1d9dc98c8496b9837cb8c46a2302b9d479aab08f536dc0785115c11990d7f3");
+        PkeyInfo pkeyInfo
+                = PkeyInfo.builder()
+                .privateKey(privateKey)
+                .eccName(EccTypeEnums.SECP256K1.getEccName())
+                .build();
+
+        System.out.println("public key :" + KeyPresenter.asString(pkeyInfo.getPublicKey().getPublicKey()));
+        System.out.println("address :" + pkeyInfo.getAddress());
+    }
+```
+
 ##### 助记词方式生成私钥
 ```java
     public static void main(String[] args) throws Exception{
@@ -130,20 +165,20 @@ dependencies {
         System.out.println("Mnemonic:"+mnemonic);
         //生成非国密私钥
         PkeyInfo pkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SECP256K1);
-        System.out.println("ECC Private Key:"+ Hex.toHexString(pkey.getPrivateKey()));
-        System.out.println("ECC Chaincode:"+ Hex.toHexString(pkey.getChainCode()));
+        System.out.println("ECC Private Key:"+ KeyPresenter.asString(pkey.getPrivateKey()));
+        System.out.println("ECC Chaincode:"+ KeyPresenter.asString(pkey.getChainCode()));
         System.out.println("ECC Address:"+ pkey.getAddress());
         //生成国密私钥
         PkeyInfo gmkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SM2P256V1);
-        System.out.println("GM Private Key:"+ Hex.toHexString(gmkey.getPrivateKey()));
-        System.out.println("GM Chaincode:"+ Hex.toHexString(gmkey.getChainCode()));
+        System.out.println("GM Private Key:"+ KeyPresenter.asString(gmkey.getPrivateKey()));
+        System.out.println("GM Chaincode:"+ KeyPresenter.asString(gmkey.getChainCode()));
         System.out.println("GM Address:"+ gmkey.getAddress());
     }
 ```
 
 ##### 密钥派生
 ```java
-    public static void main(String[] args) throws Exception{
+   public static void main(String[] args) throws Exception{
         //通过助记词获得私钥
         PkeyByMnemonicService mnemonicService = new PkeyByMnemonicService();
         String mnemonic = mnemonicService.createMnemonic();
@@ -154,22 +189,23 @@ dependencies {
         ExtendedPrivateKey rootKey = deriveService.buildExtendedPrivateKey(key);
         //派生子私钥
         ExtendedPrivateKey subPrivKey = rootKey.deriveChild(2);
-        System.out.println("child no.2: "+ Hex.toHexString(subPrivKey.getPkeyInfo().getPrivateKey()));
+        System.out.println("child no.2: "+ KeyPresenter.asString(subPrivKey.getPkeyInfo().getPrivateKey()));
         //子私钥转子公钥
         ExtendedPublicKey subPubKey= subPrivKey.neuter();
-        System.out.println("pubkey for child no.2: "+ Hex.toHexString(subPubKey.pubKeyInfo(true).getPublicKey()));
+        System.out.println("pubkey for child no.2: "+ KeyPresenter.asString(subPubKey.getPubInfo().getPublicKey()));
         //BIP-44派生
         Purpose44Path derivePath = deriveService.getPurpose44PathBuilder().m()
                 .purpose44().sceneType(2)
                 .account(3).change(4).addressIndex(5).build();
         ExtendedPrivateKey derived = derivePath.deriveKey(rootKey);
-        System.out.println("derived for bip 44 "+ Hex.toHexString(derived.getPkeyInfo().getPrivateKey()));
+        System.out.println("derived for bip 44 "+ KeyPresenter.asString(derived.getPkeyInfo().getPrivateKey()));
     }
 ```
 
 ##### 3.2.3.4. 私钥加密导出
 ```java
     public static void main(String [] args) throws Exception{
+        //生成一个私钥
         PkeyByRandomService generateService = new PkeyByRandomService();
         PkeyInfo pkeyInfo = generateService.generatePrivateKey();
         //keystore加密与还原
@@ -178,21 +214,21 @@ dependencies {
         String encrypt = keystoreService.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
         System.out.println(encrypt);
         byte[] recoveredFromKeystore = keystoreService.decrypt("password", encrypt);
-        System.out.println(Hex.toHexString(recoveredFromKeystore));
+        System.out.println(KeyPresenter.asString(recoveredFromKeystore));
         //PEM加密与还原(无需密码)
         KeyEncryptAlgorithm pemAlgorithm
                 = new PemEncryptAlgorithm();
         encrypt = pemAlgorithm.encrypt("",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
         System.out.println(encrypt);
         byte[] recoveredFromPem = pemAlgorithm.decrypt("", encrypt);
-        System.out.println(Hex.toHexString(recoveredFromPem));
+        System.out.println(KeyPresenter.asString(recoveredFromPem));
         //P12加密与还原
         KeyEncryptAlgorithm p12Algorithm
                 = new P12EncryptAlgorithm();
         encrypt = p12Algorithm.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
         System.out.println(encrypt);
         byte[] recoveredFromP12 = p12Algorithm.decrypt("password", encrypt);
-        System.out.println(Hex.toHexString(recoveredFromP12));
+        System.out.println(KeyPresenter.asString(recoveredFromP12));
     }
 ```
 ##### 私钥分片与还原
@@ -201,7 +237,7 @@ dependencies {
         //生成一个私钥
         PkeyByRandomService generateService = new PkeyByRandomService();
         PkeyInfo pkeyInfo = generateService.generatePrivateKey();
-        System.out.println("Before sharding "+Hex.toHexString(pkeyInfo.getPrivateKey()));
+        System.out.println("Before sharding "+KeyPresenter.asString(pkeyInfo.getPrivateKey()));
         //开始分片，分解为5片，凑齐任意3片才能还原
         PkeyShardingService shardingService
                 = new PkeyShardingService();
@@ -212,7 +248,7 @@ dependencies {
         recoveredShards.add(shards.get(2));
         recoveredShards.add(shards.get(3));
         byte[] recovered = shardingService.recoverPKey(recoveredShards);
-        System.out.println("After recovered "+Hex.toHexString(recovered));
+        System.out.println("After recovered "+ KeyPresenter.asString(recovered));
     }
 ```
 ##### 密码学操作
