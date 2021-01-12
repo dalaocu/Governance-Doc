@@ -11,7 +11,7 @@
 | Git | 下载的安装包使用Git | |
 
 - Java版本 <br />JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
-- Java安装 <br />参考 [Java环境配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html#java)
+- Java安装 <br />参考 [Java环境配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/quick_start.html#id2)
 - FISCO BCOS区块链环境搭建<br />参考 [FISCO BCOS安装教程](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)
 - 网络连通性<br />检查Web3SDK连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
 
@@ -31,12 +31,12 @@
 ## 使用组件合约
 
 <br />本章节介绍的是只使用合约本身的方式进行账户治理。如果需要使用SDK来治理的，可跳过本章节。<br />
-<br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
+<br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[配置与运行](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/console/console_of_java_sdk.html)。<br />
 
 ### 使用控制台部署和调用合约
 
 <br />本方式可直接通过控制台或WeBASE-Front来操作。<br />
-<br />在此我们以控制台为例，进行演示，关于控制台的使用说明请参考[控制台的详细文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
+<br />在此我们以控制台为例，进行演示，关于控制台的使用说明请参考[控制台命令列表](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/console/console_of_java_sdk.html#id19)。<br />
 
 ### 准备和登入控制台环境
 
@@ -515,7 +515,7 @@ contract TransferDemo {
 }
 ```
 
-<br />接下来，用户可到FISCO BCOS控制台中，将XXContract的业务合约编译为具体的Java代码。控制台提供一个专门的编译合约工具，方便开发者将Solidity合约文件编译为Java合约文件，具体使用方式参考[这里](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html#id10)<br />
+<br />接下来，用户可到FISCO BCOS控制台中，将XXContract的业务合约编译为具体的Java代码。控制台提供一个专门的编译合约工具，方便开发者将Solidity合约文件编译为Java合约文件，具体使用方式参考[合约编译工具](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/console/console_of_java_sdk.html#id5)<br />
 <br />也可以通过控制台或WeBASE-Front等工具部署到链上，在此不再赘述。<br />
 <br />更加完整地引入治理合约的例子和使用方式可以参考工程中附带的samples demo。我们提供了基于存证和积分转账场景的两个demo。<br />
 
