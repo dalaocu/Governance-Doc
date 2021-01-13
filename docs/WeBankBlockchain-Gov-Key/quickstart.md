@@ -205,33 +205,18 @@ dependencies {
     }
 ```
 
-##### 私钥加密导出
+##### 私钥加密导出到目录
 ```java
-    public static void main(String [] args) throws Exception{
-        //生成一个私钥
-        PkeyByRandomService generateService = new PkeyByRandomService();
-        PkeyInfo pkeyInfo = generateService.generatePrivateKey();
-        //keystore加密与还原
-        KeyEncryptAlgorithm keystoreService
-                = new KeystoreEncryptAlgorithm();
-        String encrypt = keystoreService.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
-        System.out.println(encrypt);
-        byte[] recoveredFromKeystore = keystoreService.decrypt("password", encrypt);
-        System.out.println(KeyPresenter.asString(recoveredFromKeystore));
-        //PEM加密与还原(无需密码)
-        KeyEncryptAlgorithm pemAlgorithm
-                = new PemEncryptAlgorithm();
-        encrypt = pemAlgorithm.encrypt("",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
-        System.out.println(encrypt);
-        byte[] recoveredFromPem = pemAlgorithm.decrypt("", encrypt);
-        System.out.println(KeyPresenter.asString(recoveredFromPem));
-        //P12加密与还原
-        KeyEncryptAlgorithm p12Algorithm
-                = new P12EncryptAlgorithm();
-        encrypt = p12Algorithm.encrypt("password",pkeyInfo.getPrivateKey(),pkeyInfo.getAddress(),pkeyInfo.getEccName());
-        System.out.println(encrypt);
-        byte[] recoveredFromP12 = p12Algorithm.decrypt("password", encrypt);
-        System.out.println(KeyPresenter.asString(recoveredFromP12));
+    public static void main(String[] args) throws Exception{
+        PkeyInfo pkeyInfo
+                 = PkeyInfo.builder()
+                .privateKey(Numeric.hexStringToByteArray("252ffefe4e3856eb84a4fba5f07fc2066d3043a763cb74ed16ff093ac79b52d6"))
+                .eccName(EccTypeEnums.SECP256K1.getEccName())
+                .build();
+
+        String dir = System.getProperty("user.dir")+ File.separator+"keystores";
+        PkeyEncryptService pkeyEncryptService = new PkeyEncryptService();
+        pkeyEncryptService.encryptKeyStoreFormat("123456", pkeyInfo.getPrivateKey(), EccTypeEnums.SECP256K1, dir);
     }
 ```
 ##### 私钥分片与还原
