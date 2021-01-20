@@ -9,7 +9,7 @@ WeBankBlockchain-Gov 技术文档
     WeBankBlockchain-Gov 是微众银行立足于分布式协作的联盟链场景，提炼和解决了常见的痛点和问题，所打造的一系列简单好用的组件，助力区块链社区、生态和产品协调发展。
 
     WeBankBlockchain-Gov 是一套稳定、高效、安全的区块治理组件解决方案，可无缝适配FISCO BCOS区块链底层平台。
-    首批开源的有账户治理组件(WeBankBlockchain-Gov-Acct)、合约权限服务组件(Data-Stash)、 私钥管理组件(Data-Reconcile)和证书管理组件（WeBankBlockchain-Gov-Cert）。
+    首批开源的有账户治理组件(WeBankBlockchain-Governance-Account)、合约权限服务组件(Data-Stash)、 私钥管理组件(Data-Reconcile)和证书管理组件（WeBankBlockchain-Governance-Cert）。
 
     这四个组件分别从私钥丢失重置、合约权限细粒度管控、私钥和证书的全生命周期管控等方面着手，提供了可部署的智能合约代码、易于使用的SDK和可参考的落地实践Demo等交付物。
     我们将竭尽所能在实践中持续探索和开发新的治理组件，也希望社区的朋友们一起加入进来，不断为WeBankBlockchain-Gov补充新鲜血液。
@@ -32,19 +32,19 @@ WeBankBlockchain-Gov 技术文档
 
 .. admonition:: 组件简介
 
-    - **WeBankBlockchain-Gov-Acct  账户治理组件** 
+    - **WeBankBlockchain-Governance-Account  账户治理组件**
     基于智能合约开发，提供区块链用户账户注册、私钥重置、冻结、解冻等账户全生命周期管理，支持管理员、阈值投票、多签制等多种治理策略。
     请参考 `文档 <./docs/WeBankBlockchain-Gov-Acct/index.html>`_
     
-    - **WeBankBlockchain-Gov-Auth  合约权限服务** 
+    - **WeBankBlockchain-Governance-Authority  合约权限服务**
     基于智能合约，提供区块链账户、合约、函数等粒度的权限控制的功能的通用组件。
     请参考 `文档 <./docs/WeBankBlockchain-Gov-Auth/index.html>`_ 
     
-    - **WeBankBlockchain-Gov-Key  私钥管理组件**
+    - **WeBankBlockchain-Governance-Key  私钥管理组件**
     提供私钥生成、存储、加解密、加签、验签等私钥全生命周期管理的通用解决方案。
     请参考 `文档 <./docs/WeBankBlockchain-Gov-Key/index.html>`_
 
-    - **WeBankBlockchain-Gov-Cert  证书管理组件**
+    - **WeBankBlockchain-Governance-Cert  证书管理组件**
     提供证书生成、验证、子证书请求等证书全生命周期管理的通用解决方案。
     灵活配置、无需开发，支持自定义对账数据和对账格式，支持定时对账和触发对账，对账处理模块可插拔可扩展。
     请参考 `文档 <./docs/WeBankBlockchain-Gov-Cert/index.html>`_

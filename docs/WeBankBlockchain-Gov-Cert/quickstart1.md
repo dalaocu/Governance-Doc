@@ -31,13 +31,12 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 通过git下载源码：
 
 ```
-git clone https://github.com/WeBankBlockchain/Gov-Cert.git
+git clone https://github.com/WeBankBlockchain/Governance-Cert.git
 ```
 
 进入目录：
 ```
-cd Gov-Cert
-git checkout dev
+cd Governance-Cert
 cd cert-toolkit
 ```
 

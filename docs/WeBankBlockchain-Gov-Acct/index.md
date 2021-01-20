@@ -4,7 +4,7 @@
 ```eval_rst
 .. admonition:: **简介**
 
-    WeBankBlockchain-Gov-Acct定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力
+    WeBankBlockchain-Governance-Account定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力
 ```
 
 ```eval_rst

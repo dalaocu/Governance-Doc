@@ -24,11 +24,11 @@
 <br />![](img/acct_vote.png)
 ## 概览
 
-<br />为了解决上述痛点，同时践行分布式商业的理念，WeBankBlockchain-Gov-Acct应运而生。<br />
-<br />WeBankBlockchain-Gov-Acct是一套开源的区块链账户治理的中间件解决方案，提供了多种区块链账户治理模式、账户生命周期管理、用户自主管理区块链账户治理相关的整体解决方案，提供了包括治理账户创建、多种治理模式选择、治理权限授权，账户创建、冻结、解冻、更换私钥、销户等账户生命周期的各类账户管理功能。<br />
+<br />为了解决上述痛点，同时践行分布式商业的理念，WeBankBlockchain-Governance-Account应运而生。<br />
+<br />WeBankBlockchain-Governance-Account是一套开源的区块链账户治理的中间件解决方案，提供了多种区块链账户治理模式、账户生命周期管理、用户自主管理区块链账户治理相关的整体解决方案，提供了包括治理账户创建、多种治理模式选择、治理权限授权，账户创建、冻结、解冻、更换私钥、销户等账户生命周期的各类账户管理功能。<br />
 
 ### 关键特性
-<br />WeBankBlockchain-Gov-Acct定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力。<br />
+<br />WeBankBlockchain-Governance-Account定位为区块链账户治理中间件，旨在充分合理地在区块链节点网络中，利用智能合约所提供的图灵完备的计算能力，提供自洽的账户治理能力。<br />
 
 - **支持多种治理方式**
 - **去中心化的分布式协作治理思想**
@@ -41,12 +41,12 @@
 
 
 ### 组成部分
-<br />WeBankBlockchain-Gov-Acct包含了以下组成部分：<br />
+<br />WeBankBlockchain-Governance-Account包含了以下组成部分：<br />
 
 - **合约代码**，最核心的账户治理实现部分。当前版本提供了基于Solidity语言实现，完全适配FISCO BCOS。 理论上可在任何支持了EVM虚拟机的区块链系统上运行。
 - **Java SDK**。适配了合约代码。通过集成Java SDK以后，可以适配和调用账户治理的所有合约接口。此外，进一步对使用接口进行简化和封装，可符合Java程序员的使用习惯。
 - **合约集成Demo**。提供了基于存证和积分转账场景的两个demo。（详情可参考合约中samples目录）
-- **SDK集成Demo**。提供了SDK集成和使用的demo，展示了如何使用Java SDK。（详情可参考 [Gov-Acct-Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo/) ）
+- **SDK集成Demo**。提供了SDK集成和使用的demo，展示了如何使用Java SDK。（详情可参考 [Governance-Account-Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo/) ）
 - **TDD测试代码**。包含了全套的合约测试代码，轻松支持CI/CD。(详情可参考Java SDK中src/test/java目录下的代码)
 - **web管理台**  直接通过可视化页面来进行操作，正在开发中……
 
@@ -54,7 +54,7 @@
 
 ### 集成方式
 
-<br />在FISCO BCOS生态中，WeBankBlockchain-Gov-Acct提供了以下使用和集成的方式：<br />
+<br />在FISCO BCOS生态中，WeBankBlockchain-Governance-Account提供了以下使用和集成的方式：<br />
 
 - 通过门面部署合约来发布合约到链上，获得账户治理的能力；
 - 通过在自身业务的合约中引入或集成账户治理合约；

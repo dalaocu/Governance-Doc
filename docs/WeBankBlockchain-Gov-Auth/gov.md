@@ -491,7 +491,7 @@ deploy AuthManager 2 ["0x1","0x2", "0x3"] [1,2,3] 4
 
 先前章节中，已经通过git下载了源码：
 ```
-git clone git@github.com:WeBankBlockchain/Gov-Auth.git 
+git clone git@github.com:WeBankBlockchain/Governance-Authority.git 
 cd auth-manager
 ```
 

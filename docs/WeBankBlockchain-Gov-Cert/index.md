@@ -4,7 +4,7 @@
 ```eval_rst
 .. admonition:: **简介**
 
-    WeBankBlockchain-Gov-Cert提供了证书生命周期管理的解决方案，规范证书签发流程，支持证书托管，支持多种签名算法，方便个人或企业使用。
+    WeBankBlockchain-Governance-Cert提供了证书生命周期管理的解决方案，规范证书签发流程，支持证书托管，支持多种签名算法，方便个人或企业使用。
 
 ```
 

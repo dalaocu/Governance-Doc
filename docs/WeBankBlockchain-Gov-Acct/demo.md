@@ -257,7 +257,7 @@ return value: (true)
 ```
 ## SDK集成Demo
 
-提供了SDK集成和使用的demo，展示了如何使用Java SDK。 详情可参考 [Gov-Acct-Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo/)
+提供了SDK集成和使用的demo，展示了如何使用Java SDK。 详情可参考 [Governance-Account-Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo/)
 
 
 ## 测试代码说明

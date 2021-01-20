@@ -1,6 +1,6 @@
 # 快速开始
 
-<br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Gov-Acct的快速入门。<br />
+<br />本章节以尽量短的时间，为使用者提供最简单的WeBankBlockchain-Governance-Account的快速入门。<br />
 
 ## 前置依赖
 
@@ -31,7 +31,7 @@
 ## 使用组件合约
 
 <br />本章节介绍的是只使用合约本身的方式进行账户治理。如果需要使用SDK来治理的，可跳过本章节。<br />
-<br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Gov-Acct作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
+<br />在完成FISCO BCOS链环境初始化以后，通过将WeBankBlockchain-Governance-Account作为独立的插件，可使用控制台来部署账户治理的合约。可参考控制台的[安装与使用文档](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/console.html)。<br />
 
 ### 使用控制台部署和调用合约
 
@@ -90,7 +90,7 @@ Type 'help' or 'h' for help. Type 'quit' or 'q' to quit console.
 
 ### 部署治理合约
 
-<br />为了便于部署WeBankBlockchain-Gov-Acct治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
+<br />为了便于部署WeBankBlockchain-Governance-Account治理合约，我们共提供了三个Builder合约，来便于快速部署，分别是：<br />
 
 1. AdminGovernBuilder
 2. VoteGovernBuilder
@@ -427,7 +427,7 @@ event value: (0x0000000000000000000000000000000000000001, 0x5b15b41277f4cacfdad3
 
 #### 组件合约引入
 
-<br />用户在具体的业务合约中，可采用引入的方式来使用WeBankBlockchain-Gov-Acct智能合约。<br />
+<br />用户在具体的业务合约中，可采用引入的方式来使用WeBankBlockchain-Governance-Account智能合约。<br />
 
 ##### 在通用的场景中引入治理合约
 
@@ -522,7 +522,7 @@ contract TransferDemo {
 ## 使用Java SDK
 相比通过控制台或WeBASE来部署和调用合约，使用Java SDK的方式更为地方便、快捷；我们更推荐在业务系统中通过集成Java SDK的方式来使用账户治理组件。
 
-为了便于使用，我们提供了[使用Demo](https://github.com/WeBankBlockchain/Gov-Acct-Demo)，可供参考。
+为了便于使用，我们提供了[使用Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo)，可供参考。
 
 ### 将Jar包引入到用户自己的Java业务项目中
 
@@ -541,7 +541,7 @@ contract TransferDemo {
 
 ```groovy
     dependencies {
-	    implementation 'com.github.WeBankBlockchain:Gov-Acct:Tag'
+	    implementation 'com.github.WeBankBlockchain:Governance-Account:Tag'
 	}
 ```
 

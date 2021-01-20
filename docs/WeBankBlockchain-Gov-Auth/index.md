@@ -4,7 +4,7 @@
 ```eval_rst
 .. admonition:: **简介**
 
-    WeBankBlockchain-Gov-Auth定位为区块链权限治理组件，旨在为智能合约开发者提供强大、轻便的权限管理工具，使得开发者可以快速地为自己的业务系统搭建智能合约权限控制体系。
+    WeBankBlockchain-Governance-Authority定位为区块链权限治理组件，旨在为智能合约开发者提供强大、轻便的权限管理工具，使得开发者可以快速地为自己的业务系统搭建智能合约权限控制体系。
 ```
 
 ```eval_rst

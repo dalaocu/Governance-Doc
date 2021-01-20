@@ -1,6 +1,6 @@
 # 组件介绍
 
-WeBankBlockchain-Gov-Key组件旨在让用户便捷、安全的使用私钥，包含椭圆曲线私钥的生成、使用、加解密保管等功能，覆盖私钥全生命周期，并支持国密标准。Gov-key包含key-toolkit和key-mgr两个组件，key-toolkit用于私钥的生成、加密、常规密码学操作，适合个人级用户使用。key-mgr用于私钥保管，适合企业级用户使用。
+WeBankBlockchain-Governance-Key组件旨在让用户便捷、安全的使用私钥，包含椭圆曲线私钥的生成、使用、加解密保管等功能，覆盖私钥全生命周期，并支持国密标准。Governance-Key包含key-toolkit和key-mgr两个组件，key-toolkit用于私钥的生成、加密、常规密码学操作，适合个人级用户使用。key-mgr用于私钥保管，适合企业级用户使用。
 
 
 ## 关键特性

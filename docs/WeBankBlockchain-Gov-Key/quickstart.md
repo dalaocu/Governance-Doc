@@ -19,8 +19,8 @@
 通过git 下载源码.
 ```
 cd ~
-git clone https://github.com/WeBankBlockchain/Gov-Key.git
-cd Gov-Key
+git clone https://github.com/WeBankBlockchain/Governance-Key.git
+cd Governance-Key
 ```
 
 ## key-core快速开始
@@ -67,7 +67,7 @@ java -jar key-core-web.jar
 进入目录:
 
 ```
-cd ~/Gov-Key/key-core
+cd ~/Governance-Key/key-core
 ```
 
 编译代码：
@@ -265,7 +265,7 @@ dependencies {
 
 进入目录：
 ```
-cd ~/Gov-Key/key-mgr
+cd ~/Governance-Key/key-mgr
 ```
 
 ### 编译源码

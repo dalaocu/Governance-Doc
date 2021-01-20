@@ -33,12 +33,12 @@ cert-mgr用于证书托管。
 通过git下载源码：
 
 ```
-https://github.com/WeBankBlockchain/Gov-Cert.git
+https://github.com/WeBankBlockchain/Governance-Cert.git
 ```
 
 进入目录：
 ```
-cd Gov-Cert/cert-mgr
+cd Governance-Cert/cert-mgr
 ```
 
 ### 编译源码
