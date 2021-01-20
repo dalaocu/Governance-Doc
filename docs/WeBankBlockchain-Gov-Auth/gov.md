@@ -114,7 +114,7 @@ deploy AuthManager 1 [,] [,] 0
 deploy AuthManager 2 ["0x1", "0x2", "0x3"] [1,1,1] 3 
 ```
 
-这里[1,1,1]表示每个委员权重为1。
+此处[1,1,1]表示每个委员权重为1。
 
 示例3：部署委员会方式的权限治理合约，并且采用基于阈值投票方式。比如委员会包含三个地址，分别为"0x1","0x2","0x3"，权重分别为1，2，3。要求总权重为4，投票才算有效。则部署方式为：
 
@@ -518,9 +518,9 @@ chmod +x ./gradlew && ./gradlew build -x test
 ### 集成
 在编译好该jar包后，将它引入到一个示例项目中进行调用，以操作权限合约。
 
-#### 新建springboot项目
+#### 新建项目
 
-可以通过 https://start.spring.io/ 等方式来新建一个springboot项目。
+新建一个java项目
 
 #### 引入auth-manager sdk
 
@@ -536,18 +536,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        //exclude group: 'junit', module: 'junit'
-    }
-    compile ('org.fisco-bcos.java-sdk:java-sdk:2.7.0') {
-        exclude group: 'org.slf4j'
-    }
+    compile ('org.fisco-bcos.java-sdk:java-sdk:2.7.0')
+    compile fileTree(dir:'libs',include:['*.jar'])
 
 }
 ```
@@ -555,52 +545,63 @@ dependencies {
 
 配置存放在config.toml，参考[java sdk配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)
 
-#### 连接配置
-
-```
-system.sdkConfigPath=[config.toml路径]
-system.groupId=1
-```
 #### 使用方式示例
-
-本例在单元测试中完成调用示例。首先新建DemoTest类，并通过Spring自动注入得到AuthManagerFactory:
-
-```
-@SpringBootTest
-public class DemoTest {
-
-    @Autowired
-    private AuthManagerFactory factory;
-
-    @Test
-    public void test() throws Exception{
-        //TODO     
-    }
-}
-```
 
 接下来设置黑名单，将一个账户拉黑，使得它无法调用hello函数。
 
 ```
-@Test
-public void demo() throws Exception{
-    //创建权限合约
-    AuthManager authManager = factory.createAdmin();
-    //创建治理员调用接口
-    AuthByAdminService authByAdminService = new AuthByAdminService(authManager);
-    //创建组
-    String group = "badGroup";
-    authByAdminService.createGroup(group, AuthConstants.ACL_BLACKLIST_MODE);
-    String blackAccount = "[待拉黑账户]";
-    authByAdminService.addAccountToGroup(blackAccount, group);
-    //配置组权限
-    String bizContractAddress = "[HelloWorld合约地址]";
-    String function = "[hello函数签名]";
-    authByAdminService.addFunctionToGroup(bizContractAddress, function, group);
-    //验证
-    boolean canCall = authByAdminService.canCallFunction(bizContractAddress, function, blackAccount);
-    Assert.assertFalse(canCall);
+package com.webank.authmanager.demo;
+
+import com.webank.authmanager.constant.AuthConstants;
+import com.webank.authmanager.contract.AuthManager;
+import com.webank.authmanager.factory.AuthManagerFactory;
+import com.webank.authmanager.service.AuthByAdminService;
+import com.webank.authmanager.utils.HashUtils;
+import org.fisco.bcos.sdk.BcosSDK;
+import org.fisco.bcos.sdk.client.Client;
+
+/**
+ * @author aaronchu
+ * @Description
+ * @data 2021/01/15
+ */
+public class SDKDemo {
+    public static void main(String[] args) throws Exception{
+        BcosSDK bcosSDK = BcosSDK.build("conf/config.toml");
+        Client client = bcosSDK.getClient(1);
+        AuthManagerFactory authManagerFactory = new AuthManagerFactory(client);
+        //Deploy contract
+        AuthManager authManager = authManagerFactory.createAdmin();
+        //Build facade
+        AuthByAdminService authByAdminService = new AuthByAdminService(authManager);
+        //Create group
+        String group = "badGroup";
+        authByAdminService.createGroup(group, AuthConstants.ACL_BLACKLIST_MODE);
+        String blackAccount = "0x01";
+        //Relate function
+        String bizContractAddress = "0x2";
+        String function = HashUtils.hash("add(uint256,uint256)");//业务函数签名
+        authByAdminService.addFunctionToGroup(bizContractAddress, function, group);
+        //Verify
+        boolean canCall = authByAdminService.canCallFunction(bizContractAddress, function, blackAccount);
+        System.out.println("Before blocking this account, can the account access the function?:"+canCall);
+
+        //Add black account
+        authByAdminService.addAccountToGroup(blackAccount, group);
+
+        //Verify
+        canCall = authByAdminService.canCallFunction(bizContractAddress, function, blackAccount);
+        System.out.println("After blocking this account, can the account access the function?:"+canCall);
+
+        //Remove black account
+        authByAdminService.removeAccountFromGroup(blackAccount, group);
+
+        //Verify
+        canCall = authByAdminService.canCallFunction(bizContractAddress, function, blackAccount);
+        System.out.println("After unblocking, can the account access the function?:"+canCall);
+    }
 }
+
 ```
 
 ## 常见问题

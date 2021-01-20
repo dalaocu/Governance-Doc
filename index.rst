@@ -46,7 +46,6 @@ WeBankBlockchain-Gov 技术文档
 
     - **WeBankBlockchain-Governance-Cert  证书管理组件**
     提供证书生成、验证、子证书请求等证书全生命周期管理的通用解决方案。
-    灵活配置、无需开发，支持自定义对账数据和对账格式，支持定时对账和触发对账，对账处理模块可插拔可扩展。
     请参考 `文档 <./docs/WeBankBlockchain-Gov-Cert/index.html>`_
 
 
