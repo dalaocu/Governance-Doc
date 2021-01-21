@@ -18,7 +18,7 @@ git clone https://github.com/WeBankBlockchain/Governance-Key.git
 cd Governance-Key
 ```
 
-## 可视化界面
+## 使用可视化界面
 进入目录：
 ```
 cd key-core-web
@@ -42,7 +42,7 @@ java -jar key-core-web.jar
 ![](img/keycoreweb.png)
 
 
-## sdk使用
+## 使用sdk
 
 ### 源码编译
 

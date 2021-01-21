@@ -26,8 +26,9 @@
    :maxdepth: 3
    
    intro.md
-   corequickstart.md
    depend.md
+   corequickstart.md
+   mgrquickstart.md
    javadoc.md
    faq.md
 ```

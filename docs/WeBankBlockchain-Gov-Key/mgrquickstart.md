@@ -1,304 +1,27 @@
-# 快速开始
+# Key-mgr快速开始
 
-## 前置依赖
+Key-mgr用于托管密钥，适合企业级用户使用。在文件存储模式下，加密后的密钥会被存入到本地。在数据库存储模式下，加密后的密钥会被存储到数据库中，这里分为单库模式和双库模式。在单库模式下，仅保存加密后的私钥，加密口令由C端用户自行保存，适合C端用户对托管机构半信任的场景；在双库模式下，会保存加密后的密钥和加密口令，二者分别存储在不同的数据库中，适用于C端用户对托管机构完全信任的场景。
 
-在使用本组件前，请确认系统环境已安装相关依赖软件，清单如下：
+```eval_rst
+.. note::
 
-| 依赖软件 | 说明 |备注|
-| --- | --- | --- |
-| Java | JDK[1.8] | |
-| Git | 下载源码需使用Git | |
-| 浏览器 |  | 使用key-core可视化功能需要|
-| MySQL | >= mysql-community-server[5.7] | 使用key-mgr托管时需要|
-
-
-如果您还未安装这些依赖，请参考[附录](../appendix.md)。
-
-## 基本术语
-
-使用本组件前，请先确保理解下述基本术语：
-
-| 术语 | 说明 |
-| --- | --- |
-| 椭圆曲线 | 一族曲线，广泛用于密码学。这里仅指国际secp256k1椭圆曲线或国密sm2p256v1椭圆曲线 |
-| 私钥 | 用户私有密钥，用于签名、解密等。这里特指基于椭圆曲线的私钥 |
-| 公钥 | 公开的密钥，用于验签、加密等。这里特指基于椭圆曲线的公钥| 
-| 地址 | 由公钥经特定哈希方式生成的账户地址| 
-| 助记词 | 一串单词文本，解决私钥难以记忆、表达的问题。可结合口令得到私钥 | 
-| 派生 | 私钥根据不同场景生成子私钥的过程，用于减低记忆成本、泄露风险。私钥公钥均可派生。| 
-| chaincode | 生成密钥时会附带一个链码，用于安全派生子密钥| 
-| 密钥导出 | 指将私钥按固定格式加密导出，如keystore、pem、p12等|
-| 密钥恢复 | 将加密导出的私钥还原为私钥明文|
-| 分片 | 将数据分为若干块的过程| 
-| 还原 | 将碎块还原为原始完整数据的过程|
-
-## 源码下载
-
-通过git 下载源码.
-```
-cd ~
-git clone https://github.com/WeBankBlockchain/Governance-Key.git
-cd Governance-Key
-```
-
-## key-core快速开始
-
-key-core支持可视化方式操作，也支持sdk方式操作。可视化方式下，需要系统装有浏览器。
-
-### 可视化方式使用
-
-进入目录：
-```
-cd key-core-web
-```
-
-编译代码：
-```
-gradle bootJar
-```
-
-编译后，会生成dist目录，包含key-core-web.jar包。
-
-启动可视化界面：
-```
-cd dist
-java -jar key-core-web.jar
-```
-
-启动成功后，会自动弹出浏览器页面。如果未自动弹出，也可以访问localhost:8001端口。网页效果如下：
-
-![](img/keycoreweb.png)
-
-页面包含功能如下：
-
-| 功能 | 说明 | 备注 |
-| --- | --- | --- |
-| 私钥生成 | 生成一个椭圆曲线私钥。可支持明文、密文，密文可能要求输入加密口令 | 支持国密|
-| 格式转换 | 明文格式的私钥和密文格式私钥的互转 | 支持国密、多种加密格式|
-| 公钥和地址生成 | 将私钥转换为公钥和地址 | 支持国密|
-| 助记词生成 | 生成一个助记词，此助记词可用于生成私钥 | |
-
-### sdk方式使用
-
-#### 源码编译
-
-进入目录:
+   使用前请先阅读[使用必读](depend.md)，确保已理解相关概念等。
 
 ```
-cd ~/Governance-Key/key-core
-```
-
-编译代码：
-```
-gradle build -x test
-```
-完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-core.jar。
-#### 引入jar包
-将dist目录中的key-core.jar包导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
-```
-repositories {
-    maven {
-        url "http://maven.aliyun.com/nexus/content/groups/public/"
-    }
-    maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2"}
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    mavenLocal()
-    mavenCentral()
-}
-
-dependencies {
-    compile 'com.webank:webankblockchain-crypto-core:1.0.0-SNAPSHOT'
-
-    compile "org.apache.commons:commons-lang3:3.6"
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
-    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
-    compile 'org.web3j:core:3.4.0'
-    compile "commons-io:commons-io:2.6"
-    compile 'com.lambdaworks:scrypt:1.4.0'
-    compile 'commons-codec:commons-codec:1.9'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile fileTree(dir:'libs',include:['*.jar'])
-}
-```
-#### 使用示例
-
-##### 随机数方式生成私钥
-
-```java
-    public static void main(String[] args) throws Exception{
-        //生成非国密私钥
-        PkeyByRandomService eccService = new PkeyByRandomService();
-        PkeyInfo eccKey = eccService.generatePrivateKey();
-        System.out.println("private key:"+ KeyPresenter.asString(eccKey.getPrivateKey()));
-        System.out.println("public key:" + KeyPresenter.asString(eccKey.getPublicKey().getPublicKey()));
-        System.out.println("address:" +eccKey.getAddress());
-
-        //生成国密私钥
-        PkeySM2ByRandomService gmService = new PkeySM2ByRandomService();
-        PkeyInfo gmPkey = gmService.generatePrivateKey();
-        System.out.println("private key:"+ KeyPresenter.asString(gmPkey.getPrivateKey()));
-        System.out.println("public key:" + KeyPresenter.asString(gmPkey.getPublicKey().getPublicKey()));
-        System.out.println("address:" +gmPkey.getAddress());
-    }
-```
-
-##### 私钥转换为公钥地址
 
 
-```java
-    public static void main(String[] args) throws Exception{
-        byte[] privateKey = KeyPresenter.asBytes( "0xed1d9dc98c8496b9837cb8c46a2302b9d479aab08f536dc0785115c11990d7f3");
-        PkeyInfo pkeyInfo
-                = PkeyInfo.builder()
-                .privateKey(privateKey)
-                .eccName(EccTypeEnums.SECP256K1.getEccName())
-                .build();
-
-        System.out.println("public key :" + KeyPresenter.asString(pkeyInfo.getPublicKey().getPublicKey()));
-        System.out.println("address :" + pkeyInfo.getAddress());
-    }
-```
-
-##### 助记词方式生成私钥
-```java
-    public static void main(String[] args) throws Exception{
-        //助记词生成
-        PkeyByMnemonicService mnemonicService = new PkeyByMnemonicService();
-        String mnemonic = mnemonicService.createMnemonic();
-        System.out.println("Mnemonic:"+mnemonic);
-        //生成非国密私钥
-        PkeyInfo pkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SECP256K1);
-        System.out.println("ECC Private Key:"+ KeyPresenter.asString(pkey.getPrivateKey()));
-        System.out.println("ECC Chaincode:"+ KeyPresenter.asString(pkey.getChainCode()));
-        System.out.println("ECC Address:"+ pkey.getAddress());
-        //生成国密私钥
-        PkeyInfo gmkey = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SM2P256V1);
-        System.out.println("GM Private Key:"+ KeyPresenter.asString(gmkey.getPrivateKey()));
-        System.out.println("GM Chaincode:"+ KeyPresenter.asString(gmkey.getChainCode()));
-        System.out.println("GM Address:"+ gmkey.getAddress());
-    }
-```
-
-##### 密钥派生
-```java
-   public static void main(String[] args) throws Exception{
-        //通过助记词获得私钥
-        PkeyByMnemonicService mnemonicService = new PkeyByMnemonicService();
-        String mnemonic = mnemonicService.createMnemonic();
-        PkeyInfo key = mnemonicService.generatePrivateKeyByMnemonic(mnemonic, "passphrase", EccTypeEnums.SECP256K1);
-
-        //私钥派生私钥
-        PkeyHDDeriveService deriveService = new PkeyHDDeriveService();
-        ExtendedPrivateKey rootKey = deriveService.buildExtendedPrivateKey(key);
-        //派生子私钥
-        ExtendedPrivateKey subPrivKey = rootKey.deriveChild(2);
-        System.out.println("child no.2: "+ KeyPresenter.asString(subPrivKey.getPkeyInfo().getPrivateKey()));
-        //子私钥转子公钥
-        ExtendedPublicKey subPubKey= subPrivKey.neuter();
-        System.out.println("pubkey for child no.2: "+ KeyPresenter.asString(subPubKey.getPubInfo().getPublicKey()));
-        //BIP-44派生
-        Purpose44Path derivePath = deriveService.getPurpose44PathBuilder().m()
-                .purpose44().sceneType(2)
-                .account(3).change(4).addressIndex(5).build();
-        ExtendedPrivateKey derived = derivePath.deriveKey(rootKey);
-        System.out.println("derived for bip 44 "+ KeyPresenter.asString(derived.getPkeyInfo().getPrivateKey()));
-    }
-```
-
-##### 私钥加密导出到目录
-```java
-    public static void main(String[] args) throws Exception{
-        PkeyInfo pkeyInfo
-                 = PkeyInfo.builder()
-                .privateKey(Numeric.hexStringToByteArray("252ffefe4e3856eb84a4fba5f07fc2066d3043a763cb74ed16ff093ac79b52d6"))
-                .eccName(EccTypeEnums.SECP256K1.getEccName())
-                .build();
-
-        String dir = System.getProperty("user.dir")+ File.separator+"keystores";
-        PkeyEncryptService pkeyEncryptService = new PkeyEncryptService();
-        pkeyEncryptService.encryptKeyStoreFormat("123456", pkeyInfo.getPrivateKey(), EccTypeEnums.SECP256K1, dir);
-    }
-```
-##### 私钥分片与还原
-```java
-    public static void main(String[] args) throws Exception{
-        //生成一个私钥
-        PkeyByRandomService generateService = new PkeyByRandomService();
-        PkeyInfo pkeyInfo = generateService.generatePrivateKey();
-        System.out.println("Before sharding "+KeyPresenter.asString(pkeyInfo.getPrivateKey()));
-        //开始分片，分解为5片，凑齐任意3片才能还原
-        PkeyShardingService shardingService
-                = new PkeyShardingService();
-        List<String> shards = shardingService.shardingPKey(pkeyInfo.getPrivateKey(), 5, 3);
-        //还原
-        List<String> recoveredShards = new ArrayList<>();
-        recoveredShards.add(shards.get(0));
-        recoveredShards.add(shards.get(2));
-        recoveredShards.add(shards.get(3));
-        byte[] recovered = shardingService.recoverPKey(recoveredShards);
-        System.out.println("After recovered "+ KeyPresenter.asString(recovered));
-    }
-```
-##### 密码学操作
-下述例子包含了签名、验签、数据加密、数据解密。
-```java
-    public static void main(String[] args){
-        //Case 1: Ecc(secp256k1) sign and verify
-        String eccMsg = "HelloEccSign";
-        String eccPrivateKey = "28018238ac7eec853401dfc3f31133330e78ac27a2f53481270083abb1a126f9";
-        String eccPublicKey = "0460fc2bce5795ee2ac34d1f584f603b4e2920a95d8d3db5f5c664244a99fd76405831ffaf932f64eae3ec67bc8ff7bfed9039f29bf39ce6583d55ca449b64319e";
-
-        ECCSignService eccSignService = new ECCSignService();
-        String eccSignature = eccSignService.sign(eccMsg, eccPrivateKey);
-        System.out.println("ecc signature:"+eccSignature);
-
-        boolean eccVerifyResult = eccSignService.verify(eccMsg, eccSignature, eccPublicKey);
-        System.out.println("ecc verify result:"+eccVerifyResult);
-
-        //Case 2: Ecc(secp256k1) encryption and decryption
-        ECCEncryptService eccEncryptService = new ECCEncryptService();
-        String eccCipherText = eccEncryptService.encrypt(eccMsg, eccPublicKey);
-        System.out.println("ecc encryption cipher:"+eccCipherText);
-
-        String eccPlainText = eccEncryptService.decrypt(eccCipherText, eccPrivateKey);
-        System.out.println("ecc decryption result:"+eccPlainText);
-
-        //Case3: Gm(sm2p256v1) sign and verify
-        String gmMsg = "HelloGM";
-        String gmPrivateKey = "73c8a8054b5e42b0d089e24f16c665bc82a132082d258c5efb54c49a3b7273f9";
-        String gmPublicKey = "0451c895673d372267a565c4a7711102108138132b21f22ed556df08fb4c8cfdcaf17dcb605f8a6394f8684aa1916df60929532faf808c36c133ce52356d0f45f3";
-
-        SM2SignService sm2SignService = new SM2SignService();
-        String gmSignature = sm2SignService.sign(gmMsg, gmPrivateKey);
-        System.out.println("gm signature:"+gmSignature);
-
-        boolean gmVerifyResult = sm2SignService.verify(gmMsg, gmSignature, gmPublicKey);
-        System.out.println("gm verify result:"+gmVerifyResult);
-
-        //Case4: Gm(sm2p256v1) encryption and decryption
-        SM2EncryptService gmEncryptService = new SM2EncryptService();
-        String gmCipherText = gmEncryptService.encrypt(gmMsg, gmPublicKey);
-        System.out.println("gm encryption cipher:"+gmCipherText);
-
-        String gmPlainText = gmEncryptService.decrypt(gmCipherText, gmPrivateKey);
-        System.out.println("gm decryption result:"+gmPlainText);
-    }
-
-```
-## key-mgr快速开始
+## 编译源码
 
 进入目录：
 ```
 cd ~/Governance-Key/key-mgr
 ```
-
-### 编译源码
-
+编译：
 ```
 gradle build -x test
 ```
 
-### 引入jar包
+## 引入jar包
 完成编译之后，在根目录下会生成dist文件夹，文件夹中包含key-mgr.jar。将其导入到自己的项目中，例如放到libs目录下。然后进行依赖配置，以gradle为例，依赖配置如下：
 ```
 repositories {
@@ -339,14 +62,14 @@ dependencies {
     compile 'org.web3j:core:3.4.0'
     compile 'com.lambdaworks:scrypt:1.4.0'
     compile 'commons-codec:commons-codec:1.9'
-
+    compile ('org.fisco-bcos.java-sdk:java-sdk:2.7.0')
     compile 'mysql:mysql-connector-java'
     compile 'com.webank:webankblockchain-crypto-core:1.0.0-SNAPSHOT'
     compile fileTree(dir:'libs',include:['*.jar'])
 }
 ```
 
-### 配置
+## 配置
 
 如果仅出于体验的目的，无需做任何配置，托管后的加密密钥会被保存到~/.pkeymgr。如果需要更高级的配置，请参考下面的模板，配置application.properties。
 ```
@@ -379,7 +102,7 @@ spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
-### 建表
+## 建表
 
 如果在上述配置中指定了**spring.jpa.properties.hibernate.hbm2ddl.auto=update**，则jpa会帮助用户自动建立数据表。
 
@@ -424,9 +147,9 @@ CREATE TABLE `key_pwds_info` (
  ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8
 ```
 
-### 接口使用
+## 接口使用
 
-KeysManagerService类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
+[KeysManagerService](https://gov-doc.readthedocs.io/zh_CN/dev/keymgrdoc/com/webank/keymgr/service/KeysManagerService.html)类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
 
 | 功能 | 说明 |
 | --- | --- |
@@ -456,7 +179,7 @@ public class Example {
 }
 ```
 
-#### createPrivateKey
+### createPrivateKey
 
 该方法用于随机生成私钥，并进行托管存储。
 
@@ -473,15 +196,8 @@ public void demo() throws Exception {
 
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看存储的私钥；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表查看密码存储结果。
 
-**参数说明**：
 
-- userId: 用户id
-
-- password：私钥加密密码
-
-- keyName：私钥名称
-
-#### importPrivateKeyFile
+### importPrivateKeyFile
 
 该方法用于从p12或keystore文件中提取私钥，并进行托管存储。按哪种格式提取取决于applicaiton.properties中配置的是p12还是keystore，故要注意确保文件格式和配置相符。
 
@@ -496,15 +212,8 @@ public void demo() throws Exception {
 ```
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看存储的私钥；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表查看密码存储结果。
 
-**参数说明**：
 
-- userId: 用户id
-
-- password：该密码负责解密密文文件；也负责在托管存储时给私钥加密。
-
-- filePath：密文文件目录。需要和application.properties中的system.keyEncType保持一致。
-
-#### importPrivateKey
+### importPrivateKey
 
 该方法用于直接导入私钥原文，并对其托管存储。
 
@@ -520,17 +229,8 @@ public void demo() throws Exception {
 ```
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看存储的私钥；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表查看密码存储结果。
 
-**参数说明**：
 
-- userId: 用户id
-
-- password：该密码负责解密密文文件；也负责在托管存储时给私钥加密。
-
-- privateKey: 16进制的私钥原文
-
-- keyName: 私钥名称
-
-#### createPrivateKeyByParent
+### createPrivateKeyByParent
 
 该方法通过父私钥原文和一个chaincode来确定性地派生子私钥。派生过后的子私钥也会被导入托管。
 
@@ -553,18 +253,8 @@ public void demo() throws Exception {
 
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看存储的子私钥；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表查看密码存储结果。
 
-**参数说明**：
 
-- userId: 用户id
-
-- parentKey：父私钥原文。需为16进制私钥原文。
-
-- chaincode: 任意字符串。比如可以传入一串UUID。
-
-- password: 子私钥名称
-
-
-#### queryChildKeys
+### queryChildKeys
 
 该方法用于查询一个父私钥所关联的下级子私钥。
 
@@ -580,14 +270,8 @@ public void demo() throws Exception {
 ```
 
 
-**参数说明**：
 
-- userId: 用户id
-
-- parentAddress：父私钥的地址
-
-
-#### exportPrivateKeyFile
+### exportPrivateKeyFile
 
 该方法根据用户id、私钥地址从库中读取私钥，以所配置的格式导出到目标目录。
 
@@ -603,16 +287,8 @@ public void demo() throws Exception {
 
 执行过后，将在destinationDirectory指定的目录内，得到一个加密的p12或keystore文件（取决于system.keyEncType配置）
 
-**参数说明**：
 
-- userId: 用户id
-
-- keyAddress: 私钥地址
-
-- destinationDirectory：输出目录
-
-
-#### decryptPrivateKey
+### decryptPrivateKey
 
 该方法将一个密文解密为原文。密文格式取决于system.keyEncType配置。下面示例中，是解密p12的示例，要求system.keyEncType=p12:
 
@@ -638,13 +314,7 @@ public void testDecryptKeystore() throws Exception{
 ```
 
 
-**参数说明**：
-
-- password: 解密密码
-
-- encryptPrivateKey: 密文数据。可从encryptkeydata数据源的encrypt_keys_info表的encrypt_key字段获取。
-
-#### getEncryptPrivateKeyList
+### getEncryptPrivateKeyList
 
 该方法读取某一用户的所有私钥密文。
 
@@ -657,11 +327,8 @@ public void demo() throws Exception {
 }
 ```
 
-**参数说明**：
 
-- userId: 用户id
-
-#### getEncryptPrivateKeyByUserIdAndAddress
+### getEncryptPrivateKeyByUserIdAndAddress
 
 该方法读取某一用户下某地址对应的私钥密文。
 
@@ -675,13 +342,8 @@ public void demo() throws Exception {
 }
 ```
 
-**参数说明**：
 
-- userId: 用户id
-
-- address：私钥地址
-
-#### updateKeyName
+### updateKeyName
 
 updateKeyName更新库中的私钥名称。
 
@@ -697,16 +359,7 @@ public void demo() throws Exception {
 
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表的key_name字段查看新的私钥名。
 
-**参数说明**：
-
-- userId: 用户Id
-
-- address: 私钥地址
-
-- newKeyName：新的名称
-
-
-#### updateKeyPassword
+### updateKeyPassword
 
 更新私钥密码。
 
@@ -723,19 +376,8 @@ public void demo() throws Exception {
 
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看修改过的密文；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表的key_pwd字段看到新的密码。
 
-**参数说明**：
 
-- userId: 用户Id
-
-- address: 私钥地址
-
-- oldPwd：旧密码
-
-- newPwd：新密码
-
-
-
-#### deleteUserKey示例
+### deleteUserKey示例
 
 根据用户Id和私钥地址来删除私钥。
 
@@ -749,13 +391,3 @@ public void demo() throws Exception {
 ```
 
 执行过后，可在encryptkeydata数据源的encrypt_keys_info表查看到私钥已删除；如果配置了双库（system.storePwd=true），可通过keypwd数据源的key_pwds_info表看到密码已删除。
-
-**参数说明**：
-
-- userId: 用户Id
-
-- keyAddress: 私钥地址
-
-
-
-
