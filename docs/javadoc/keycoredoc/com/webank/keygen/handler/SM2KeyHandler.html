@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9};
+var methods = {"i0":9,"i1":9};
 var tabs = {65535:["t0","所有方法"],1:["t1","静态方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -146,18 +146,12 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">方法和说明</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static org.web3j.crypto.ECKeyPair</code></td>
+<td class="colFirst"><code>static org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/handler/SM2KeyHandler.html#create-byte:A-">create</a></span>(byte[]&nbsp;privKeyBytes)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static org.web3j.crypto.ECKeyPair</code></td>
+<td class="colFirst"><code>static org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/handler/SM2KeyHandler.html#generateSM2KeyPair--">generateSM2KeyPair</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>static byte[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/handler/SM2KeyHandler.html#SM2PrivateKeyToPublicKey-byte:A-">SM2PrivateKeyToPublicKey</a></span>(byte[]&nbsp;privateKey)</code>
-<div class="block">Return 64 bytes encoded public key</div>
-</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -204,36 +198,16 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>generateSM2KeyPair</h4>
-<pre>public static&nbsp;org.web3j.crypto.ECKeyPair&nbsp;generateSM2KeyPair()
-                                                     throws <a href="../../../../com/webank/keygen/exception/KeyGenException.html" title="com.webank.keygen.exception中的类">KeyGenException</a></pre>
-<dl>
-<dt><span class="throwsLabel">抛出:</span></dt>
-<dd><code><a href="../../../../com/webank/keygen/exception/KeyGenException.html" title="com.webank.keygen.exception中的类">KeyGenException</a></code></dd>
-</dl>
+<pre>public static&nbsp;org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;generateSM2KeyPair()</pre>
 </li>
 </ul>
 <a name="create-byte:A-">
 <!--   -->
 </a>
-<ul class="blockList">
-<li class="blockList">
-<h4>create</h4>
-<pre>public static&nbsp;org.web3j.crypto.ECKeyPair&nbsp;create(byte[]&nbsp;privKeyBytes)</pre>
-</li>
-</ul>
-<a name="SM2PrivateKeyToPublicKey-byte:A-">
-<!--   -->
-</a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>SM2PrivateKeyToPublicKey</h4>
-<pre>public static&nbsp;byte[]&nbsp;SM2PrivateKeyToPublicKey(byte[]&nbsp;privateKey)</pre>
-<div class="block">Return 64 bytes encoded public key</div>
-<dl>
-<dt><span class="paramLabel">参数:</span></dt>
-<dd><code>privateKey</code> - </dd>
-<dt><span class="returnLabel">返回:</span></dt>
-</dl>
+<h4>create</h4>
+<pre>public static&nbsp;org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;create(byte[]&nbsp;privKeyBytes)</pre>
 </li>
 </ul>
 </li>

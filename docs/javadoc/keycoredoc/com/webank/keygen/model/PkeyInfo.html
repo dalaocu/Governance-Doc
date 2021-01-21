@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10};
-var tabs = {65535:["t0","所有方法"],2:["t2","实例方法"],8:["t4","具体方法"]};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":10,"i4":10};
+var tabs = {65535:["t0","所有方法"],1:["t1","静态方法"],2:["t2","实例方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -141,18 +141,32 @@ extends java.lang.Object</pre>
 </a>
 <h3>方法概要</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="方法概要表, 列表方法和解释">
-<caption><span id="t0" class="activeTableTab"><span>所有方法</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">实例方法</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">具体方法</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>所有方法</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">静态方法</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">实例方法</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">具体方法</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">限定符和类型</th>
 <th class="colLast" scope="col">方法和说明</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/model/PkeyInfo.html#fromCryptoKeypair-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-">fromCryptoKeypair</a></span>(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair)</code>&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/model/PkeyInfo.html#fromCryptoKeypair-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-byte:A-">fromCryptoKeypair</a></span>(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair,
+                 byte[]&nbsp;chaincode)</code>&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static <a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/model/PkeyInfo.html#fromHexString-java.lang.String-com.webank.keygen.enums.EccTypeEnums-">fromHexString</a></span>(java.lang.String&nbsp;hexPrivateKey,
+             <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</code>&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/model/PkeyInfo.html#getAddress--">getAddress</a></span>()</code>
 <div class="block">Get address</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../com/webank/keygen/model/PubKeyInfo.html" title="com.webank.keygen.model中的类">PubKeyInfo</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/model/PkeyInfo.html#getPublicKey--">getPublicKey</a></span>()</code>
 <div class="block">Get public key</div>
@@ -197,6 +211,35 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>方法详细资料</h3>
+<a name="fromCryptoKeypair-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromCryptoKeypair</h4>
+<pre>public static&nbsp;<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;fromCryptoKeypair(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair)</pre>
+</li>
+</ul>
+<a name="fromCryptoKeypair-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-byte:A-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromCryptoKeypair</h4>
+<pre>public static&nbsp;<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;fromCryptoKeypair(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair,
+                                         byte[]&nbsp;chaincode)</pre>
+</li>
+</ul>
+<a name="fromHexString-java.lang.String-com.webank.keygen.enums.EccTypeEnums-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromHexString</h4>
+<pre>public static&nbsp;<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;fromHexString(java.lang.String&nbsp;hexPrivateKey,
+                                     <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</pre>
+</li>
+</ul>
 <a name="getPublicKey--">
 <!--   -->
 </a>

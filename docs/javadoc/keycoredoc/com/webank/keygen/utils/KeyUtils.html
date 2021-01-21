@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9};
 var tabs = {65535:["t0","所有方法"],1:["t1","静态方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -160,19 +160,33 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static byte[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#ensure64bytesPubkey-byte:A-">ensure64bytesPubkey</a></span>(byte[]&nbsp;pubkeBytes)</code>&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>static byte[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#get65BytePubKey-byte:A-">get65BytePubKey</a></span>(byte[]&nbsp;pubKey)</code>&nbsp;</td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#getCryptKeyPair-byte:A-com.webank.keygen.enums.EccTypeEnums-">getCryptKeyPair</a></span>(byte[]&nbsp;privateKey,
+               <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</code>&nbsp;</td>
+</tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>static org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#getCryptKeyPair-com.webank.keygen.enums.EccTypeEnums-">getCryptKeyPair</a></span>(<a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#getCurve-org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey-">getCurve</a></span>(org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey&nbsp;privateKey)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#getEccType-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-">getEccType</a></span>(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair)</code>&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static java.security.PublicKey</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#getPublicKey-java.security.interfaces.ECPrivateKey-">getPublicKey</a></span>(java.security.interfaces.ECPrivateKey&nbsp;privateKey)</code>&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/utils/KeyUtils.html#isAddressEquals-java.lang.String-java.lang.String-">isAddressEquals</a></span>(java.lang.String&nbsp;address1,
+               java.lang.String&nbsp;address2)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -213,13 +227,42 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>方法详细资料</h3>
-<a name="ensure64bytesPubkey-byte:A-">
+<a name="getCryptKeyPair-com.webank.keygen.enums.EccTypeEnums-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ensure64bytesPubkey</h4>
-<pre>public static&nbsp;byte[]&nbsp;ensure64bytesPubkey(byte[]&nbsp;pubkeBytes)</pre>
+<h4>getCryptKeyPair</h4>
+<pre>public static&nbsp;org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;getCryptKeyPair(<a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</pre>
+</li>
+</ul>
+<a name="getCryptKeyPair-byte:A-com.webank.keygen.enums.EccTypeEnums-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCryptKeyPair</h4>
+<pre>public static&nbsp;org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;getCryptKeyPair(byte[]&nbsp;privateKey,
+                                                                              <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums)</pre>
+</li>
+</ul>
+<a name="getEccType-org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEccType</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;getEccType(org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair&nbsp;cryptoKeyPair)</pre>
+</li>
+</ul>
+<a name="isAddressEquals-java.lang.String-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isAddressEquals</h4>
+<pre>public static&nbsp;boolean&nbsp;isAddressEquals(java.lang.String&nbsp;address1,
+                                      java.lang.String&nbsp;address2)</pre>
 </li>
 </ul>
 <a name="createPkeyInfo-java.math.BigInteger-java.math.BigInteger-java.lang.String-">
