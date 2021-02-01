@@ -56,10 +56,9 @@
 
 <br />在FISCO BCOS生态中，WeBankBlockchain-Governance-Account提供了以下使用和集成的方式：<br />
 
-- 通过门面部署合约来发布合约到链上，获得账户治理的能力；
+- 通过部署治理合约来发布合约到链上，获得账户治理的能力；
 - 通过在自身业务的合约中引入或集成账户治理合约；
 - 通过SDK引入Jar包，集成到自己的Java项目中来调用提供的接口；
-- 通过web管理台和后端的Restful API接口，来发布和执行账户管理功能（开发中……）
 
 ![](img/acct_frame.png)
 
@@ -78,9 +77,9 @@
 - 删除一个治理委员会的投票账户（治理委员会模式下）
 - 设置投票阈值 （治理委员会模式下）
 
-![超级管理员模式](img/admin-mode.png)
+![](img/admin-mode.png)
 
-![治理委员会模式](img/governor-mode.png)
+![](img/governor-mode.png)
 
 #### 普通账户相关核心功能
 
@@ -95,7 +94,6 @@
 
 ![](img/normal_user.png)
 
-<br />更多详细的功能描述请参考《设计文档》。<br />
 
 ### 业务流程介绍
 
