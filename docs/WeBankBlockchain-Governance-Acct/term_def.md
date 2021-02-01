@@ -8,7 +8,8 @@
 - **合约账户(Contract account)**，又称为用户账户(User Account)。合约部署生成，与代码关联，不可发起交易只能被外部账户调用。合约账户的地址是在创建合约是确定的（一般通过计算合约创建者的地址和该地址发出过的交易数量得到）。
 
 
-<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1593940488626-8b024509-87d8-4373-b783-a44d20123bd1.png#align=left&display=inline&height=171&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=497&size=20425&status=done&style=none&width=417)<br />
+![](img/acct-contract-acct.png)
+
 
 ## 账户治理组件所引入的术语
 
