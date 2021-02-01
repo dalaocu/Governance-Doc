@@ -718,5 +718,3 @@ SocialVoteManager socialVoteManager = factory.newSocialVoteManager();
 - isExternalAccountNormal 查询账户状态是否正常
 
 
-<br />更多操作，请查看《Java SDK 详细功能API使用说明》章节。 由于Java生态强大的IDE反射支持，我们鼓励直接在编码中利用IDE的智能提示来直接上手编码。<br />
-
