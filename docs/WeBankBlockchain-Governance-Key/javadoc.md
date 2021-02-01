@@ -7,7 +7,7 @@ key-core和key-mgr的java doc
 .. toctree::
    :maxdepth: 3
 
-    keycore Javadoc <https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/navigation.html>
-    keymgr Javadoc <https://governance-doc.readthedocs.io/zh_CN/dev/keymgrdoc/navigation.html>
+    keycore Javadoc <https://governance-doc.readthedocs.io/zh_CN/latest/keycoredoc/navigation.html>
+    keymgr Javadoc <https://governance-doc.readthedocs.io/zh_CN/latest/keymgrdoc/navigation.html>
  
 ```

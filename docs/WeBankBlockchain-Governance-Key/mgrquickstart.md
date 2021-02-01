@@ -149,7 +149,7 @@ CREATE TABLE `key_pwds_info` (
 
 ## 接口使用
 
-[KeysManagerService](https://governance-doc.readthedocs.io/zh_CN/dev/keymgrdoc/com/webank/keymgr/service/KeysManagerService.html)类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
+[KeysManagerService](https://governance-doc.readthedocs.io/zh_CN/latest/keymgrdoc/com/webank/keymgr/service/KeysManagerService.html)类是整个pkey-mgr模块的入口，覆盖私钥管理的全生命周期，包含如下功能：
 
 | 功能 | 说明 |
 | --- | --- |
