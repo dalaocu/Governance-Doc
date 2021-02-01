@@ -204,7 +204,7 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 *   queryCertRequestByCsrId：根据id证书请求
 *   exportCertToFile：证书导出
 
-参考[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/certmgrdoc/navigation.html)
+参考[Java doc](https://governance-doc.readthedocs.io/zh_CN/latest/certmgrdoc/navigation.html)
 
 ### 示例说明
 
@@ -390,4 +390,4 @@ CertManagerService类是证书管理的统一入口，覆盖证书管理的全�
 #### 更多示例
 参考[证书管理接口示例](./mgr_api.md)
 <br/>
-参考[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/certmgrdoc/navigation.html)
+参考[Java doc](https://governance-doc.readthedocs.io/zh_CN/latest/certmgrdoc/navigation.html)
