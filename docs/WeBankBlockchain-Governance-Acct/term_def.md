@@ -8,14 +8,15 @@
 - **合约账户(Contract account)**，又称为用户账户(User Account)。合约部署生成，与代码关联，不可发起交易只能被外部账户调用。合约账户的地址是在创建合约是确定的（一般通过计算合约创建者的地址和该地址发出过的交易数量得到）。
 
 
-<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1593940488626-8b024509-87d8-4373-b783-a44d20123bd1.png#align=left&display=inline&height=171&margin=%5Bobject%20Object%5D&name=image.png&originHeight=204&originWidth=497&size=20425&status=done&style=none&width=417)<br />
+![](img/acct-contract-acct.png)
+
 
 ## 账户治理组件所引入的术语
 
 
 - **区块链业务应用（Blockchain Business Application）**，基于区块链技术，实现和满足特定业务领域的需求。在一个区块链业务应用中，一般会依赖智能合约技术，其执行结果记录在分布式账本中。在一个区块链网络中，可以发布多个区块链业务应用。而在一个区块链业务应用中，最多只能定义一个治理账户。
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/620138/1595856072241-3a1d49d3-0170-4567-be28-a29f521b24ce.png#align=left&display=inline&height=92&margin=%5Bobject%20Object%5D&name=image.png&originHeight=113&originWidth=457&size=5898&status=done&style=none&width=374)
+![](./img/application.png)
 
 - **治理账户(Governance Account)**，区块链业务应用治理主体的管理账户。该账户本身为合约账户，其账户关联了合约治理相关的代码，绑定了一个或一组外部账户。只有被绑定的外部账户才能操作此治理账户。此外，只有状态正常的普通账户才能被设置为治理账户。一个治理账户可以管理一个区块链业务应用，也可以管理多个区块链业务应用。
 - **普通账户（Normal Account）**，区块链业务应用治理的对象。该账户本身为合约账户，该账户与一个外部账户一一映射并被绑定，关联了状态、配置和操作的代码。只有治理账户和被绑定的外部账户才能操作此治理账户。

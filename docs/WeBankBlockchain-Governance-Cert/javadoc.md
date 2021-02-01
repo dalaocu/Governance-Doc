@@ -7,7 +7,7 @@ cert-toolkit和cert-mgr的java doc
 .. toctree::
    :maxdepth: 3
 
-    toolkit Javadoc <https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html>
-    mgr Javadoc <https://governance-doc.readthedocs.io/zh_CN/dev/certmgrdoc/navigation.html>
+    toolkit Javadoc <https://governance-doc.readthedocs.io/zh_CN/latest/toolkitdoc/navigation.html>
+    mgr Javadoc <https://governance-doc.readthedocs.io/zh_CN/latest/certmgrdoc/navigation.html>
  
 ```
