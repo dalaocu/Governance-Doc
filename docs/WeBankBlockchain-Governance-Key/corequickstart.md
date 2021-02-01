@@ -332,9 +332,9 @@ public class Crypto {
 ### SDK核心接口
 
 下面包含核心接口：
-* [PkeyByRandomService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyByRandomService.html):随机数方式私钥生成（非国密）
-* [PkeySM2ByRandomService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeySM2ByRandomService.html)：随机数方式私钥生成（国密）
-* [PkeyByMnemonicService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyByMnemonicService.html)：助记词生成；助记词恢复私钥
-* [PkeyHDDeriveService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyHDDeriveService.html)：密钥派生
-* [PkeyEncryptService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyEncryptService.html)：私钥按不同格式导出和导入
-* [PkeyShardingService](https://gov-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyShardingService.html)：分片与还原
+* [PkeyByRandomService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyByRandomService.html):随机数方式私钥生成（非国密）
+* [PkeySM2ByRandomService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeySM2ByRandomService.html)：随机数方式私钥生成（国密）
+* [PkeyByMnemonicService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyByMnemonicService.html)：助记词生成；助记词恢复私钥
+* [PkeyHDDeriveService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyHDDeriveService.html)：密钥派生
+* [PkeyEncryptService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyEncryptService.html)：私钥按不同格式导出和导入
+* [PkeyShardingService](https://governance-doc.readthedocs.io/zh_CN/dev/keycoredoc/com/webank/keygen/service/PkeyShardingService.html)：分片与还原
