@@ -34,19 +34,19 @@ WeBankBlockchain-Gov 技术文档
 
     - **WeBankBlockchain-Governance-Account  账户治理组件**
     基于智能合约开发，提供区块链用户账户注册、私钥重置、冻结、解冻等账户全生命周期管理，支持管理员、阈值投票、多签制等多种治理策略。
-    请参考 `文档 <./docs/WeBankBlockchain-Gov-Acct/index.html>`_
+    请参考 `文档 <./docs/WeBankBlockchain-Governance-Acct/index.html>`_
     
     - **WeBankBlockchain-Governance-Authority  权限治理组件**
     基于智能合约，提供区块链账户、合约、函数等粒度的权限控制的功能的通用组件。
-    请参考 `文档 <./docs/WeBankBlockchain-Gov-Auth/index.html>`_ 
+    请参考 `文档 <./docs/WeBankBlockchain-Governance-Auth/index.html>`_ 
     
     - **WeBankBlockchain-Governance-Key  私钥管理组件**
     提供私钥生成、存储、加解密、加签、验签等私钥全生命周期管理的通用解决方案。
-    请参考 `文档 <./docs/WeBankBlockchain-Gov-Key/index.html>`_
+    请参考 `文档 <./docs/WeBankBlockchain-Governance-Key/index.html>`_
 
     - **WeBankBlockchain-Governance-Cert  证书管理组件**
     提供证书生成、验证、子证书请求等证书全生命周期管理的通用解决方案。
-    请参考 `文档 <./docs/WeBankBlockchain-Gov-Cert/index.html>`_
+    请参考 `文档 <./docs/WeBankBlockchain-Governance-Cert/index.html>`_
 
 
 
@@ -54,10 +54,10 @@ WeBankBlockchain-Gov 技术文档
    :maxdepth: 3
    :caption: 组件介绍
 
-   ./docs/WeBankBlockchain-Gov-Acct/index.md
-   ./docs/WeBankBlockchain-Gov-Auth/index.md
-   ./docs/WeBankBlockchain-Gov-Key/index.md
-   ./docs/WeBankBlockchain-Gov-Cert/index.md
+   ./docs/WeBankBlockchain-Governance-Acct/index.md
+   ./docs/WeBankBlockchain-Governance-Auth/index.md
+   ./docs/WeBankBlockchain-Governance-Key/index.md
+   ./docs/WeBankBlockchain-Governance-Cert/index.md
    ./docs/appendix.md
 .. 
 

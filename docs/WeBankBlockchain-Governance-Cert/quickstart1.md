@@ -95,7 +95,7 @@ dependencies {
 
 ##### 根证书生成
 
-根据生成的私钥自签名生成根证书，可以指定私钥也可选择自动生成，组件封装了多种入参方法，可按需使用，参照[根证书生成](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#generateKPAndRootCert-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-)
+根据生成的私钥自签名生成根证书，可以指定私钥也可选择自动生成，组件封装了多种入参方法，可按需使用，参照[根证书生成](https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#generateKPAndRootCert-com.webank.cert.toolkit.model.X500NameInfo-java.lang.String-java.lang.String-)
 
 以generateKPAndRootCert方法为例，示例代码如下：
 
@@ -116,7 +116,7 @@ dependencies {
 
 csr全称为Certificate Signing Request，即证书请求文件，根（父）证书通过其私钥对请求文件签名来颁发子证书
 
-csr的生成提供了多种入参方法，参照[证书申请生成](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#createCertRequest-com.webank.cert.toolkit.model.X500NameInfo-java.security.PublicKey-java.security.PrivateKey-java.lang.String-)
+csr的生成提供了多种入参方法，参照[证书申请生成](https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#createCertRequest-com.webank.cert.toolkit.model.X500NameInfo-java.security.PublicKey-java.security.PrivateKey-java.lang.String-)
 
 以generateCertRequestByDefaultConf为例，可快速生成csr，示例代码如下：
 
@@ -137,11 +137,11 @@ csr的生成提供了多种入参方法，参照[证书申请生成](https://gov
 
 执行上述方法会在控制台打印出csr文件内容，并写入out/agency/agency.csr文件中
 
-其中涉及的CertUtils工具类，该类提供了证书读写解析的相关能力，参照[CertUtils详情](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/utils/CertUtils.html)
+其中涉及的CertUtils工具类，该类提供了证书读写解析的相关能力，参照[CertUtils详情](https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/utils/CertUtils.html)
 
 ##### 子证书颁发
 
-通过根证书和其私钥对子证书申请进行签发, 提供多种入参方法，参照[子证书签发](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#generateChildCertByDefaultConf-boolean-org.bouncycastle.asn1.x509.KeyUsage-java.lang.String-java.lang.String-java.lang.String-)
+通过根证书和其私钥对子证书申请进行签发, 提供多种入参方法，参照[子证书签发](https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/com/webank/cert/toolkit/service/CertService.html#generateChildCertByDefaultConf-boolean-org.bouncycastle.asn1.x509.KeyUsage-java.lang.String-java.lang.String-java.lang.String-)
 
 以文件路径为入参示例，示例代码如下：
 
@@ -256,4 +256,4 @@ CertService提供了多种功能接口：
 
 KeyUtils和CertUtils两个工具类，提供了对证书和私钥的相关读写操作。
 
-更多参照[Java doc](https://gov-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html)
+更多参照[Java doc](https://governance-doc.readthedocs.io/zh_CN/dev/toolkitdoc/navigation.html)

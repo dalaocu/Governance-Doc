@@ -98,7 +98,7 @@ templates_path = ['_templates']
 master_doc = 'index'
 
 # General information about the project.
-project = u'WeBankBlockchain-Gov-Doc'
+project = u'WeBankBlockchain-Governance-Doc'
 copyright = u'© 2020. All rights reserved.'
 author = u'WeBankBlockchain-dev'
 
@@ -166,7 +166,7 @@ html_extra_path = ['_static', './docs/javadoc']
 # VCS options: https://docs.readthedocs.io/en/latest/vcs.html#github
 html_context = {
     "display_github": True, # Integrate GitHub
-    "github_repo": "Gov-DOC", # Repo name
+    "github_repo": "Governance-DOC", # Repo name
     "github_user": "blockchain-dev",
     "github_version": "dev", # Version
     "conf_py_path": "/", # Path in the checkout to the docs root
@@ -263,7 +263,7 @@ html_search_language = 'zh'
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Gov-Doc'
+htmlhelp_basename = 'Governance-Doc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -302,7 +302,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'Gov-Doc.tex', u'WeBankBlockchain Gov Documentation',
+  (master_doc, 'Governance-Doc.tex', u'WeBankBlockchain Gov Documentation',
    u'blockchain-dev', 'manual'),
 ]
 
