@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","所有方法"],2:["t2","实例方法"],8:["t4","具体方法"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -154,53 +154,26 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#deriveChild-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-int-">deriveChild</a></span>(byte[]&nbsp;keyBytes,
-           byte[]&nbsp;chaincode,
-           <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#deriveChild-com.webank.keygen.model.PkeyInfo-int-">deriveChild</a></span>(<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;pkeyInfo,
            int&nbsp;childIdx)</code>
 <div class="block">Derive a child</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#deriveChild-com.webank.keygen.model.PkeyInfo-int-">deriveChild</a></span>(<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;pkeyInfo,
-           int&nbsp;childIdx)</code>
-<div class="block">Derive a child</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#derivePath-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-com.webank.keygen.hd.bip44.path.Purpose44Path-">derivePath</a></span>(byte[]&nbsp;keyBytes,
-          byte[]&nbsp;chaincode,
-          <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
-          <a href="../../../../com/webank/keygen/hd/bip44/path/Purpose44Path.html" title="com.webank.keygen.hd.bip44.path中的类">Purpose44Path</a>&nbsp;purpose44Path)</code>
-<div class="block">Derive from a path</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#derivePath-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">derivePath</a></span>(byte[]&nbsp;keyBytes,
-          byte[]&nbsp;chaincode,
-          <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
-          java.lang.String&nbsp;path)</code>
-<div class="block">Derive from a path</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#derivePath-com.webank.keygen.model.PkeyInfo-com.webank.keygen.hd.bip44.path.Purpose44Path-">derivePath</a></span>(<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;pkeyInfo,
           <a href="../../../../com/webank/keygen/hd/bip44/path/Purpose44Path.html" title="com.webank.keygen.hd.bip44.path中的类">Purpose44Path</a>&nbsp;purpose44Path)</code>
 <div class="block">Derive from a path</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#derivePath-com.webank.keygen.model.PkeyInfo-java.lang.String-">derivePath</a></span>(<a href="../../../../com/webank/keygen/model/PkeyInfo.html" title="com.webank.keygen.model中的类">PkeyInfo</a>&nbsp;pkeynIfo,
           java.lang.String&nbsp;derivePath)</code>
 <div class="block">Derive from a path</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../com/webank/keygen/hd/bip44/Purpose44PathBuilder.html" title="com.webank.keygen.hd.bip44中的类">Purpose44PathBuilder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyHDDeriveService.html#getPurpose44PathBuilder--">getPurpose44PathBuilder</a></span>()</code>
 <div class="block">returns a Purpose44PathBuilder to build BIP-44 Path</div>
@@ -261,28 +234,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="deriveChild-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-int-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>deriveChild</h4>
-<pre>public&nbsp;<a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a>&nbsp;deriveChild(byte[]&nbsp;keyBytes,
-                                      byte[]&nbsp;chaincode,
-                                      <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
-                                      int&nbsp;childIdx)</pre>
-<div class="block">Derive a child</div>
-<dl>
-<dt><span class="paramLabel">参数:</span></dt>
-<dd><code>keyBytes</code> - plain private key bytes</dd>
-<dd><code>chaincode</code> - The code used to derive sub private key</dd>
-<dd><code>eccType</code> - Ecc type</dd>
-<dd><code>childIdx</code> - child id</dd>
-<dt><span class="returnLabel">返回:</span></dt>
-<dd>ExtendedPrivateKey</dd>
-</dl>
-</li>
-</ul>
 <a name="deriveChild-com.webank.keygen.model.PkeyInfo-int-">
 <!--   -->
 </a>
@@ -314,50 +265,6 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">参数:</span></dt>
 <dd><code>pkeynIfo</code> - private key</dd>
 <dd><code>derivePath</code> - The path containing a sequence of child numbers like "2/3/4" that the private key will derive with.</dd>
-<dt><span class="returnLabel">返回:</span></dt>
-<dd>ExtendedPrivateKey</dd>
-</dl>
-</li>
-</ul>
-<a name="derivePath-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>derivePath</h4>
-<pre>public&nbsp;<a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a>&nbsp;derivePath(byte[]&nbsp;keyBytes,
-                                     byte[]&nbsp;chaincode,
-                                     <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
-                                     java.lang.String&nbsp;path)</pre>
-<div class="block">Derive from a path</div>
-<dl>
-<dt><span class="paramLabel">参数:</span></dt>
-<dd><code>keyBytes</code> - plain private key bytes</dd>
-<dd><code>chaincode</code> - The code used to derive sub private key</dd>
-<dd><code>eccType</code> - Ecc type</dd>
-<dd><code>path</code> - The path containing a sequence of child numbers like "2/3/4" that the private key will derive with.</dd>
-<dt><span class="returnLabel">返回:</span></dt>
-<dd>ExtendedPrivateKey</dd>
-</dl>
-</li>
-</ul>
-<a name="derivePath-byte:A-byte:A-com.webank.keygen.enums.EccTypeEnums-com.webank.keygen.hd.bip44.path.Purpose44Path-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>derivePath</h4>
-<pre>public&nbsp;<a href="../../../../com/webank/keygen/hd/bip32/ExtendedPrivateKey.html" title="com.webank.keygen.hd.bip32中的类">ExtendedPrivateKey</a>&nbsp;derivePath(byte[]&nbsp;keyBytes,
-                                     byte[]&nbsp;chaincode,
-                                     <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccType,
-                                     <a href="../../../../com/webank/keygen/hd/bip44/path/Purpose44Path.html" title="com.webank.keygen.hd.bip44.path中的类">Purpose44Path</a>&nbsp;purpose44Path)</pre>
-<div class="block">Derive from a path</div>
-<dl>
-<dt><span class="paramLabel">参数:</span></dt>
-<dd><code>keyBytes</code> - plain private key bytes</dd>
-<dd><code>chaincode</code> - The code used to derive sub private key</dd>
-<dd><code>eccType</code> - Ecc type</dd>
-<dd><code>purpose44Path</code> - The bip-44 path containing a sequence of child numbers like "2/3/4" that the private key will derive with.</dd>
 <dt><span class="returnLabel">返回:</span></dt>
 <dd>ExtendedPrivateKey</dd>
 </dl>

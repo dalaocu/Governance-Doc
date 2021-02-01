@@ -168,28 +168,26 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptKeyStoreFormat-java.lang.String-byte:A-java.lang.String-java.lang.String-">encryptKeyStoreFormat</a></span>(java.lang.String&nbsp;password,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptKeyStoreFormat-java.lang.String-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">encryptKeyStoreFormat</a></span>(java.lang.String&nbsp;password,
                      byte[]&nbsp;privateKey,
-                     java.lang.String&nbsp;address,
+                     <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                      java.lang.String&nbsp;destinationDirectory)</code>
 <div class="block">Encrypt private key with keystore format</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptP12Format-java.lang.String-byte:A-java.lang.String-java.lang.String-java.lang.String-">encryptP12Format</a></span>(java.lang.String&nbsp;password,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptP12Format-java.lang.String-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">encryptP12Format</a></span>(java.lang.String&nbsp;password,
                 byte[]&nbsp;privateKey,
-                java.lang.String&nbsp;eccTypeName,
-                java.lang.String&nbsp;address,
+                <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                 java.lang.String&nbsp;destinationDirectory)</code>
 <div class="block">Encrypt private key with p12 format</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptPEMFormat-byte:A-int-java.lang.String-java.lang.String-">encryptPEMFormat</a></span>(byte[]&nbsp;privateKey,
-                int&nbsp;eccType,
-                java.lang.String&nbsp;address,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/webank/keygen/service/PkeyEncryptService.html#encryptPEMFormat-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">encryptPEMFormat</a></span>(byte[]&nbsp;privateKey,
+                <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                 java.lang.String&nbsp;destinationDirectory)</code>
 <div class="block">Encrypt private key with pem format</div>
 </td>
@@ -233,7 +231,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>方法详细资料</h3>
-<a name="encryptKeyStoreFormat-java.lang.String-byte:A-java.lang.String-java.lang.String-">
+<a name="encryptKeyStoreFormat-java.lang.String-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -241,7 +239,7 @@ extends java.lang.Object</pre>
 <h4>encryptKeyStoreFormat</h4>
 <pre>public&nbsp;void&nbsp;encryptKeyStoreFormat(java.lang.String&nbsp;password,
                                   byte[]&nbsp;privateKey,
-                                  java.lang.String&nbsp;address,
+                                  <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                                   java.lang.String&nbsp;destinationDirectory)
                            throws com.fasterxml.jackson.core.JsonGenerationException,
                                   com.fasterxml.jackson.databind.JsonMappingException,
@@ -252,7 +250,7 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">参数:</span></dt>
 <dd><code>password</code> - </dd>
 <dd><code>privateKey</code> - </dd>
-<dd><code>address</code> - </dd>
+<dd><code>eccTypeEnums</code> - </dd>
 <dd><code>destinationDirectory</code> - </dd>
 <dt><span class="throwsLabel">抛出:</span></dt>
 <dd><code>com.fasterxml.jackson.core.JsonGenerationException</code></dd>
@@ -270,7 +268,7 @@ extends java.lang.Object</pre>
 <h4>decryptKeystoreFormat</h4>
 <pre>public&nbsp;byte[]&nbsp;decryptKeystoreFormat(java.lang.String&nbsp;password,
                                     java.lang.String&nbsp;filePath)
-                             throws java.io.IOException</pre>
+                             throws java.lang.Exception</pre>
 <div class="block">Decrypt keystore format private key</div>
 <dl>
 <dt><span class="paramLabel">参数:</span></dt>
@@ -279,10 +277,11 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">返回:</span></dt>
 <dt><span class="throwsLabel">抛出:</span></dt>
 <dd><code>java.io.IOException</code></dd>
+<dd><code>java.lang.Exception</code></dd>
 </dl>
 </li>
 </ul>
-<a name="encryptP12Format-java.lang.String-byte:A-java.lang.String-java.lang.String-java.lang.String-">
+<a name="encryptP12Format-java.lang.String-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -290,21 +289,15 @@ extends java.lang.Object</pre>
 <h4>encryptP12Format</h4>
 <pre>public&nbsp;void&nbsp;encryptP12Format(java.lang.String&nbsp;password,
                              byte[]&nbsp;privateKey,
-                             java.lang.String&nbsp;eccTypeName,
-                             java.lang.String&nbsp;address,
+                             <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                              java.lang.String&nbsp;destinationDirectory)
-                      throws java.security.KeyStoreException,
-                             java.security.NoSuchAlgorithmException,
-                             java.security.cert.CertificateException,
-                             java.security.NoSuchProviderException,
-                             java.io.IOException,
-                             <a href="../../../../com/webank/keygen/exception/KeyGenException.html" title="com.webank.keygen.exception中的类">KeyGenException</a></pre>
+                      throws java.lang.Exception</pre>
 <div class="block">Encrypt private key with p12 format</div>
 <dl>
 <dt><span class="paramLabel">参数:</span></dt>
 <dd><code>password</code> - </dd>
 <dd><code>privateKey</code> - </dd>
-<dd><code>address</code> - </dd>
+<dd><code>eccTypeEnums</code> - </dd>
 <dd><code>destinationDirectory</code> - </dd>
 <dt><span class="throwsLabel">抛出:</span></dt>
 <dd><code>java.security.KeyStoreException</code></dd>
@@ -313,6 +306,7 @@ extends java.lang.Object</pre>
 <dd><code>java.security.NoSuchProviderException</code></dd>
 <dd><code>java.io.IOException</code></dd>
 <dd><code><a href="../../../../com/webank/keygen/exception/KeyGenException.html" title="com.webank.keygen.exception中的类">KeyGenException</a></code></dd>
+<dd><code>java.lang.Exception</code></dd>
 </dl>
 </li>
 </ul>
@@ -324,12 +318,7 @@ extends java.lang.Object</pre>
 <h4>decryptP12Format</h4>
 <pre>public&nbsp;byte[]&nbsp;decryptP12Format(java.lang.String&nbsp;password,
                                java.lang.String&nbsp;filePath)
-                        throws java.security.UnrecoverableKeyException,
-                               java.security.NoSuchAlgorithmException,
-                               java.security.cert.CertificateException,
-                               java.security.KeyStoreException,
-                               java.security.NoSuchProviderException,
-                               java.io.IOException</pre>
+                        throws java.lang.Exception</pre>
 <div class="block">Decrypt p12 format private key</div>
 <dl>
 <dt><span class="paramLabel">参数:</span></dt>
@@ -343,25 +332,25 @@ extends java.lang.Object</pre>
 <dd><code>java.security.KeyStoreException</code></dd>
 <dd><code>java.security.NoSuchProviderException</code></dd>
 <dd><code>java.io.IOException</code></dd>
+<dd><code>java.lang.Exception</code></dd>
 </dl>
 </li>
 </ul>
-<a name="encryptPEMFormat-byte:A-int-java.lang.String-java.lang.String-">
+<a name="encryptPEMFormat-byte:A-com.webank.keygen.enums.EccTypeEnums-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>encryptPEMFormat</h4>
 <pre>public&nbsp;void&nbsp;encryptPEMFormat(byte[]&nbsp;privateKey,
-                             int&nbsp;eccType,
-                             java.lang.String&nbsp;address,
+                             <a href="../../../../com/webank/keygen/enums/EccTypeEnums.html" title="com.webank.keygen.enums中的枚举">EccTypeEnums</a>&nbsp;eccTypeEnums,
                              java.lang.String&nbsp;destinationDirectory)
                       throws java.lang.Exception</pre>
 <div class="block">Encrypt private key with pem format</div>
 <dl>
 <dt><span class="paramLabel">参数:</span></dt>
 <dd><code>privateKey</code> - </dd>
-<dd><code>address</code> - </dd>
+<dd><code>eccTypeEnums</code> - </dd>
 <dd><code>destinationDirectory</code> - </dd>
 <dt><span class="throwsLabel">抛出:</span></dt>
 <dd><code>java.io.IOException</code></dd>
