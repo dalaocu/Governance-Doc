@@ -1,5 +1,5 @@
 ##############################################################
-WeBankBlockchain-Gov 技术文档
+WeBankBlockchain-Governance 技术文档
 ##############################################################
 
 .. admonition:: 什么是 WeBankBlockchain-Governance
