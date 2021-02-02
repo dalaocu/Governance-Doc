@@ -98,7 +98,7 @@ templates_path = ['_templates']
 master_doc = 'index'
 
 # General information about the project.
-project = u'WeBankBlockchain-Governance-Doc'
+project = u'WeBankBlockchain-Governance-Doc<br>'
 copyright = u'© 2020. All rights reserved.'
 author = u'WeBankBlockchain-dev'
 
@@ -332,7 +332,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'WeBankBlockchain Gov Doc', u'WeBankBlockchain Gov Documentation',
+    (master_doc, '
+     Blockchain Gov Doc', u'WeBankBlockchain Gov Documentation',
      [author], 1)
 ]
 
