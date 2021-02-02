@@ -27,6 +27,7 @@
    
    intro.md
    depend.md
+   concepts.md
    corequickstart.md
    mgrquickstart.md
    javadoc.md
