@@ -98,7 +98,7 @@ templates_path = ['_templates']
 master_doc = 'index'
 
 # General information about the project.
-project = u'WeBankBlockchain-Governance-Doc<br>'
+project = u'WeBankBlockchain-Governance-Doc\<br\>'
 copyright = u'© 2020. All rights reserved.'
 author = u'WeBankBlockchain-dev'
 
