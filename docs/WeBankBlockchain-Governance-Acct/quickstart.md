@@ -15,19 +15,26 @@
     - JDK1.8 或者以上版本，推荐使用OracleJDK。CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
     - 参考  `Java环境配置 <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/quick_start.html#id2>`_  
     - FISCO BCOS区块链环境搭建参考 `FISCO BCOS安装教程 <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html>`_  
-    - 网络连通性 检查所连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
+    - 网络连通性。检查所连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
 ```
 
 
 ## 获取源码
 
-<br />由于暂未开源，暂时通过压缩包方式传递代码。压缩包中包含了智能合约代码，合约集成demo和Java SDK代码。<br />解压完成后，<br />
+使用git下载源码：
+```
+git clone https://github.com/WeBankBlockchain/Governance-Account.git
+```
+
+```eval_rst
+.. note::
+    - 如果因为网络问题导致长时间无法下载，请尝试：git clone https://gitee.com/WeBankBlockchain/Governance-Account.git
+```
 
 - 所有智能合约文件位于src/main/contracts路径下
 - 合约demo位于src/main/contracts/samples路径下
 - 合约测试代码位于src/test/java路径下
 - 其余部分代码为Java SDK代码。
-
 
 
 ## 使用组件合约
