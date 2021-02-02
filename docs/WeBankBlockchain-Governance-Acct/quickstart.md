@@ -12,7 +12,7 @@
 
 ```eval_rst
 .. note::
-    - JDK1.8 或者以上版本，推荐使用OracleJDK。<br />**注意**：CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
+    - JDK1.8 或者以上版本，推荐使用OracleJDK。CentOS的yum仓库的OpenJDK缺少JCE(Java Cryptography Extension)，会导致JavaSDK无法正常连接区块链节点。
     - 参考  `Java环境配置 <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/quick_start.html#id2>`_  
     - FISCO BCOS区块链环境搭建参考 `FISCO BCOS安装教程 <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html>`_  
     - 网络连通性 检查所连接的FISCO BCOS节点`channel_listen_port`是否能telnet通，若telnet不通，需要检查网络连通性和安全策略。
