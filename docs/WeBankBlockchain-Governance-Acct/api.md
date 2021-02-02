@@ -1,11 +1,10 @@
 # Java语言版本的SDK使用说明
+为了便于使用，我们提供了Java版本的SDK。相关的使用说明可参考下文。
+
+同时，提供了一个基于本SDK的[Governance-Account-Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo)。Demo中包含了相关的合约代码和SDK的代码，供参考。
 
 
 ## 治理账户功能使用说明
-
-
-### 使用SDK部署合约
-账户治理支持通过控制台或SDK来发布和部署合约，以下介绍如何通过SDK来部署。
 
 #### 管理员模式
 假如平台方采用管理员的治理模式，那么需要首先生成一个管理员的治理账户。
@@ -266,8 +265,8 @@ private VoteModeGovernManager voteModeGovernManager;
 <br />在本模式下，执行任何账户相关的业务操作需要遵循以下步骤：<br />
 
 1. 发起一个投票请求；
-1. 治理账户成员赞同该投票；
-1. 投票发起者确认投票已经通过后，发起操作。
+2. 治理账户成员赞同该投票；
+3. 投票发起者确认投票已经通过后，发起操作。
 
 
 <br />我们首先来介绍下通用的投票接口：<br />
