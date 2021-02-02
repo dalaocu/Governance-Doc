@@ -1,12 +1,31 @@
 # Java语言版本的SDK使用说明
+为了便于使用，我们提供了Java版本的SDK。相关的使用说明可参考下文。
 
+同时，提供了一个基于本SDK的[Governance-Account-Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo)。Demo中包含了相关的合约代码和SDK的代码，供参考。
+
+## 引入工程
+将Jar包引入到用户自己的Java业务项目中。
+
+在自己的Java项目中的build.gradle文件中，添加maven仓库
+```
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+引入依赖：
+```
+    dependencies {
+	    implementation 'com.github.WeBankBlockchain:Governance-Account:Tag'
+	}
+```
 
 ## 治理账户功能使用说明
 
-
-### 使用SDK部署合约
-账户治理支持通过控制台或SDK来发布和部署合约，以下介绍如何通过SDK来部署。
-
+### 创建治理合约
 #### 管理员模式
 假如平台方采用管理员的治理模式，那么需要首先生成一个管理员的治理账户。
 <br />**具体调用示例：**<br />
@@ -118,7 +137,10 @@ WEGovernance createGovernAccount(List<String> credentialsList, List<BigInteger> 
 
 <br />调用成功后，函数会返回对应的WEGovernance治理账户对象，通过getContractAddress()方法可以获得对应的治理合约的地址。<br />
 
-### 管理员模式
+
+### 调用控制接口
+
+#### 管理员模式
 
 管理员模式下的管理功能均位于GovernAccountInitializer类中。
 <br />首先，注入该类：<br />
@@ -129,7 +151,7 @@ private AdminModeGovernManager adminModeManager;
 ```
 
 
-#### 重置用户私钥
+##### 重置用户私钥
 
 **具体调用示例：**
 
@@ -154,7 +176,7 @@ private AdminModeGovernManager adminModeManager;
 - TransactionReceipt 交易回执
 
 
-#### 冻结普通账户
+##### 冻结普通账户
 
 **具体调用示例：**
 
@@ -178,7 +200,7 @@ private AdminModeGovernManager adminModeManager;
 - TransactionReceipt 交易回执
 
 
-#### 解冻普通账户
+##### 解冻普通账户
 
 **具体调用示例：**
 
@@ -202,7 +224,7 @@ private AdminModeGovernManager adminModeManager;
 - TransactionReceipt 交易回执
 
 
-#### 账户强制注销
+##### 账户强制注销
 
 **具体调用示例：**
 
@@ -227,7 +249,7 @@ private AdminModeGovernManager adminModeManager;
 
 
 
-#### 移交管理员的权限
+##### 移交管理员的权限
 
 <br />移交管理员账户时，需要确保被移交的账户已注册，且账户状态正常。<br />
 <br />**具体调用示例：**<br />
@@ -253,7 +275,7 @@ private AdminModeGovernManager adminModeManager;
 
 
 
-### 相同权重的投票制治理模式(多签制)
+#### 多签制治理模式
 
 治理委员会模式下的管理功能均位于 VoteModeGovernManager 类中。
 <br />首先，注入该类：<br />
@@ -266,13 +288,13 @@ private VoteModeGovernManager voteModeGovernManager;
 <br />在本模式下，执行任何账户相关的业务操作需要遵循以下步骤：<br />
 
 1. 发起一个投票请求；
-1. 治理账户成员赞同该投票；
-1. 投票发起者确认投票已经通过后，发起操作。
+2. 治理账户成员赞同该投票；
+3. 投票发起者确认投票已经通过后，发起操作。
 
 
 <br />我们首先来介绍下通用的投票接口：<br />
 
-#### 治理委员会成员投票
+##### 治理委员会成员投票
 
 **具体调用示例：**
 
@@ -298,7 +320,7 @@ private VoteModeGovernManager voteModeGovernManager;
 
 
 
-#### 重置用户私钥
+##### 重置用户私钥
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -318,7 +340,7 @@ private VoteModeGovernManager voteModeGovernManager;
 ```
 
 
-##### 发起重置用户私钥投票申请
+###### 发起重置用户私钥投票申请
 
 **函数签名：**
 
@@ -337,7 +359,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 重置用户私钥
+###### 重置用户私钥
 
 **函数签名：**
 
@@ -357,7 +379,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 冻结普通账户
+##### 冻结普通账户
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -376,7 +398,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.freezeAccount(requestId, p2.getAddress());
 ```
 
-##### 发起冻结用户账户投票申请
+###### 发起冻结用户账户投票申请
 
 **函数签名：**
 
@@ -394,7 +416,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 冻结用户账户
+###### 冻结用户账户
 
 **函数签名：**
 
@@ -413,7 +435,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 解冻普通账户
+##### 解冻普通账户
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -432,7 +454,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.unfreezeAccount(requestId, p2.getAddress());
 ```
 
-##### 发起解冻用户账户投票申请
+###### 发起解冻用户账户投票申请
 
 **函数签名：**
 
@@ -450,7 +472,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 解冻用户账户
+###### 解冻用户账户
 
 **函数签名：**
 
@@ -469,7 +491,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 账户强制注销
+##### 账户强制注销
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -489,7 +511,7 @@ private VoteModeGovernManager voteModeGovernManager;
 ```
 
 
-##### 发起注销用户账户投票申请
+###### 发起注销用户账户投票申请
 
 **函数签名：**
 
@@ -508,7 +530,7 @@ private VoteModeGovernManager voteModeGovernManager;
 
 
 
-##### 注销用户账户
+###### 注销用户账户
 
 **函数签名：**
 
@@ -527,7 +549,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 设置治理账户投票的阈值
+##### 设置治理账户投票的阈值
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -546,7 +568,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.resetThreshold(requestId, newThreshold);
 ```
 
-##### 发起设置治理账户投票申请
+###### 发起设置治理账户投票申请
 
 **函数签名：**
 
@@ -564,7 +586,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 设置新阈值
+###### 设置新阈值
 
 **函数签名：**
 
@@ -583,7 +605,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 治理账户删除一个投票账户
+##### 治理账户删除一个投票账户
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -602,7 +624,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.removeGovernAccount(requestId, p2.getAddress());
 ```
 
-##### 发起删除一个治理账户投票申请
+###### 发起删除一个治理账户投票申请
 
 **函数签名：**
 
@@ -620,7 +642,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 删除一个投票账户
+###### 删除一个投票账户
 
 **函数签名：**
 
@@ -639,7 +661,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 治理账户添加一个投票新账户
+##### 治理账户添加一个投票新账户
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -658,7 +680,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.addGovernAccount(requestId, p2.getAddress());
 ```
 
-##### 发起添加一个治理账户投票申请
+###### 发起添加一个治理账户投票申请
 
 **函数签名：**
 
@@ -676,7 +698,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 添加一个投票账户
+###### 添加一个投票账户
 
 **函数签名：**
 
@@ -695,11 +717,11 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-### 不同权重的投票制治理模式
+#### 不同权重的投票制治理模式
 
 不同权重的投票制模式总体和多签制非常类似，此处不再做过多的赘述，请参考上节。
 
-#### 治理账户添加一个投票新账户
+##### 治理账户添加一个投票新账户
 
 参考上文提及的三个步骤：发起投票请求、投票、执行操作。此处，使用了单SDK来处理多用户的操作，使用了changeCredentials函数来切换不同的用户。
 <br />**具体调用示例：**<br />
@@ -718,7 +740,7 @@ private VoteModeGovernManager voteModeGovernManager;
     TransactionReceipt tr = voteModeGovernManager.addGovernAccount(requestId, p2.getAddress(), weight);
 ```
 
-##### 发起添加一个治理账户投票申请
+###### 发起添加一个治理账户投票申请
 
 **函数签名：**
 
@@ -737,7 +759,7 @@ private VoteModeGovernManager voteModeGovernManager;
 - BigInteger 投票ID，用户需保存该ID便于后续的交互和其他操作。
 
 
-##### 添加一个投票账户
+###### 添加一个投票账户
 
 **函数签名：**
 
@@ -757,11 +779,11 @@ private VoteModeGovernManager voteModeGovernManager;
 - TransactionReceipt 交易回执。
 
 
-#### 其他交易
+##### 其他交易
 
 其余部分颇为相似，可参考基于相同权重的投票模式
 
-## 普通账户管理模式功能说明
+## 普通用户接口
 
 
 ### 普通账户主要功能
@@ -940,7 +962,7 @@ private EndUserOperManager endUserOperManager;
     TransactionReceipt tr = socialVoteManager.resetAccount(u1.getAddress(), p1.getAddress());
 ```
 
-##### 发起重置用户私钥投票申请
+#### 发起重置用户私钥投票申请
 
 **函数签名：**
 

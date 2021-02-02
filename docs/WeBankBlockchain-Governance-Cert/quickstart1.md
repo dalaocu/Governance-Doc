@@ -34,6 +34,11 @@ cert-toolkit用于证书生成。支持轻量级jar包接入。
 git clone https://github.com/WeBankBlockchain/Governance-Cert.git
 ```
 
+```eval_rst
+.. note::
+    - 如果因为网络问题导致长时间无法下载，请尝试：git clone https://gitee.com/WeBankBlockchain/Governance-Cert.git
+```
+
 进入目录：
 ```
 cd Governance-Cert
