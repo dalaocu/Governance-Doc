@@ -21,8 +21,8 @@
 .. toctree::
    :maxdepth: 3
    
-   intro.md
    concepts.md
+   intro.md
    start.md
    javadoc.md
    faq.md
