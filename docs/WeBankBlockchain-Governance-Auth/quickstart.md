@@ -28,7 +28,7 @@
 ### 合约下载
 通过git下载源码，获取智能合约
 ```
-git clone git@github.com:WeBankBlockchain/Governance-Authority.git 
+git clone https://github.com/WeBankBlockchain/Governance-Authority.git
 cd auth-manager/src/main/contracts
 ```
 ### 启动控制台
