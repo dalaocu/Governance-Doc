@@ -3,6 +3,25 @@
 
 同时，提供了一个基于本SDK的[Governance-Account-Demo](https://github.com/WeBankBlockchain/Governance-Account-Demo)。Demo中包含了相关的合约代码和SDK的代码，供参考。
 
+## 引入工程
+将Jar包引入到用户自己的Java业务项目中。
+
+在自己的Java项目中的build.gradle文件中，添加maven仓库
+```
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+引入依赖：
+```
+    dependencies {
+	    implementation 'com.github.WeBankBlockchain:Governance-Account:Tag'
+	}
+```
 
 ## 治理账户功能使用说明
 
